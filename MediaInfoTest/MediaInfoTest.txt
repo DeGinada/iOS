@@ -1,0 +1,9 @@
+
+170425
+
+ - 유저가 만든 플레이리스트 정보 가져오기
+ - 유저 디바이스에 있는 곡 목록 가져오기
+    . enumerateObjectsUsingBlock 테스트
+ - 아티스트 이름별로 그룹핑하기
+    . setGroupingType을 사용하였더니 팟캐스트도 포함이 됨
+    . [MPMediaQuery artistsQuery]는 노래에 대해 아티스트별로 그룹핑됨
