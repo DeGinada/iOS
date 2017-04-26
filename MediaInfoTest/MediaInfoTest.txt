@@ -7,3 +7,13 @@
  - 아티스트 이름별로 그룹핑하기
     . setGroupingType을 사용하였더니 팟캐스트도 포함이 됨
     . [MPMediaQuery artistsQuery]는 노래에 대해 아티스트별로 그룹핑됨
+
+
+170426
+
+ - Storyboard를 이용하여 TableView 구성하기
+    . storyboard를 처음 써봐서 익숙하지 않다
+    . 우측 하단에서 constraint 값 정의 하는 부분이 도통 감이 안온다
+ - 디바이스에 있는 곡 목록 가져오기
+ - 가지고 온 목록을 TableView에 list로 보여주기
+    . 기존에 내가 작업하던 방식이 아닌 storyboard를 이용하니 확실히 간편하고 쉽게 느껴진다

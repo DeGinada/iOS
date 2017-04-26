@@ -9,16 +9,24 @@
 #import "ViewController.h"
 #import <MediaPlayer/MPMediaQuery.h>
 #import <MediaPlayer/MPMediaPlaylist.h>
+#import "SongTableViewCell.h"
 
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
+{
+    NSArray* m_arSongs;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    // 음악 정보 가져오기
+    m_arSongs = [self getSongList];
     
 }
 
@@ -102,5 +110,74 @@
     }
     
 }
+
+
+// [170426] 셀 선택시 열리는 뷰에서 돌아오는 코드
+- (IBAction) exitFromSecondViewController:(UIStoryboardSegue *)segue {
+    
+}
+
+
+#pragma mark - DATA
+// [170426] 디바이스에 있는 song 정보를 가져온다.
+- (NSArray*) getSongList {
+    
+    MPMediaQuery* mediaQuery = [MPMediaQuery songsQuery];
+    NSArray* arSongs = [mediaQuery items];
+    
+    return arSongs;
+}
+
+
+#pragma mark - TABLE_VIEW
+
+// [170426] 셀에 곡 정보를 띄어줌 (이미지, 제목, 가수)
+- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    static NSString* identifier = @"Cell";
+    SongTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (cell == nil) {
+        cell = [[SongTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    
+    // cell 정보 띄어주기
+    // 현재 cell 형태는 subtitle, title에 artist, subtitle에 song title, image에 아트웍 넣기
+    [cell.textLabel setText:[[m_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist]];
+    [cell.textLabel setFont:[UIFont systemFontOfSize:13]];
+    [cell.detailTextLabel setText:[[m_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyTitle]];
+    [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15]];
+    cell.detailTextLabel.numberOfLines = 0;
+    
+    MPMediaItemArtwork* artwork = [[m_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage* imgArtwork = [artwork imageWithSize:cell.imageView.image.size];
+//    if (nil == imgArtwork) {
+//        CGSize size = ((MPMediaItemArtwork*)[[m_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork]).bounds.size;
+//        if ( 0 < size.width && 0 < size.height) {
+//            imgArtwork = [artwork imageWithSize:size];
+//        }
+//    }
+    [cell.imageView setImage:imgArtwork];
+    
+    // 이미지 사이즈 변경
+    CGSize itemSize = CGSizeMake(tableView.rowHeight-2, tableView.rowHeight-2);
+    UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+    CGRect imageRect = CGRectMake(1.0, 1.0, itemSize.width, itemSize.height);
+    [cell.imageView.image drawInRect:imageRect];
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return cell;
+}
+
+
+// [170426] 리스트 수 지정
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+ 
+    return m_arSongs.count;
+}
+
+
+
 
 @end

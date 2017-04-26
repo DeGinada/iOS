@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F272A671EB0C7060006B492 /* SongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F272A661EB0C7060006B492 /* SongTableViewCell.m */; };
 		9FE5E9C71EAF7825009A1F37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5E9C61EAF7825009A1F37 /* main.m */; };
 		9FE5E9CA1EAF7825009A1F37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5E9C91EAF7825009A1F37 /* AppDelegate.m */; };
 		9FE5E9CD1EAF7825009A1F37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5E9CC1EAF7825009A1F37 /* ViewController.m */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F272A651EB0C7060006B492 /* SongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongTableViewCell.h; sourceTree = "<group>"; };
+		9F272A661EB0C7060006B492 /* SongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTableViewCell.m; sourceTree = "<group>"; };
 		9FE5E9C21EAF7824009A1F37 /* MediaInfoTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaInfoTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE5E9C61EAF7825009A1F37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9FE5E9C81EAF7825009A1F37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -68,6 +71,8 @@
 				9FE5E9C91EAF7825009A1F37 /* AppDelegate.m */,
 				9FE5E9CB1EAF7825009A1F37 /* ViewController.h */,
 				9FE5E9CC1EAF7825009A1F37 /* ViewController.m */,
+				9F272A651EB0C7060006B492 /* SongTableViewCell.h */,
+				9F272A661EB0C7060006B492 /* SongTableViewCell.m */,
 				9FE5E9CE1EAF7825009A1F37 /* Main.storyboard */,
 				9FE5E9D11EAF7825009A1F37 /* Assets.xcassets */,
 				9FE5E9D31EAF7825009A1F37 /* LaunchScreen.storyboard */,
@@ -167,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F272A671EB0C7060006B492 /* SongTableViewCell.m in Sources */,
 				9FE5E9CD1EAF7825009A1F37 /* ViewController.m in Sources */,
 				9FE5E9CA1EAF7825009A1F37 /* AppDelegate.m in Sources */,
 				9FE5E9C71EAF7825009A1F37 /* main.m in Sources */,
@@ -328,6 +334,7 @@
 				9FE5E9DB1EAF7825009A1F37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
