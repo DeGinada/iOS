@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -33,14 +34,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IEv-1F-38O">
-                                                    <rect key="frame" x="15" y="15" width="34" height="21"/>
+                                                    <rect key="frame" x="15" y="15" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p5S-uf-MZZ">
-                                                    <rect key="frame" x="15" y="36" width="44" height="15"/>
+                                                    <rect key="frame" x="15" y="35.5" width="44" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -49,7 +50,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="mwr-Nn-wy0" kind="modal" modalTransitionStyle="coverVertical" id="lZi-6W-Txz"/>
+                                            <segue destination="mwr-Nn-wy0" kind="modal" identifier="segShowDetail" modalTransitionStyle="coverVertical" id="lZi-6W-Txz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -59,7 +60,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song List" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cb-Ai-LSO">
-                                <rect key="frame" x="152" y="28" width="72" height="21"/>
+                                <rect key="frame" x="151.5" y="28" width="72" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -81,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="111.99400299850076"/>
         </scene>
-        <!--View Controller-->
+        <!--Song Detail View Controller-->
         <scene sceneID="46R-I8-8QI">
             <objects>
-                <viewController id="mwr-Nn-wy0" sceneMemberID="viewController">
+                <viewController id="mwr-Nn-wy0" customClass="SongDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qI7-fl-1jr"/>
                         <viewControllerLayoutGuide type="bottom" id="Hfr-v9-d1y"/>
@@ -107,19 +108,71 @@
                                     <segue destination="Cbf-uc-fCc" kind="unwind" unwindAction="exitFromSecondViewController:" id="Sln-Wt-xVk"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q7h-D5-KeP">
+                                <rect key="frame" x="37" y="75" width="301" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="IOe-HH-hIs"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJJ-Z7-qBb">
+                                <rect key="frame" x="37" y="440" width="301" height="96"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OF-aJ-Prn">
+                                <rect key="frame" x="37" y="403" width="301" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="bN2-7N-wRv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJl-Bl-c6s">
+                                <rect key="frame" x="37" y="575" width="108" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="가수 검색"/>
+                                <connections>
+                                    <action selector="searchArtist:" destination="mwr-Nn-wy0" eventType="touchUpInside" id="Oqd-ak-hd1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVK-EW-beJ">
+                                <rect key="frame" x="230" y="575" width="108" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="노래 검색"/>
+                                <connections>
+                                    <action selector="searchSong:" destination="mwr-Nn-wy0" eventType="touchUpInside" id="fIO-71-Nsu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Q7h-D5-KeP" firstAttribute="centerX" secondItem="vQN-ZH-nkV" secondAttribute="centerX" id="2hQ-Ba-Rtx"/>
+                            <constraint firstItem="Hfr-v9-d1y" firstAttribute="top" secondItem="uJJ-Z7-qBb" secondAttribute="bottom" constant="131" id="7Gq-gc-GIe"/>
+                            <constraint firstItem="Q7h-D5-KeP" firstAttribute="leading" secondItem="2OF-aJ-Prn" secondAttribute="leading" id="7kK-Xd-sua"/>
+                            <constraint firstItem="uJJ-Z7-qBb" firstAttribute="centerX" secondItem="vQN-ZH-nkV" secondAttribute="centerX" id="O0q-Y9-wM7"/>
+                            <constraint firstItem="uJJ-Z7-qBb" firstAttribute="leading" secondItem="2OF-aJ-Prn" secondAttribute="leading" id="XvH-Xo-p1G"/>
+                            <constraint firstItem="uJJ-Z7-qBb" firstAttribute="top" secondItem="2OF-aJ-Prn" secondAttribute="bottom" priority="750" constant="7" id="boi-pJ-HoH"/>
                             <constraint firstItem="i4d-Mm-VIw" firstAttribute="top" secondItem="qI7-fl-1jr" secondAttribute="bottom" constant="4" id="f2P-ao-neS"/>
+                            <constraint firstItem="Q7h-D5-KeP" firstAttribute="leading" secondItem="vQN-ZH-nkV" secondAttribute="leadingMargin" constant="21" id="fTe-xZ-BZq"/>
+                            <constraint firstItem="Q7h-D5-KeP" firstAttribute="top" secondItem="i4d-Mm-VIw" secondAttribute="bottom" constant="15" id="jgb-ho-apL"/>
                             <constraint firstAttribute="trailing" secondItem="i4d-Mm-VIw" secondAttribute="trailing" constant="6" id="pna-2A-mVu"/>
+                            <constraint firstItem="2OF-aJ-Prn" firstAttribute="centerX" secondItem="vQN-ZH-nkV" secondAttribute="centerX" id="uW7-pn-hvj"/>
+                            <constraint firstItem="2OF-aJ-Prn" firstAttribute="top" secondItem="Q7h-D5-KeP" secondAttribute="bottom" constant="28" id="vAV-Q8-qHu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iiM-XK-gsn"/>
+                    <connections>
+                        <outlet property="imgArtwork" destination="Q7h-D5-KeP" id="RC2-p0-DRO"/>
+                        <outlet property="txArtist" destination="2OF-aJ-Prn" id="fOJ-6m-WbZ"/>
+                        <outlet property="txTitle" destination="uJJ-Z7-qBb" id="tzZ-8v-9Ea"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qHg-uu-jte" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Cbf-uc-fCc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="872" y="112"/>
+            <point key="canvasLocation" x="871.20000000000005" y="111.99400299850076"/>
         </scene>
     </scenes>
 </document>

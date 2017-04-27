@@ -10,6 +10,7 @@
 #import <MediaPlayer/MPMediaQuery.h>
 #import <MediaPlayer/MPMediaPlaylist.h>
 #import "SongTableViewCell.h"
+#import "SongDetailViewController.h"
 
 @interface ViewController ()
 
@@ -17,7 +18,8 @@
 
 @implementation ViewController
 {
-    NSArray* m_arSongs;
+    NSArray* g_arSongs;
+    MPMediaItem* g_selSong;
 }
 
 - (void)viewDidLoad {
@@ -26,7 +28,7 @@
     
     
     // 음악 정보 가져오기
-    m_arSongs = [self getSongList];
+    g_arSongs = [self getSongList];
     
 }
 
@@ -118,6 +120,16 @@
 }
 
 
+// [170427] 셀 선택으로 뷰이동 시, 데이터 넘기기
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if ([[segue identifier] isEqualToString:@"segShowDetail"]) {
+        SongDetailViewController* vcSongDetail = [segue destinationViewController];
+        vcSongDetail.m_songDetail = g_selSong;
+    }
+}
+
+
 #pragma mark - DATA
 // [170426] 디바이스에 있는 song 정보를 가져온다.
 - (NSArray*) getSongList {
@@ -143,13 +155,13 @@
     
     // cell 정보 띄어주기
     // 현재 cell 형태는 subtitle, title에 artist, subtitle에 song title, image에 아트웍 넣기
-    [cell.textLabel setText:[[m_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist]];
+    [cell.textLabel setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist]];
     [cell.textLabel setFont:[UIFont systemFontOfSize:13]];
-    [cell.detailTextLabel setText:[[m_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyTitle]];
+    [cell.detailTextLabel setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyTitle]];
     [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15]];
     cell.detailTextLabel.numberOfLines = 0;
     
-    MPMediaItemArtwork* artwork = [[m_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork];
+    MPMediaItemArtwork* artwork = [[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork];
     UIImage* imgArtwork = [artwork imageWithSize:cell.imageView.image.size];
 //    if (nil == imgArtwork) {
 //        CGSize size = ((MPMediaItemArtwork*)[[m_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork]).bounds.size;
@@ -174,8 +186,28 @@
 // [170426] 리스트 수 지정
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
  
-    return m_arSongs.count;
+    return g_arSongs.count;
 }
+
+
+// [170427] tableviewcell will select 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"willSelectRowAtIndexPath");
+    
+    // viewcontroller에 넘겨줄 데이터를 정의한다.
+    g_selSong = [g_arSongs objectAtIndex:indexPath.row];
+//    [self performSegueWithIdentifier:@"segShowDetail" sender:nil];
+    
+    return indexPath;
+}
+
+// [170427] tableviewcell did select (현재 상황에서 view 이동 후 호출)
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"didSelectRowAtIndexPath");
+}
+
 
 
 
