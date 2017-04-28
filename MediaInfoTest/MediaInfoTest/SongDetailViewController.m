@@ -43,13 +43,25 @@
 // [170427] 노래 검색하기
 - (IBAction) searchSong:(id)sender {
     
-    [self openScheme:[NSString stringWithFormat:@"https://www.google.com/search?q=%@", txTitle.text]];
+    // [170428] UTF8로 인코딩 해서 주소를 넘겨줘야함.
+    NSMutableString* searchUrl = [NSMutableString stringWithString:@"http://www.google.com/search?q="];
+    [searchUrl appendString:txTitle.text];
+    NSCharacterSet *allowedCharacterSet = [NSCharacterSet URLQueryAllowedCharacterSet];
+    [self openScheme:[searchUrl stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet]];
     
 }
 
 // [170427] 가수 검색하기
 - (IBAction) searchArtist:(id)sender {
-    [self openScheme:[NSString stringWithFormat:@"https://www.google.com/search?q=%@", txArtist.text]];
+    
+    // 잘못된 코드 -> 가수나 노래가 일어, 한국어인 경우 url 이상.
+    //[self openScheme:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", txArtist.text]];
+    
+    // [170428] UTF8로 인코딩 해서 주소를 넘겨줘야함.
+    NSMutableString* searchUrl = [NSMutableString stringWithString:@"http://www.google.com/search?q="];
+    [searchUrl appendString:txArtist.text];
+    NSCharacterSet *allowedCharacterSet = [NSCharacterSet URLQueryAllowedCharacterSet];
+    [self openScheme:[searchUrl stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet]];
 }
 
 
