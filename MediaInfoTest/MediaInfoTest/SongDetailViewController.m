@@ -7,6 +7,7 @@
 //
 
 #import "SongDetailViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 
 @interface SongDetailViewController ()
@@ -94,12 +95,74 @@
     txArtist.text = [self.m_songDetail valueForProperty:MPMediaItemPropertyArtist];
     txTitle.text = [self.m_songDetail valueForProperty:MPMediaItemPropertyTitle];
     
+    
+    // [170429] 현재 플레이 중인 노래인 경우 text 컬러 넣기
+    // 현재 플레이 중일 경우, MPMediaItem정보를 가져온다.(내부 음악 앱이기때문에 systemMusicPlayer, 아닌 경우는 applicationMusicPlayer)
+    if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
+        MPMusicPlayerController* mpController = [MPMusicPlayerController systemMusicPlayer];
+        MPMediaItem* nowPlaying = mpController.nowPlayingItem;
+        if ([nowPlaying isEqual:self.m_songDetail]) {
+            [txArtist setTextColor:[UIColor purpleColor]];
+            [txTitle setTextColor:[UIColor purpleColor]];
+            [txArtist setFont:[UIFont boldSystemFontOfSize:15.0f]];
+            [txTitle setFont:[UIFont boldSystemFontOfSize:15.0f]];
+        }
+    }
+    
+    
 }
 
 
-- (void) textFieldDidBeginEditing:(UITextField *)textField {
+
+// [170429] 해당 음악 정보를 공유한다.
+- (IBAction) shareSongInfo:(id)sender {
     
-    [textField endEditing:YES];
+    UIImage* image = imgArtwork.image;
+    NSString* string = @"";
+    // 현재 재생 중이냐 아니냐에 따라 공유 메세지 나누기
+    if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
+        MPMusicPlayerController* mpController = [MPMusicPlayerController systemMusicPlayer];
+        MPMediaItem* nowPlaying = mpController.nowPlayingItem;
+        if ([nowPlaying isEqual:self.m_songDetail]) {
+            string = [NSString stringWithFormat:@"%@ - %@\n#nowplaying #np", txArtist.text, txTitle.text];
+        } else {
+            string = [NSString stringWithFormat:@"%@ - %@", txArtist.text, txTitle.text];
+        }
+    } else {
+        string = [NSString stringWithFormat:@"%@ - %@", txArtist.text, txTitle.text];
+    }
+    NSArray* activityItems;
+    // 이미지가 없는 경우 에러 방지를 위해 스트링 값만 넘겨준다.
+    if (image) {
+        activityItems = @[image, string];
+    } else {
+        activityItems = @[string];
+    }
+    
+    UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    activityViewControntroller.excludedActivityTypes = @[];
+    // 아이패드인 경우에 대한 예외처리
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        activityViewControntroller.popoverPresentationController.sourceView = self.view;
+        activityViewControntroller.popoverPresentationController.sourceRect = CGRectMake(self.view.bounds.size.width/2, self.view.bounds.size.height/4, 0, 0);
+    }
+    [self presentViewController:activityViewControntroller animated:true completion:nil];
+    
+}
+
+
+// [170429] 현재 보고 있는 노래 재생하기. 재생 중인 곡이면 처음부터 다시 재생
+- (IBAction) playSong:(id)sender {
+    
+    MPMusicPlayerController* mpController = [MPMusicPlayerController systemMusicPlayer];
+    MPMediaItem* nowPlaying = mpController.nowPlayingItem;
+    if ([nowPlaying isEqual:self.m_songDetail]) {
+        [mpController skipToBeginning];
+    } else {
+        [mpController setNowPlayingItem:self.m_songDetail];
+    }
+    
+    [self showDetailInfo];
 }
 
 @end

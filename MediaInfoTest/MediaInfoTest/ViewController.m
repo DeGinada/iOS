@@ -161,6 +161,7 @@
     [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15]];
     cell.detailTextLabel.numberOfLines = 0;
     
+    
     MPMediaItemArtwork* artwork = [[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork];
     UIImage* imgArtwork = [artwork imageWithSize:cell.imageView.image.size];
 //    if (nil == imgArtwork) {
@@ -178,6 +179,14 @@
     [cell.imageView.image drawInRect:imageRect];
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    
+    // [170429] cell subtitle 형식으로 썼었던 걸 textview로 바꿔보기 -> 실패
+    //[cell setTextViewText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist] x:cell.imageView.bounds.origin.x*2+cell.imageView.bounds.size.width width:cell.frame.size.width-(cell.imageView.bounds.origin.x*3)-cell.imageView.bounds.size.width];
+//    [cell.textView setBounds:cell.textLabel.bounds];
+//    cell.textView.contentMode = cell.textLabel.contentMode;
+//    [cell setTextViewText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist] frame:cell.textLabel.frame];
+    
     
     return cell;
 }

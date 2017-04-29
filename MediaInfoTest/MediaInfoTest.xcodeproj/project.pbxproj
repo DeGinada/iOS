@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9F272A671EB0C7060006B492 /* SongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F272A661EB0C7060006B492 /* SongTableViewCell.m */; };
+		9F2C24F21EB4B1C900F733DF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2C24F11EB4B1C900F733DF /* AudioToolbox.framework */; };
 		9F903F2E1EB2096E0055A210 /* SongDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F903F2D1EB2096E0055A210 /* SongDetailViewController.m */; };
 		9FE5E9C71EAF7825009A1F37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5E9C61EAF7825009A1F37 /* main.m */; };
 		9FE5E9CA1EAF7825009A1F37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5E9C91EAF7825009A1F37 /* AppDelegate.m */; };
@@ -18,9 +19,24 @@
 		9FE5E9E21EAF7C6E009A1F37 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE5E9E11EAF7C6E009A1F37 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9F903F421EB4A5220055A210 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		9F272A651EB0C7060006B492 /* SongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongTableViewCell.h; sourceTree = "<group>"; };
 		9F272A661EB0C7060006B492 /* SongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongTableViewCell.m; sourceTree = "<group>"; };
+		9F2C24F01EB4B1C900F733DF /* MediaInfoTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MediaInfoTest.entitlements; sourceTree = "<group>"; };
+		9F2C24F11EB4B1C900F733DF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9F903F2C1EB2096E0055A210 /* SongDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongDetailViewController.h; sourceTree = "<group>"; };
 		9F903F2D1EB2096E0055A210 /* SongDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongDetailViewController.m; sourceTree = "<group>"; };
 		9FE5E9C21EAF7824009A1F37 /* MediaInfoTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaInfoTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FE5E9E21EAF7C6E009A1F37 /* MediaPlayer.framework in Frameworks */,
+				9F2C24F21EB4B1C900F733DF /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +87,7 @@
 		9FE5E9C41EAF7824009A1F37 /* MediaInfoTest */ = {
 			isa = PBXGroup;
 			children = (
+				9F2C24F01EB4B1C900F733DF /* MediaInfoTest.entitlements */,
 				9FE5E9C81EAF7825009A1F37 /* AppDelegate.h */,
 				9FE5E9C91EAF7825009A1F37 /* AppDelegate.m */,
 				9FE5E9CB1EAF7825009A1F37 /* ViewController.h */,
@@ -98,6 +116,7 @@
 		9FE5E9DC1EAF7BE7009A1F37 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9F2C24F11EB4B1C900F733DF /* AudioToolbox.framework */,
 				9FE5E9E11EAF7C6E009A1F37 /* MediaPlayer.framework */,
 				9FE5E9DF1EAF7BF7009A1F37 /* MediaAccessibility.framework */,
 				9FE5E9DD1EAF7BE7009A1F37 /* CoreMedia.framework */,
@@ -115,6 +134,7 @@
 				9FE5E9BE1EAF7824009A1F37 /* Sources */,
 				9FE5E9BF1EAF7824009A1F37 /* Frameworks */,
 				9FE5E9C01EAF7824009A1F37 /* Resources */,
+				9F903F421EB4A5220055A210 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -138,6 +158,14 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 4VT3C47CU5;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -301,6 +329,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MediaInfoTest/MediaInfoTest.entitlements;
 				DEVELOPMENT_TEAM = 4VT3C47CU5;
 				INFOPLIST_FILE = MediaInfoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -313,6 +342,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MediaInfoTest/MediaInfoTest.entitlements;
 				DEVELOPMENT_TEAM = 4VT3C47CU5;
 				INFOPLIST_FILE = MediaInfoTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
