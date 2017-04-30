@@ -11,8 +11,10 @@
 @interface SongTableViewCell : UITableViewCell
 
 @property IBOutlet UITextView* textView;
+@property IBOutlet UITextView* detailTextView;
+@property IBOutlet UIImageView* imgView;
 
-- (void) setTextViewText:(NSString*)text frame:(CGRect)frame;
+- (void) adjustContentPosition;
 //- (void) setDetailTextViewText:(NSString*)text x:(CGFloat)x width:(CGFloat)width;
 
 @end

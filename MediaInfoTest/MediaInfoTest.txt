@@ -52,5 +52,13 @@
     . 재생 중일때는 처음부터 다시 재생, 다른 곡이면 바로 재생
 
 
+170430
+
+ - 테이블뷰셀 label을 textview로 변경함
+    . cell의 subtitle을 custom으로 바꿈
+    . cell에서 text를 선택하고 싶어서 했던 선택이었으나 user interaction으로 인해 cell 선택에 문제가 생김
+      -> title text만 선택할 수 있게 함
+ - 테이블뷰셀 custom으로 인해 text 길이가 다를 때마다 textview adjust가 필요
+
 
     

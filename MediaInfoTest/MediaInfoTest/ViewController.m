@@ -153,7 +153,9 @@
         cell = [[SongTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-    // cell 정보 띄어주기
+    
+    /*
+    // cell 정보 띄어주기 (cell subtitle 포맷)
     // 현재 cell 형태는 subtitle, title에 artist, subtitle에 song title, image에 아트웍 넣기
     [cell.textLabel setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist]];
     [cell.textLabel setFont:[UIFont systemFontOfSize:13]];
@@ -179,6 +181,7 @@
     [cell.imageView.image drawInRect:imageRect];
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    */
     
     
     // [170429] cell subtitle 형식으로 썼었던 걸 textview로 바꿔보기 -> 실패
@@ -186,6 +189,21 @@
 //    [cell.textView setBounds:cell.textLabel.bounds];
 //    cell.textView.contentMode = cell.textLabel.contentMode;
 //    [cell setTextViewText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist] frame:cell.textLabel.frame];
+    
+    
+    // [170430] cell custom 으로 변경
+    // cell에 내용도 선택할 수 있게 하고 싶어 textview로 바꿨으나 user interaction 때문에 cell 선택에 문제가 생김.
+    [cell.textView setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist]];
+    [cell.detailTextView setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyTitle]];
+    
+    MPMediaItemArtwork* artwork = [[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage* imgArtwork = [artwork imageWithSize:cell.imgView.image.size];
+    if (imgArtwork) {
+        [cell.imgView setImage:imgArtwork];
+    }
+    
+    // [170430] 텍스트에 따라 textview 위치와 크기를 재설정한다.
+    [cell adjustContentPosition];
     
     
     return cell;
