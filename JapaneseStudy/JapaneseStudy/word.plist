@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <dict>
+        <key>kr</key>
+        <string>전화</string>
+        <key>jp</key>
+        <string>でんわ</string>
+    </dict>
+    <dict>
+        <key>kr</key>
+        <string>할머님, 조모님, 할머니</string>
+        <key>jp</key>
+        <string>おばあさん</string>
+    </dict>
+    <dict>
+        <key>kr</key>
+        <string>우육, 쇠고기</string>
+        <key>jp</key>
+        <string>ぎゅうにく</string>
+    </dict>
+    <dict>
+        <key>kr</key>
+        <string>은행</string>
+        <key>jp</key>
+        <string>ぎんこう</string>
+    </dict>
+    <dict>
+        <key>kr</key>
+        <string>숙제</string>
+        <key>jp</key>
+        <string>しゅくだい</string>
+    </dict>
+    <dict>
+        <key>kr</key>
+        <string>죄송합니다, 고맙습니다, 부탁합니다</string>
+        <key>jp</key>
+        <string>すみません</string>
+    </dict>
+    <dict>
+        <key>kr</key>
+        <string>알, 달걀, 계란</string>
+        <key>jp</key>
+        <string>たまご</string>
+    </dict>
+</array>
+</plist>
