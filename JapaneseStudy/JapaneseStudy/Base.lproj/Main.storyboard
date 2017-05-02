@@ -25,9 +25,18 @@
                                 <rect key="frame" x="77" y="110" width="220" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Word"/>
+                                <state key="normal" title="dispose word"/>
                                 <connections>
                                     <segue destination="207-3q-8Up" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="01F-t6-zT3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oSR-ui-7UL">
+                                <rect key="frame" x="77" y="230" width="220" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="match word"/>
+                                <connections>
+                                    <segue destination="Xa3-iF-BGA" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="RiH-dQ-1Vk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -37,6 +46,111 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
+        </scene>
+        <!--Match View Controller-->
+        <scene sceneID="t4C-og-pnd">
+            <objects>
+                <viewController id="Xa3-iF-BGA" customClass="MatchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="j1I-uU-hzX"/>
+                        <viewControllerLayoutGuide type="bottom" id="yBF-ss-2mc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7pA-ZW-Tie">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yoj-Af-zjJ">
+                                <rect key="frame" x="313" y="28" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="close">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <segue destination="g1T-nv-dwL" kind="unwind" unwindAction="exitFromSecondViewController:" id="cGS-EU-Eyl"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCh-vG-8qI">
+                                <rect key="frame" x="16" y="100" width="343" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" tag="1001" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYs-Vz-aSF">
+                                <rect key="frame" x="26" y="230" width="323" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1009073480963707" green="0.34451085329055786" blue="0.55628770589828491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkToCorrectAnswer:" destination="Xa3-iF-BGA" eventType="touchUpInside" id="bhW-N4-cxQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFw-Ce-mYS">
+                                <rect key="frame" x="26" y="300" width="323" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1009073480963707" green="0.34451085329055786" blue="0.55628770589828491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkToCorrectAnswer:" destination="Xa3-iF-BGA" eventType="touchUpInside" id="k0T-U7-0Rx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1003" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TpU-h5-tXq">
+                                <rect key="frame" x="26" y="370" width="323" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.096240751445293427" green="0.34451562166213989" blue="0.55629551410675049" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkToCorrectAnswer:" destination="Xa3-iF-BGA" eventType="touchUpInside" id="yfZ-f3-6Fk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1004" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFq-Bs-TDw">
+                                <rect key="frame" x="26" y="440" width="323" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1009073480963707" green="0.34451085329055786" blue="0.55628770589828491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkToCorrectAnswer:" destination="Xa3-iF-BGA" eventType="touchUpInside" id="gzt-nS-uVo"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="정답 : 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eL0-ab-P3O">
+                                <rect key="frame" x="37" y="560" width="300" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <color key="textColor" red="0.093480058014392853" green="0.25283291935920715" blue="0.5815354585647583" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnAnswer1" destination="SYs-Vz-aSF" id="zxS-CT-li0"/>
+                        <outlet property="btnAnswer2" destination="HFw-Ce-mYS" id="L2u-Ir-mkH"/>
+                        <outlet property="btnAnswer3" destination="TpU-h5-tXq" id="66B-d1-Fi9"/>
+                        <outlet property="btnAnswer4" destination="FFq-Bs-TDw" id="6pX-kW-uxf"/>
+                        <outlet property="lbCount" destination="eL0-ab-P3O" id="GGi-IG-92Z"/>
+                        <outlet property="lbMeaning" destination="WCh-vG-8qI" id="Wa6-VT-3bL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eoI-uU-NGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="g1T-nv-dwL" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="989.60000000000002" y="347.67616191904051"/>
         </scene>
         <!--Word View Controller-->
         <scene sceneID="O0k-VM-Tnd">
@@ -102,7 +216,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVN-Vm-EPF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="VqR-no-e6I" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="908" y="136.28185907046478"/>
+            <point key="canvasLocation" x="929" y="-329"/>
         </scene>
     </scenes>
 </document>
