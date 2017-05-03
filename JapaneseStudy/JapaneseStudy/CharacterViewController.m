@@ -32,8 +32,6 @@
     self.btnAnswer4.layer.cornerRadius = 6;
     
     [self setCharacterArray];
-    g_nNowIndex = arc4random() % g_arCharacters.count;
-    
     [self showCharacter];
 }
 
@@ -64,6 +62,8 @@
 
 // [170503] 가타카나 문제 화면을 보여준다
 - (void) showCharacter {
+    
+    g_nNowIndex = arc4random() % g_arCharacters.count;
     
     // 문제가 될 가타카나를 보여준다
     [self.lbKatakana setText:[[g_arCharacters objectAtIndex:g_nNowIndex] objectForKey:@"ka"]];
@@ -155,7 +155,7 @@
         [self.lbCount setText:[NSString stringWithFormat:@"정답 : %ld", g_nCorrectCount]];
     }
     
-    g_nNowIndex = arc4random() % g_arCharacters.count;
+//    g_nNowIndex = arc4random() % g_arCharacters.count;
     [self showCharacter];
 }
 
