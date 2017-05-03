@@ -2,7 +2,7 @@
 //  MatchViewController.m
 //  JapaneseStudy
 //
-//  Created by Sora Yeo on 2017. 5. 2..
+//  Created by DeGi on 2017. 5. 2..
 //  Copyright © 2017년 DeGi. All rights reserved.
 //
 

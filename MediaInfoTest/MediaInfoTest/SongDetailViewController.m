@@ -2,7 +2,7 @@
 //  SongDetailViewController.m
 //  MediaInfoTest
 //
-//  Created by Sora Yeo on 2017. 4. 27..
+//  Created by DeGi on 2017. 4. 27..
 //  Copyright © 2017년 DeGi. All rights reserved.
 //
 
