@@ -86,263 +86,479 @@
 		<key>jp</key>
 		<string>さかな</string>
 	</dict>
-    <dict>
-        <key>kr</key>
-        <string>주문</string>
-        <key>jp</key>
-        <string>ちゅうもん</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>숫자</string>
-        <key>jp</key>
-        <string>すうじ</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>번호</string>
-        <key>jp</key>
-        <string>ばんごう</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>전화</string>
-        <key>jp</key>
-        <string>でんわ</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>생각하다</string>
-        <key>jp</key>
-        <string>おもう</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>훌륭하다; 근사하다; 굉장하다; 멋지다</string>
-        <key>jp</key>
-        <string>すばらしい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>강하다; 세다</string>
-        <key>jp</key>
-        <string>つよい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>약하다; 모자라다</string>
-        <key>jp</key>
-        <string>よわい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>굵다; 가늘지 않다</string>
-        <key>jp</key>
-        <string>ふとい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>가늘다; 좁다</string>
-        <key>jp</key>
-        <string>ほそい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>얇다; 정도·밀도가 적다</string>
-        <key>jp</key>
-        <string>うすい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>추(악)하다; 보기 흉하다; 못생기다</string>
-        <key>jp</key>
-        <string>みにくい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>준비</string>
-        <key>jp</key>
-        <string>じゅんび</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>맛이 없다; 거북하다; 못생기다</string>
-        <key>jp</key>
-        <string>まずい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>크다; (수량·나이가) 많다</string>
-        <key>jp</key>
-        <string>おおきい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>작다; 크지 않다; 규모가 작다</string>
-        <key>jp</key>
-        <string>ちいさいく</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>길다; (세월·시간이) 오래다</string>
-        <key>jp</key>
-        <string>ながい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>짧다; (시간적으로) 길지 않다</string>
-        <key>jp</key>
-        <string>みじかい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>높다; (키가) 크다</string>
-        <key>jp</key>
-        <string>たかい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>낮다; (높이·길이가) 짧다</string>
-        <key>jp</key>
-        <string>ひくい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>행운; 호운</string>
-        <key>jp</key>
-        <string>こううん</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>빌다; 신불에 기도하다; 기원하다</string>
-        <key>jp</key>
-        <string>いのる</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>알다; 판명되다; 판단·이해할 수 있다</string>
-        <key>jp</key>
-        <string>わかる</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>알다; 점유하다; 영유하다</string>
-        <key>jp</key>
-        <string>しる</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>말하다; (이야기)하다</string>
-        <key>jp</key>
-        <string>いう</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>도움; 구원; 구조</string>
-        <key>jp</key>
-        <string>たすけ</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>출신</string>
-        <key>jp</key>
-        <string>しゅっしん</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>이야기하다; 말하다; (더불어) 상의[의논]하다</string>
-        <key>jp</key>
-        <string>はなす</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>같음; 동일</string>
-        <key>jp</key>
-        <string>おなじ</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>책방; 서점</string>
-        <key>jp</key>
-        <string>ほんや</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>은행</string>
-        <key>jp</key>
-        <string>ぎんこう</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>시장; 저자; 장</string>
-        <key>jp</key>
-        <string>いちば</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>약국; 약방</string>
-        <key>jp</key>
-        <string>やっきょく</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>전부; 모두; 전체; 모조리</string>
-        <key>jp</key>
-        <string>すべて</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>사다; 구입하다</string>
-        <key>jp</key>
-        <string>かう</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>팔다; 값을 받고 물건 등을 주다</string>
-        <key>jp</key>
-        <string>うる</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>자전거</string>
-        <key>jp</key>
-        <string>じてんしゃ</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>차; 차륜(車輪); 수레[차]바퀴</string>
-        <key>jp</key>
-        <string>くるま</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>밖에도; 예상 외</string>
-        <key>jp</key>
-        <string>あんがい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>마음에 듦; 또, 그 사람[것]</string>
-        <key>jp</key>
-        <string>おきにいり</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>마실 것; 음료</string>
-        <key>jp</key>
-        <string>のみもの</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>원하다; …하고 싶다; 탐나다</string>
-        <key>jp</key>
-        <string>ほしい</string>
-    </dict>
-    <dict>
-        <key>kr</key>
-        <string>일을 하다; 활동하다; 움직이다</string>
-        <key>jp</key>
-        <string>はたらく</string>
-    </dict>
+	<dict>
+		<key>kr</key>
+		<string>주문</string>
+		<key>jp</key>
+		<string>ちゅうもん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>숫자</string>
+		<key>jp</key>
+		<string>すうじ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>번호</string>
+		<key>jp</key>
+		<string>ばんごう</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>전화</string>
+		<key>jp</key>
+		<string>でんわ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>생각하다</string>
+		<key>jp</key>
+		<string>おもう</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>훌륭하다; 근사하다; 굉장하다; 멋지다</string>
+		<key>jp</key>
+		<string>すばらしい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>강하다; 세다</string>
+		<key>jp</key>
+		<string>つよい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>약하다; 모자라다</string>
+		<key>jp</key>
+		<string>よわい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>굵다; 가늘지 않다</string>
+		<key>jp</key>
+		<string>ふとい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>가늘다; 좁다</string>
+		<key>jp</key>
+		<string>ほそい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>얇다; 정도·밀도가 적다</string>
+		<key>jp</key>
+		<string>うすい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>추(악)하다; 보기 흉하다; 못생기다</string>
+		<key>jp</key>
+		<string>みにくい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>준비</string>
+		<key>jp</key>
+		<string>じゅんび</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>맛이 없다; 거북하다; 못생기다</string>
+		<key>jp</key>
+		<string>まずい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>크다; (수량·나이가) 많다</string>
+		<key>jp</key>
+		<string>おおきい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>작다; 크지 않다; 규모가 작다</string>
+		<key>jp</key>
+		<string>ちいさいく</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>길다; (세월·시간이) 오래다</string>
+		<key>jp</key>
+		<string>ながい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>짧다; (시간적으로) 길지 않다</string>
+		<key>jp</key>
+		<string>みじかい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>높다; (키가) 크다</string>
+		<key>jp</key>
+		<string>たかい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>낮다; (높이·길이가) 짧다</string>
+		<key>jp</key>
+		<string>ひくい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>행운; 호운</string>
+		<key>jp</key>
+		<string>こううん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>빌다; 신불에 기도하다; 기원하다</string>
+		<key>jp</key>
+		<string>いのる</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>알다; 판명되다; 판단·이해할 수 있다</string>
+		<key>jp</key>
+		<string>わかる</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>알다; 점유하다; 영유하다</string>
+		<key>jp</key>
+		<string>しる</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>말하다; (이야기)하다</string>
+		<key>jp</key>
+		<string>いう</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>도움; 구원; 구조</string>
+		<key>jp</key>
+		<string>たすけ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>출신</string>
+		<key>jp</key>
+		<string>しゅっしん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>이야기하다; 말하다; (더불어) 상의[의논]하다</string>
+		<key>jp</key>
+		<string>はなす</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>같음; 동일</string>
+		<key>jp</key>
+		<string>おなじ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>책방; 서점</string>
+		<key>jp</key>
+		<string>ほんや</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>은행</string>
+		<key>jp</key>
+		<string>ぎんこう</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>시장; 저자; 장</string>
+		<key>jp</key>
+		<string>いちば</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>약국; 약방</string>
+		<key>jp</key>
+		<string>やっきょく</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>전부; 모두; 전체; 모조리</string>
+		<key>jp</key>
+		<string>すべて</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>사다; 구입하다</string>
+		<key>jp</key>
+		<string>かう</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>팔다; 값을 받고 물건 등을 주다</string>
+		<key>jp</key>
+		<string>うる</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>자전거</string>
+		<key>jp</key>
+		<string>じてんしゃ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>차; 차륜(車輪); 수레[차]바퀴</string>
+		<key>jp</key>
+		<string>くるま</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>밖에도; 예상 외</string>
+		<key>jp</key>
+		<string>あんがい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>마음에 듦; 또, 그 사람[것]</string>
+		<key>jp</key>
+		<string>おきにいり</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>마실 것; 음료</string>
+		<key>jp</key>
+		<string>のみもの</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>원하다; …하고 싶다; 탐나다</string>
+		<key>jp</key>
+		<string>ほしい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>일을 하다; 활동하다; 움직이다</string>
+		<key>jp</key>
+		<string>はたらく</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>학교</string>
+		<key>jp</key>
+		<string>がっこう</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>아기; (동물의) 새끼</string>
+		<key>jp</key>
+		<string>あかちゃん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>(어린) 아이; 자식; 아들딸</string>
+		<key>jp</key>
+		<string>こども</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>어른; 성인</string>
+		<key>jp</key>
+		<string>おとな</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>성인; 어른</string>
+		<key>jp</key>
+		<string>せいじん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>여자; 여성; 여인</string>
+		<key>jp</key>
+		<string>おんな</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>남자; 남성; 사나이</string>
+		<key>jp</key>
+		<string>おとこ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>여성; 여자</string>
+		<key>jp</key>
+		<string>じょせい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>남성; 남자</string>
+		<key>jp</key>
+		<string>だんせい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>처; 아내; 마누라</string>
+		<key>jp</key>
+		<string>つま</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>남편</string>
+		<key>jp</key>
+		<string>おっと</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>딸</string>
+		<key>jp</key>
+		<string>むすめ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>아들</string>
+		<key>jp</key>
+		<string>むすこ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>할머니</string>
+		<key>jp</key>
+		<string>おばあさん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>할아버지</string>
+		<key>jp</key>
+		<string>おじいさん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>여동생</string>
+		<key>jp</key>
+		<string>いもうと</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>남동생</string>
+		<key>jp</key>
+		<string>おとうと</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>누나; 언니</string>
+		<key>jp</key>
+		<string>あね</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>형; 오빠</string>
+		<key>jp</key>
+		<string>あに</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>형제</string>
+		<key>jp</key>
+		<string>きょうだい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>아빠</string>
+		<key>jp</key>
+		<string>おとうさん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>엄마</string>
+		<key>jp</key>
+		<string>おかあさん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>어버이; 부모</string>
+		<key>jp</key>
+		<string>おや</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>가족</string>
+		<key>jp</key>
+		<string>かぞく</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>색; 빛</string>
+		<key>jp</key>
+		<string>いろ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>빨강; 적색</string>
+		<key>jp</key>
+		<string>あか</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>파란색; 파랑; 청색</string>
+		<key>jp</key>
+		<string>あお</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>아빠</string>
+		<key>jp</key>
+		<string>おとうさん</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>황색; 노랑</string>
+		<key>jp</key>
+		<string>きいろ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>녹색; 초록(빛)</string>
+		<key>jp</key>
+		<string>みどり</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>검은 빛깔; 검정</string>
+		<key>jp</key>
+		<string>くろ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>자색; 보랏빛</string>
+		<key>jp</key>
+		<string>むらさき</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>백; 흰색</string>
+		<key>jp</key>
+		<string>しろ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>다색; 갈색</string>
+		<key>jp</key>
+		<string>ちゃいろ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>회색; 잿빛</string>
+		<key>jp</key>
+		<string>はいいろ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>짙다; 진하다; 사이가 좋다; 정답다</string>
+		<key>jp</key>
+		<string>こい</string>
+	</dict>
 </array>
 </plist>
