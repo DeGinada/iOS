@@ -14,7 +14,8 @@
 
 @implementation MatchViewController {
     NSArray* g_arWords;
-    NSInteger g_nCount;
+//    NSInteger g_nCount;
+    NSInteger g_nWordIndex;
     NSInteger g_nCorrectCount;
 }
 
@@ -22,7 +23,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    g_nCount = 0;
     g_nCorrectCount = 0;
     [self setWordArray];
     [self showMatchWord];
@@ -55,12 +55,15 @@
 // [170502] 문제 화면을 보여준다
 - (void) showMatchWord {
     
+    // [170504] 랜덤 출제로 변경
+    g_nWordIndex = arc4random() %  g_arWords.count;
+    
     // 문제인 단어 뜻 보여주기
-    [self.lbMeaning setText:[[g_arWords objectAtIndex:g_nCount] objectForKey:@"kr"]];
+    [self.lbMeaning setText:[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"kr"]];
     
     
     // answer에 값 세팅하기
-    NSArray* arAnswer = [self suffleAnswer:[[g_arWords objectAtIndex:g_nCount] objectForKey:@"jp"]];
+    NSArray* arAnswer = [self suffleAnswer:[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"jp"]];
     
     [self.btnAnswer1 setTitle:[arAnswer objectAtIndex:0] forState:UIControlStateNormal];
     [self.btnAnswer1 setTitleColor:self.btnAnswer1.backgroundColor forState:UIControlStateHighlighted];
@@ -117,24 +120,15 @@
     UIButton* btnSel = (UIButton*)sender;
     NSString* strSelAnswer = [btnSel titleForState:UIControlStateNormal];
     
-    if ([strSelAnswer isEqualToString:[[g_arWords objectAtIndex:g_nCount] objectForKey:@"jp"]]) {
+    if ([strSelAnswer isEqualToString:[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"jp"]]) {
         
         // 정답일 경우, count label 값을 늘려준다.
         g_nCorrectCount++;
         [self.lbCount setText:[NSString stringWithFormat:@"정답 : %ld", g_nCorrectCount]];
     }
-    
 
-    if (g_nCount < (g_arWords.count-1)) {
-        g_nCount++;
-        [self showMatchWord];
-    } else {
-        [self.btnAnswer1 setEnabled:NO];
-        [self.btnAnswer2 setEnabled:NO];
-        [self.btnAnswer3 setEnabled:NO];
-        [self.btnAnswer4 setEnabled:NO];
-    }
-    
+    [self showMatchWord];
+
 }
 
 
