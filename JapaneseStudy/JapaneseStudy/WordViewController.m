@@ -14,7 +14,8 @@
 
 @implementation WordViewController {
     NSArray* g_arWords;
-    NSInteger g_nCount;
+//    NSInteger g_nCount;
+    NSInteger g_nWordIndex;
     NSInteger g_nAnswerCount;
     
     NSMutableString* g_strAnswer;
@@ -25,7 +26,6 @@
     // Do any additional setup after loading the view.
     
     g_strAnswer = [[NSMutableString alloc] init];
-    g_nCount = 0;
     [self setWordArray];
     
     [self showWord];
@@ -58,13 +58,15 @@
 // [170501] 단어를 가져와 화면에 보여준다
 - (void) showWord {
     
+    g_nWordIndex = arc4random() % g_arWords.count;
+    
     // 단어의 뜻 보여주기
-    [self.lbMeaning setText:[[g_arWords objectAtIndex:g_nCount] objectForKey:@"kr"]];
+    [self.lbMeaning setText:[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"kr"]];
     
     // viewAnswer에 답 공간 만들기
     const CGFloat answerWidth = 40;
     const CGFloat answerSpace = 3;
-    NSInteger nCountJP = [[[g_arWords objectAtIndex:g_nCount] objectForKey:@"jp"] length];
+    NSInteger nCountJP = [[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"jp"] length];
     CGFloat answerX = (self.viewAnswer.frame.size.width-((nCountJP*answerWidth)+((nCountJP-1)*answerSpace)))/2;
     
     for (int i = 0; i < nCountJP; i++) {
@@ -83,7 +85,7 @@
     g_nAnswerCount = 0;
     [g_strAnswer setString:@""];
     
-    NSString* strQuiz = [self suffleCharcter:[[g_arWords objectAtIndex:g_nCount] objectForKey:@"jp"]];
+    NSString* strQuiz = [self suffleCharcter:[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"jp"]];
     
     // viewCharacter에 답용 버튼 만들기
     const CGFloat characterWidth = 60;
@@ -127,24 +129,29 @@
 - (void) processCharacter:(UIButton*)button {
     [((UILabel*)[self.viewAnswer viewWithTag:g_nAnswerCount+1]) setText:[button titleForState:UIControlStateNormal]];
     
-    if (g_nAnswerCount < [[[g_arWords objectAtIndex:g_nCount] objectForKey:@"jp"] length]) {
+    if (g_nAnswerCount < [[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"jp"] length]) {
         g_nAnswerCount++;
         [g_strAnswer appendString:[button titleForState:UIControlStateNormal]];
         
-        if ([g_strAnswer isEqualToString:[[g_arWords objectAtIndex:g_nCount] objectForKey:@"jp"]]) {
+        if ([g_strAnswer isEqualToString:[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"jp"]]) {
             NSLog(@"정답입니다");
             
             // 정답일 경우, 모든 항목 clear하고 다음 문제로!
-            g_nCount++;
+//            g_nCount++;
+//            
+//            if (g_nCount >= [g_arWords count]) {
+//                NSLog(@"끝");
+//            } else {
+//                [self.viewAnswer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//                [self.viewCharacter.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//                
+//                [self showWord];
+//            }
+            // 랜덤 방식으로 변경
+            [self.viewAnswer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            [self.viewCharacter.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
             
-            if (g_nCount >= [g_arWords count]) {
-                NSLog(@"끝");
-            } else {
-                [self.viewAnswer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-                [self.viewCharacter.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-                
-                [self showWord];
-            }
+            [self showWord];
         
         } else {
             NSLog(@"오답입니다 %@", g_strAnswer);

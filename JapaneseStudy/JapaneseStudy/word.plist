@@ -338,5 +338,11 @@
         <key>jp</key>
         <string>ほしい</string>
     </dict>
+    <dict>
+        <key>kr</key>
+        <string>일을 하다; 활동하다; 움직이다</string>
+        <key>jp</key>
+        <string>はたらく</string>
+    </dict>
 </array>
 </plist>
