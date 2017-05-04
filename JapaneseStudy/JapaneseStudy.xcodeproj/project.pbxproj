@@ -18,6 +18,7 @@
 		9F2C251F1EB8BB5B00F733DF /* MatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2C251E1EB8BB5B00F733DF /* MatchViewController.m */; };
 		9FE530011EBA0CC800995CD3 /* character.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FE530001EBA0CC800995CD3 /* character.plist */; };
 		9FE530041EBA163D00995CD3 /* CharacterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530031EBA163D00995CD3 /* CharacterViewController.m */; };
+		9FE530071EBB655800995CD3 /* MeaningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530061EBB655800995CD3 /* MeaningViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		9FE530001EBA0CC800995CD3 /* character.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = character.plist; sourceTree = "<group>"; };
 		9FE530021EBA163D00995CD3 /* CharacterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterViewController.h; sourceTree = "<group>"; };
 		9FE530031EBA163D00995CD3 /* CharacterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterViewController.m; sourceTree = "<group>"; };
+		9FE530051EBB655800995CD3 /* MeaningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeaningViewController.h; sourceTree = "<group>"; };
+		9FE530061EBB655800995CD3 /* MeaningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeaningViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,8 @@
 				9F2C251E1EB8BB5B00F733DF /* MatchViewController.m */,
 				9FE530021EBA163D00995CD3 /* CharacterViewController.h */,
 				9FE530031EBA163D00995CD3 /* CharacterViewController.m */,
+				9FE530051EBB655800995CD3 /* MeaningViewController.h */,
+				9FE530061EBB655800995CD3 /* MeaningViewController.m */,
 				9F2C251B1EB763B800F733DF /* word.plist */,
 				9FE530001EBA0CC800995CD3 /* character.plist */,
 				9F2C25081EB742AB00F733DF /* Main.storyboard */,
@@ -178,6 +183,7 @@
 				9F2C25041EB742AB00F733DF /* AppDelegate.m in Sources */,
 				9F2C25181EB7460F00F733DF /* WordViewController.m in Sources */,
 				9F2C251F1EB8BB5B00F733DF /* MatchViewController.m in Sources */,
+				9FE530071EBB655800995CD3 /* MeaningViewController.m in Sources */,
 				9FE530041EBA163D00995CD3 /* CharacterViewController.m in Sources */,
 				9F2C25011EB742AB00F733DF /* main.m in Sources */,
 			);
