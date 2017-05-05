@@ -19,6 +19,7 @@
 		9FE530011EBA0CC800995CD3 /* character.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FE530001EBA0CC800995CD3 /* character.plist */; };
 		9FE530041EBA163D00995CD3 /* CharacterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530031EBA163D00995CD3 /* CharacterViewController.m */; };
 		9FE530071EBB655800995CD3 /* MeaningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530061EBB655800995CD3 /* MeaningViewController.m */; };
+		9FE5300A1EBCB69000995CD3 /* WordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530091EBCB69000995CD3 /* WordTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		9FE530031EBA163D00995CD3 /* CharacterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharacterViewController.m; sourceTree = "<group>"; };
 		9FE530051EBB655800995CD3 /* MeaningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeaningViewController.h; sourceTree = "<group>"; };
 		9FE530061EBB655800995CD3 /* MeaningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeaningViewController.m; sourceTree = "<group>"; };
+		9FE530081EBCB69000995CD3 /* WordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordTableViewController.h; sourceTree = "<group>"; };
+		9FE530091EBCB69000995CD3 /* WordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,8 @@
 				9FE530031EBA163D00995CD3 /* CharacterViewController.m */,
 				9FE530051EBB655800995CD3 /* MeaningViewController.h */,
 				9FE530061EBB655800995CD3 /* MeaningViewController.m */,
+				9FE530081EBCB69000995CD3 /* WordTableViewController.h */,
+				9FE530091EBCB69000995CD3 /* WordTableViewController.m */,
 				9F2C251B1EB763B800F733DF /* word.plist */,
 				9FE530001EBA0CC800995CD3 /* character.plist */,
 				9F2C25081EB742AB00F733DF /* Main.storyboard */,
@@ -186,6 +191,7 @@
 				9FE530071EBB655800995CD3 /* MeaningViewController.m in Sources */,
 				9FE530041EBA163D00995CD3 /* CharacterViewController.m in Sources */,
 				9F2C25011EB742AB00F733DF /* main.m in Sources */,
+				9FE5300A1EBCB69000995CD3 /* WordTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
