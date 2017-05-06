@@ -116,11 +116,34 @@
     UIButton* btnSel = (UIButton*)sender;
     NSString* strSelAnswer = [btnSel titleForState:UIControlStateNormal];
     
+    NSString* strAnswer = [[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"jp"];
+    
     if ([strSelAnswer isEqualToString:[[g_arWords objectAtIndex:g_nWordIndex] objectForKey:@"kr"]]) {
         
         // 정답일 경우, count label 값을 늘려준다.
         g_nCorrectCount++;
         [self.lbCount setText:[NSString stringWithFormat:@"정답 : %ld", g_nCorrectCount]];
+        
+        // [170506] 점수 시스템
+        NSInteger nPoint = [[self.m_dicWord objectForKey:strAnswer] integerValue];
+        nPoint = nPoint + 2;
+        [self.m_dicWord setObject:[NSString stringWithFormat:@"%ld", nPoint] forKey:strAnswer];
+        
+        
+        // [170506] 혹시 모르니 로컬에 저장
+        [[NSUserDefaults standardUserDefaults] setObject:self.m_dicWord forKey:@"WORD_POINT"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else {
+        
+        // [170506] 점수 시스템
+        NSInteger nPoint = [[self.m_dicWord objectForKey:strAnswer] integerValue];
+        nPoint = nPoint - 2;
+        [self.m_dicWord setObject:[NSString stringWithFormat:@"%ld", nPoint] forKey:strAnswer];
+        
+        
+        // [170506] 혹시 모르니 로컬에 저장
+        [[NSUserDefaults standardUserDefaults] setObject:self.m_dicWord forKey:@"WORD_POINT"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     [self showMatchWord];

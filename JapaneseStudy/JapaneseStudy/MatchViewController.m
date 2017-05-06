@@ -128,22 +128,25 @@
         g_nCorrectCount++;
         [self.lbCount setText:[NSString stringWithFormat:@"정답 : %ld", g_nCorrectCount]];
         
+        
+        // [170506] 점수 시스템
         NSInteger nPoint = [[self.m_dicWord objectForKey:strAnswer] integerValue];
         nPoint = nPoint + 2;
         [self.m_dicWord setObject:[NSString stringWithFormat:@"%ld", nPoint] forKey:strAnswer];
         
         
-        // 혹시 모르니 로컬에 저장
+        // [170506] 혹시 모르니 로컬에 저장
         [[NSUserDefaults standardUserDefaults] setObject:self.m_dicWord forKey:@"WORD_POINT"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     } else {
         
+        // [170506] 점수 시스템
         NSInteger nPoint = [[self.m_dicWord objectForKey:strAnswer] integerValue];
         nPoint = nPoint - 2;
         [self.m_dicWord setObject:[NSString stringWithFormat:@"%ld", nPoint] forKey:strAnswer];
         
         
-        // 혹시 모르니 로컬에 저장
+        // [170506] 혹시 모르니 로컬에 저장
         [[NSUserDefaults standardUserDefaults] setObject:self.m_dicWord forKey:@"WORD_POINT"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }

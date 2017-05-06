@@ -44,7 +44,7 @@
 
 170506
  - 자주 틀리는 단어 word에서 표시해주기 (점수 시스템 넣기)
-    . 현재 match word 게임만 가능
+    . match word 게임, meaning 게임에 적용
     . word Table에서 확인 가능
  - storyboard 정리 
     . autolayout 적용
