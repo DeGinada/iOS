@@ -40,5 +40,13 @@
  - 현재 없지만 필요한 부분 -> 5/6에 작업해!!
     . 자주 틀리는 단어 word에서 표시해주기 (점수 시스템 넣기)
     . storyboard 정리 (container가 엉망..)
- 
 
+
+170506
+ - 자주 틀리는 단어 word에서 표시해주기 (점수 시스템 넣기)
+    . 현재 match word 게임만 가능
+    . word Table에서 확인 가능
+ - storyboard 정리 
+    . autolayout 적용
+    
+ 

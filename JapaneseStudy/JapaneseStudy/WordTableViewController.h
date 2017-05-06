@@ -10,4 +10,6 @@
 
 @interface WordTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, retain) NSDictionary* m_dicWord;
+
 @end

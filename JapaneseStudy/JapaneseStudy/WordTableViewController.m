@@ -63,6 +63,13 @@
     [cell.detailTextLabel setFont:[UIFont systemFontOfSize:14.0]];
 
     
+    NSInteger nPoint = [[self.m_dicWord objectForKey:cell.textLabel.text] integerValue];
+    if (nPoint < 0) {
+        [cell.textLabel setTextColor:[UIColor redColor]];
+    } else if (nPoint >= 10) {
+        [cell.textLabel setTextColor:[UIColor blueColor]];
+    }
+    
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     

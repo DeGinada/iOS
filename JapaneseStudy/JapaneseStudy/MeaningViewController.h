@@ -10,6 +10,8 @@
 
 @interface MeaningViewController : UIViewController
 
+@property (nonatomic, retain) NSMutableDictionary* m_dicWord;
+
 @property IBOutlet UILabel* lbMeaning;
 @property IBOutlet UILabel* lbCount;
 @property IBOutlet UIButton* btnAnswer1;
