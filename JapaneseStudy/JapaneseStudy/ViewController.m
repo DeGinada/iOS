@@ -38,13 +38,14 @@
 - (IBAction) exitFromSecondViewController:(UIStoryboardSegue *)segue {
     
     
+    NSLog(@"back from : %@", [segue.sourceViewController class]);
+    
     // [170506] 바뀐 정보를 돌려준다 -> 이 부분 안되니까 확인 필요
-    if ([[segue identifier] isEqualToString:@"segMatch"]) {
-        MatchViewController* vcMatch = [segue destinationViewController];
-        g_dicWord = [NSMutableDictionary dictionaryWithDictionary:vcMatch.m_dicWord];
-    } else if ([[segue identifier] isEqualToString:@"segMeaning"]) {
-        MeaningViewController* vcMeaning = [segue destinationViewController];
-        g_dicWord = [NSMutableDictionary dictionaryWithDictionary:vcMeaning.m_dicWord];
+    // [170507] 점수 시스템이 적용된 vc에서 돌아오는 경우, dictionary 다시 세팅
+    if ([[segue.sourceViewController class] isSubclassOfClass:[MatchViewController class]] ||
+        [[segue.sourceViewController class] isSubclassOfClass:[MeaningViewController class]]) {
+        
+        [self setWordDictionary];
     }
 }
 

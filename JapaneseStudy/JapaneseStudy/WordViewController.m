@@ -148,10 +148,14 @@
 //                [self showWord];
 //            }
             // 랜덤 방식으로 변경
-            [self.viewAnswer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            [self.viewCharacter.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            // [170507] 정답 화면에 딜레이 주기(정답 잠깐 보여준 후 문제 세팅) 500ms -> 0.5s
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+                [self.viewAnswer.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                [self.viewCharacter.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+                
+                [self showWord];
+            });
             
-            [self showWord];
         
         } else {
             NSLog(@"오답입니다 %@", g_strAnswer);

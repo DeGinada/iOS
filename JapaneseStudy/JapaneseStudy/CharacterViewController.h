@@ -16,5 +16,7 @@
 @property IBOutlet UIButton* btnAnswer2;
 @property IBOutlet UIButton* btnAnswer3;
 @property IBOutlet UIButton* btnAnswer4;
+@property IBOutlet UIImageView* imgO;
+@property IBOutlet UIImageView* imgX;
 
 @end

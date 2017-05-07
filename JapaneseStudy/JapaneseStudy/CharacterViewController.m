@@ -23,6 +23,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // [170507] 정답 관련 이미지 숨기기
+    [self.imgO setHidden:YES];
+    [self.imgX setHidden:YES];
+    
     g_nCorrectCount = 0;
     // 라운드 넣기
 //    self.lbKatakana.layer.cornerRadius = 20;
@@ -150,13 +154,28 @@
     }
     
     if ([strSelAnswer isEqualToString:strCorrectAnswer]) {
-        // 정답일 겨우
+        // 정답일 경우
         g_nCorrectCount++;
-        [self.lbCount setText:[NSString stringWithFormat:@"정답 : %ld", g_nCorrectCount]];
+        
+        // [170507] 맞았다는 이미지 보여주기
+        [self.imgO setHidden:NO];
+    } else {
+        
+        // [170507] 틀렸다는 이미지 보여주기
+        [self.imgX setHidden:NO];
     }
     
 //    g_nNowIndex = arc4random() % g_arCharacters.count;
-    [self showCharacter];
+    // [170507] 정답 화면에 딜레이 주기(정답 잠깐 보여준 후 문제 세팅) 300ms -> 0.3s
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 300 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+        [self.imgO setHidden:YES];
+        [self.imgX setHidden:YES];
+        
+        [self.lbCount setText:[NSString stringWithFormat:@"정답 : %ld", g_nCorrectCount]];
+        
+        [self showCharacter];
+    });
+    
 }
 
 

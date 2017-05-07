@@ -560,5 +560,71 @@
 		<key>jp</key>
 		<string>こい</string>
 	</dict>
+	<dict>
+		<key>kr</key>
+		<string>옷; (특히) 양복</string>
+		<key>jp</key>
+		<string>ふく</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>모자</string>
+		<key>jp</key>
+		<string>ぼうし</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>양말</string>
+		<key>jp</key>
+		<string>くつした</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>신; 신발; 구두</string>
+		<key>jp</key>
+		<string>くつ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>장갑</string>
+		<key>jp</key>
+		<string>てぶくろ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>우산; 양산</string>
+		<key>jp</key>
+		<string>かさ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>지갑</string>
+		<key>jp</key>
+		<string>さいふ</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>새롭다; 오래지 않다; 싱싱하다</string>
+		<key>jp</key>
+		<string>あたらしい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>오래되다; 헐다; 옛일이다</string>
+		<key>jp</key>
+		<string>ふるい</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>만나다</string>
+		<key>jp</key>
+		<string>あう</string>
+	</dict>
+	<dict>
+		<key>kr</key>
+		<string>일을 하다; 활동하다; 움직이다</string>
+		<key>jp</key>
+		<string>はたらく</string>
+	</dict>
 </array>
 </plist>

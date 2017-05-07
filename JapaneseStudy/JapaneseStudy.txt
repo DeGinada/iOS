@@ -48,5 +48,11 @@
     . word Table에서 확인 가능
  - storyboard 정리 
     . autolayout 적용
+
+
+170507
+ - 각 게임 화면 정답관련 이미지 보여주기
+    . word 게임은 정답이어야 넘어가기에 딜레이를 줌
+ - word.plist 업데이트
     
  

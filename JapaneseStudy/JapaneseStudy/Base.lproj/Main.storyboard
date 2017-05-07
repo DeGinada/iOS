@@ -162,6 +162,14 @@
                                 <color key="textColor" red="0.093480058014392853" green="0.25283291935920715" blue="0.5815354585647583" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="o.png" translatesAutoresizingMaskIntoConstraints="NO" id="pcT-C5-5Zn">
+                                <rect key="frame" x="87" y="263" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="x.png" translatesAutoresizingMaskIntoConstraints="NO" id="Vx5-Sk-gLh">
+                                <rect key="frame" x="87" y="263" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -170,6 +178,8 @@
                         <outlet property="btnAnswer2" destination="HFw-Ce-mYS" id="L2u-Ir-mkH"/>
                         <outlet property="btnAnswer3" destination="TpU-h5-tXq" id="66B-d1-Fi9"/>
                         <outlet property="btnAnswer4" destination="FFq-Bs-TDw" id="6pX-kW-uxf"/>
+                        <outlet property="imgO" destination="pcT-C5-5Zn" id="z69-YO-Pqd"/>
+                        <outlet property="imgX" destination="Vx5-Sk-gLh" id="1Nm-jp-BYz"/>
                         <outlet property="lbCount" destination="eL0-ab-P3O" id="GGi-IG-92Z"/>
                         <outlet property="lbMeaning" destination="WCh-vG-8qI" id="Wa6-VT-3bL"/>
                     </connections>
@@ -341,6 +351,14 @@
                                 <color key="textColor" red="0.093480058010000006" green="0.25283291940000002" blue="0.5815354586" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="o.png" translatesAutoresizingMaskIntoConstraints="NO" id="sOA-47-MwK">
+                                <rect key="frame" x="87" y="260" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="x.png" translatesAutoresizingMaskIntoConstraints="NO" id="amU-8g-OHA">
+                                <rect key="frame" x="87" y="260" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -349,6 +367,8 @@
                         <outlet property="btnAnswer2" destination="XZI-YA-esk" id="OCg-5l-7k6"/>
                         <outlet property="btnAnswer3" destination="4aO-JQ-4LI" id="Dwn-IY-idt"/>
                         <outlet property="btnAnswer4" destination="ARg-AU-TpM" id="Cod-vO-rPT"/>
+                        <outlet property="imgO" destination="sOA-47-MwK" id="yIF-1X-CVc"/>
+                        <outlet property="imgX" destination="amU-8g-OHA" id="vbe-be-3SA"/>
                         <outlet property="lbCount" destination="2De-Vx-clY" id="Z2w-Dk-9oU"/>
                         <outlet property="lbMeaning" destination="e0g-uX-6dF" id="5ks-fz-cd0"/>
                     </connections>
@@ -443,6 +463,14 @@
                                 <color key="textColor" red="0.1009073481" green="0.34451085329999998" blue="0.55628770589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="x.png" translatesAutoresizingMaskIntoConstraints="NO" id="vVa-T8-lpF">
+                                <rect key="frame" x="87" y="312" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="o.png" translatesAutoresizingMaskIntoConstraints="NO" id="h0w-rT-Pc6">
+                                <rect key="frame" x="87" y="312" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -451,6 +479,8 @@
                         <outlet property="btnAnswer2" destination="1OA-qy-Ciw" id="hFa-7c-BrA"/>
                         <outlet property="btnAnswer3" destination="tmh-9w-CG9" id="V8P-4q-mRC"/>
                         <outlet property="btnAnswer4" destination="S3F-AJ-XKa" id="prq-5V-gHA"/>
+                        <outlet property="imgO" destination="h0w-rT-Pc6" id="PAy-kq-npq"/>
+                        <outlet property="imgX" destination="vVa-T8-lpF" id="Wwu-o7-ZAO"/>
                         <outlet property="lbCount" destination="vZT-gW-KeH" id="RiC-6J-mtG"/>
                         <outlet property="lbKatakana" destination="Sfq-Rp-SVi" id="Q08-tN-WoQ"/>
                     </connections>
@@ -527,4 +557,8 @@
             <point key="canvasLocation" x="967" y="-639"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="o.png" width="200" height="200"/>
+        <image name="x.png" width="200" height="200"/>
+    </resources>
 </document>

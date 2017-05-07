@@ -66,8 +66,10 @@
     NSInteger nPoint = [[self.m_dicWord objectForKey:cell.textLabel.text] integerValue];
     if (nPoint < 0) {
         [cell.textLabel setTextColor:[UIColor redColor]];
+        [cell.detailTextLabel setTextColor:[UIColor redColor]];
     } else if (nPoint >= 10) {
         [cell.textLabel setTextColor:[UIColor blueColor]];
+        [cell.detailTextLabel setTextColor:[UIColor blueColor]];
     }
     
     

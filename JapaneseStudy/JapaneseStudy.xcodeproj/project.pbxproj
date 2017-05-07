@@ -20,6 +20,8 @@
 		9FE530041EBA163D00995CD3 /* CharacterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530031EBA163D00995CD3 /* CharacterViewController.m */; };
 		9FE530071EBB655800995CD3 /* MeaningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530061EBB655800995CD3 /* MeaningViewController.m */; };
 		9FE5300A1EBCB69000995CD3 /* WordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530091EBCB69000995CD3 /* WordTableViewController.m */; };
+		9FE5300E1EBF593900995CD3 /* o.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FE5300C1EBF593900995CD3 /* o.png */; };
+		9FE5300F1EBF593900995CD3 /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FE5300D1EBF593900995CD3 /* x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		9FE530061EBB655800995CD3 /* MeaningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeaningViewController.m; sourceTree = "<group>"; };
 		9FE530081EBCB69000995CD3 /* WordTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordTableViewController.h; sourceTree = "<group>"; };
 		9FE530091EBCB69000995CD3 /* WordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordTableViewController.m; sourceTree = "<group>"; };
+		9FE5300C1EBF593900995CD3 /* o.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = o.png; sourceTree = "<group>"; };
+		9FE5300D1EBF593900995CD3 /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,7 @@
 		9F2C24F31EB742AB00F733DF = {
 			isa = PBXGroup;
 			children = (
+				9FE5300B1EBF593900995CD3 /* Resources */,
 				9F2C24FE1EB742AB00F733DF /* JapaneseStudy */,
 				9F2C24FD1EB742AB00F733DF /* Products */,
 			);
@@ -108,6 +113,16 @@
 				9F2C25001EB742AB00F733DF /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FE5300B1EBF593900995CD3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9FE5300C1EBF593900995CD3 /* o.png */,
+				9FE5300D1EBF593900995CD3 /* x.png */,
+			);
+			name = Resources;
+			path = JapaneseStudy/Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,7 +186,9 @@
 			files = (
 				9FE530011EBA0CC800995CD3 /* character.plist in Resources */,
 				9F2C251C1EB763B800F733DF /* word.plist in Resources */,
+				9FE5300F1EBF593900995CD3 /* x.png in Resources */,
 				9F2C250F1EB742AB00F733DF /* LaunchScreen.storyboard in Resources */,
+				9FE5300E1EBF593900995CD3 /* o.png in Resources */,
 				9F2C250C1EB742AB00F733DF /* Assets.xcassets in Resources */,
 				9F2C250A1EB742AB00F733DF /* Main.storyboard in Resources */,
 			);

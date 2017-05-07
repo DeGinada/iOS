@@ -22,6 +22,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // [170507] 정답 관련 이미지 숨기기
+    [self.imgO setHidden:YES];
+    [self.imgX setHidden:YES];
+    
     g_nWordIndex = 0;
     g_nCorrectCount = 0;
     [self setWordArray];
@@ -122,7 +126,6 @@
         
         // 정답일 경우, count label 값을 늘려준다.
         g_nCorrectCount++;
-        [self.lbCount setText:[NSString stringWithFormat:@"정답 : %ld", g_nCorrectCount]];
         
         // [170506] 점수 시스템
         NSInteger nPoint = [[self.m_dicWord objectForKey:strAnswer] integerValue];
@@ -133,6 +136,9 @@
         // [170506] 혹시 모르니 로컬에 저장
         [[NSUserDefaults standardUserDefaults] setObject:self.m_dicWord forKey:@"WORD_POINT"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        // [170507] 맞았다는 이미지 보여주기
+        [self.imgO setHidden:NO];
     } else {
         
         // [170506] 점수 시스템
@@ -144,9 +150,22 @@
         // [170506] 혹시 모르니 로컬에 저장
         [[NSUserDefaults standardUserDefaults] setObject:self.m_dicWord forKey:@"WORD_POINT"];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        // [170507] 틀렸다는 이미지 보여주기
+        [self.imgX setHidden:NO];
+
     }
     
-    [self showMatchWord];
+    // [170507] 정답 화면에 딜레이 주기(정답 잠깐 보여준 후 문제 세팅) 500ms -> 0.5s
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+        [self.imgO setHidden:YES];
+        [self.imgX setHidden:YES];
+        
+        [self.lbCount setText:[NSString stringWithFormat:@"정답 : %ld", g_nCorrectCount]];
+        
+        [self showMatchWord];
+    });
+    
     
 }
 
