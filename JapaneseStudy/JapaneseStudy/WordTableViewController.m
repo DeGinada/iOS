@@ -41,7 +41,14 @@
 
 // [170505] word 정보를 세팅한다
 - (void) setWordArray {
-    g_arWords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"plist"]];
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    documentsURL = [documentsURL URLByAppendingPathComponent:@"word.xml"];
+    
+    g_arWords = [NSArray arrayWithContentsOfURL:documentsURL];
+    
+    if (!g_arWords) {
+        g_arWords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"xml"]];
+    }
 }
 
 

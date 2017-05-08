@@ -52,7 +52,15 @@
 - (void) setWordArray {
     
     // word.plist가져오기
-    g_arWords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"plist"]];
+    // [170508] 다운 받은 파일이 있을 경우, 그걸 가져와서 플레이
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    documentsURL = [documentsURL URLByAppendingPathComponent:@"word.xml"];
+    
+    g_arWords = [NSArray arrayWithContentsOfURL:documentsURL];
+    
+    if (!g_arWords) {
+        g_arWords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"xml"]];
+    }
     
 }
 

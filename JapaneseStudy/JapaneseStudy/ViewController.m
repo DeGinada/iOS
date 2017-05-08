@@ -72,7 +72,7 @@
     // 로컬에 저장된 단어 점수 목록 가져오기
     g_dicWord = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"WORD_POINT"]];
     
-    NSArray* arWord = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"plist"]];
+    NSArray* arWord = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"xml"]];
     
     // 로컬에 정보가 있을 경우
     if (g_dicWord) {
@@ -104,5 +104,33 @@
     }
 }
 
+
+// [170508] word file을 다운로드해서 로컬에 저장
+- (IBAction) downloadWordfile:(id)sender {
+    
+    [self placeGetRequest:@"action" withHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
+        NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        documentsURL = [documentsURL URLByAppendingPathComponent:@"word.xml"];
+        
+        [data writeToURL:documentsURL atomically:YES];
+        
+        NSArray* array = [NSArray arrayWithContentsOfURL:documentsURL];
+        NSLog(@"%@", array);
+        
+        // [170508] word table에 보여줄 정보도 변경해야함. -> 추후에
+        //[self setWordDictionary];
+    }];
+
+}
+
+
+// [170508] 파일 다운로드
+- (void)placeGetRequest:(NSString *)action withHandler:(void (^)(NSData *data, NSURLResponse *response, NSError *error))ourBlock {
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://deginada.tistory.com/attachment/cfile5.uf@24779C4D591055151C7F3C.xml"]];
+    
+    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:ourBlock] resume];
+}
 
 @end

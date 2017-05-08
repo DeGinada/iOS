@@ -14,7 +14,6 @@
 		9F2C250C1EB742AB00F733DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F2C250B1EB742AB00F733DF /* Assets.xcassets */; };
 		9F2C250F1EB742AB00F733DF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F2C250D1EB742AB00F733DF /* LaunchScreen.storyboard */; };
 		9F2C25181EB7460F00F733DF /* WordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2C25171EB7460F00F733DF /* WordViewController.m */; };
-		9F2C251C1EB763B800F733DF /* word.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F2C251B1EB763B800F733DF /* word.plist */; };
 		9F2C251F1EB8BB5B00F733DF /* MatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2C251E1EB8BB5B00F733DF /* MatchViewController.m */; };
 		9FE530011EBA0CC800995CD3 /* character.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FE530001EBA0CC800995CD3 /* character.plist */; };
 		9FE530041EBA163D00995CD3 /* CharacterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530031EBA163D00995CD3 /* CharacterViewController.m */; };
@@ -22,6 +21,7 @@
 		9FE5300A1EBCB69000995CD3 /* WordTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE530091EBCB69000995CD3 /* WordTableViewController.m */; };
 		9FE5300E1EBF593900995CD3 /* o.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FE5300C1EBF593900995CD3 /* o.png */; };
 		9FE5300F1EBF593900995CD3 /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FE5300D1EBF593900995CD3 /* x.png */; };
+		9FE530111EC07F8E00995CD3 /* word.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9FE530101EC07F8E00995CD3 /* word.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +37,6 @@
 		9F2C25101EB742AB00F733DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F2C25161EB7460F00F733DF /* WordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordViewController.h; sourceTree = "<group>"; };
 		9F2C25171EB7460F00F733DF /* WordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordViewController.m; sourceTree = "<group>"; };
-		9F2C251B1EB763B800F733DF /* word.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = word.plist; sourceTree = "<group>"; };
 		9F2C251D1EB8BB5B00F733DF /* MatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchViewController.h; sourceTree = "<group>"; };
 		9F2C251E1EB8BB5B00F733DF /* MatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchViewController.m; sourceTree = "<group>"; };
 		9FE530001EBA0CC800995CD3 /* character.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = character.plist; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		9FE530091EBCB69000995CD3 /* WordTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordTableViewController.m; sourceTree = "<group>"; };
 		9FE5300C1EBF593900995CD3 /* o.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = o.png; sourceTree = "<group>"; };
 		9FE5300D1EBF593900995CD3 /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
+		9FE530101EC07F8E00995CD3 /* word.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = word.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +96,6 @@
 				9FE530061EBB655800995CD3 /* MeaningViewController.m */,
 				9FE530081EBCB69000995CD3 /* WordTableViewController.h */,
 				9FE530091EBCB69000995CD3 /* WordTableViewController.m */,
-				9F2C251B1EB763B800F733DF /* word.plist */,
 				9FE530001EBA0CC800995CD3 /* character.plist */,
 				9F2C25081EB742AB00F733DF /* Main.storyboard */,
 				9F2C250B1EB742AB00F733DF /* Assets.xcassets */,
@@ -118,6 +117,7 @@
 		9FE5300B1EBF593900995CD3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9FE530101EC07F8E00995CD3 /* word.xml */,
 				9FE5300C1EBF593900995CD3 /* o.png */,
 				9FE5300D1EBF593900995CD3 /* x.png */,
 			);
@@ -185,8 +185,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FE530011EBA0CC800995CD3 /* character.plist in Resources */,
-				9F2C251C1EB763B800F733DF /* word.plist in Resources */,
 				9FE5300F1EBF593900995CD3 /* x.png in Resources */,
+				9FE530111EC07F8E00995CD3 /* word.xml in Resources */,
 				9F2C250F1EB742AB00F733DF /* LaunchScreen.storyboard in Resources */,
 				9FE5300E1EBF593900995CD3 /* o.png in Resources */,
 				9F2C250C1EB742AB00F733DF /* Assets.xcassets in Resources */,

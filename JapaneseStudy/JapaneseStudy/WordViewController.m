@@ -51,7 +51,14 @@
 - (void) setWordArray {
     
     // word.plist가져오기
-    g_arWords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"plist"]];
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    documentsURL = [documentsURL URLByAppendingPathComponent:@"word.xml"];
+    
+    g_arWords = [NSArray arrayWithContentsOfURL:documentsURL];
+    
+    if (!g_arWords) {
+        g_arWords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"xml"]];
+    }
 
 }
 
