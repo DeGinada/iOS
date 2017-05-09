@@ -72,18 +72,25 @@
     // 로컬에 저장된 단어 점수 목록 가져오기
     g_dicWord = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"WORD_POINT"]];
     
-    NSArray* arWord = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"xml"]];
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    documentsURL = [documentsURL URLByAppendingPathComponent:@"word.xml"];
+    
+    NSArray* arWords = [NSArray arrayWithContentsOfURL:documentsURL];
+    
+    if (!arWords) {
+        arWords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"xml"]];
+    }
     
     // 로컬에 정보가 있을 경우
     if (g_dicWord) {
         
         // 현재 파일에 등록된 정보 수와 점수 목록 정보 수가 같지 않은 경우, 단어 추가
-        if (arWord.count != g_dicWord.count) {
+        if (arWords.count != g_dicWord.count) {
             
             NSUInteger nIndex = g_dicWord.count;
             
-            while (nIndex < arWord.count) {
-                [g_dicWord setObject:@"0" forKey:[[arWord objectAtIndex:nIndex] objectForKey:@"jp"]];
+            while (nIndex < arWords.count) {
+                [g_dicWord setObject:@"0" forKey:[[arWords objectAtIndex:nIndex] objectForKey:@"jp"]];
                 
                 nIndex++;
             }
@@ -94,7 +101,7 @@
         }
     } else {
         // 이 경우는 처음인 경우니까 모든 정보를 다 저장함. 초기 점수는 0
-        for (NSDictionary* dic in arWord) {
+        for (NSDictionary* dic in arWords) {
             [g_dicWord setObject:@"0" forKey:[dic objectForKey:@"jp"]];
         }
         
@@ -115,11 +122,12 @@
         
         [data writeToURL:documentsURL atomically:YES];
         
-        NSArray* array = [NSArray arrayWithContentsOfURL:documentsURL];
-        NSLog(@"%@", array);
         
         // [170508] word table에 보여줄 정보도 변경해야함. -> 추후에
         //[self setWordDictionary];
+        
+        // [170509] 기존 WORD_POINT 정보를 변경
+        [self mergeWordPoint];
     }];
 
 }
@@ -128,9 +136,44 @@
 // [170508] 파일 다운로드
 - (void)placeGetRequest:(NSString *)action withHandler:(void (^)(NSData *data, NSURLResponse *response, NSError *error))ourBlock {
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://deginada.tistory.com/attachment/cfile5.uf@24779C4D591055151C7F3C.xml"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://deginada.tistory.com/attachment/cfile25.uf@24442B3A5911CF1812FE55.xml"]];
     
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:ourBlock] resume];
 }
 
+
+// [170509] 다운받은 word.xml 파일일 경우, 기존 WORD_POINT 변경
+- (void) mergeWordPoint {
+    
+    // 기존 정보 가져오기
+    NSMutableDictionary* dicOrigin = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"WORD_POINT"]];
+    
+    // 다운 받은 정보 가져오기
+    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    documentsURL = [documentsURL URLByAppendingPathComponent:@"word.xml"];
+    
+    NSArray* arWords = [NSArray arrayWithContentsOfURL:documentsURL];
+    NSInteger nCount = 0;
+    
+    for (NSDictionary* dic in arWords) {
+        
+        NSString* strKey = [dic objectForKey:@"jp"];
+        
+        if (!dicOrigin[strKey]) {
+            nCount++;
+            [dicOrigin setObject:@"0" forKey:strKey];
+        }
+    }
+    
+    NSLog(@"addded word - %ld", nCount);
+    
+    // 로컬에 저장해두기
+    [[NSUserDefaults standardUserDefaults] setObject:dicOrigin forKey:@"WORD_POINT"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    // 혹시 모르니 dictionary 재세팅
+    [self setWordDictionary];
+    
+}
 @end
