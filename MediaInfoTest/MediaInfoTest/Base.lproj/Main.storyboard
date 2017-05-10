@@ -41,8 +41,9 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r5M-26-ahm">
-                                                    <rect key="frame" x="13" y="1" width="62" height="62"/>
+                                                    <rect key="frame" x="14" y="2" width="60" height="60"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXi-Mg-Qvz">
                                                     <rect key="frame" x="87" y="26" width="275" height="23"/>
@@ -84,6 +85,9 @@
                             <constraint firstItem="zWx-QJ-i23" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tSh-Kv-zYh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableSongs" destination="zWx-QJ-i23" id="zgn-dH-9ON"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -116,7 +120,8 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q7h-D5-KeP">
-                                <rect key="frame" x="37" y="75" width="301" height="300"/>
+                                <rect key="frame" x="37.5" y="75" width="300" height="300"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="IOe-HH-hIs"/>
                                 </constraints>

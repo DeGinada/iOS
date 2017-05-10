@@ -11,6 +11,8 @@
 #import <MediaPlayer/MPMediaPlaylist.h>
 #import "SongTableViewCell.h"
 #import "SongDetailViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface ViewController ()
 
@@ -26,9 +28,40 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    
+    // [170510] music control center
+    MPRemoteCommandCenter *rcc = [MPRemoteCommandCenter sharedCommandCenter];
+    [[rcc previousTrackCommand] addTarget:self action:@selector(remoteControlReceivedWithCommand:)];
+    [[rcc nextTrackCommand] addTarget:self action:@selector(remoteControlReceivedWithCommand:)];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+    NSError *error  = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker|AVAudioSessionCategoryOptionAllowAirPlay|AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP error:&error];
+    
+    
     // 음악 정보 가져오기
     g_arSongs = [self getSongList];
     
+    self.tableSongs.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableSongs.frame.size.width, 100)];
+    
+    
+    
+}
+
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    // [170510] remote control event 받기 등록
+//    UIDevice* devie = [UIDevice currentDevice];
+//    if ([devie respondsToSelector:@selector(isMultitaskingSupported)]) {
+//        if (devie.multitaskingSupported) {
+//            [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+//            [self becomeFirstResponder];
+//        }
+//    }
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
 }
 
 
@@ -200,17 +233,40 @@
 //    [cell setTextViewText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist] frame:cell.textLabel.frame];
     
     
+    MPMediaItem* nowMItem = [g_arSongs objectAtIndex:indexPath.row];
+    
     // [170430] cell custom 으로 변경
     // cell에 내용도 선택할 수 있게 하고 싶어 textview로 바꿨으나 user interaction 때문에 cell 선택에 문제가 생김.
-    [cell.textView setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist]];
-    [cell.detailTextView setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyTitle]];
+    [cell.textView setText:[nowMItem valueForProperty:MPMediaItemPropertyArtist]];
+    [cell.detailTextView setText:[nowMItem valueForProperty:MPMediaItemPropertyTitle]];
 
     
-    MPMediaItemArtwork* artwork = [[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork];
+    MPMediaItemArtwork* artwork = [nowMItem valueForProperty:MPMediaItemPropertyArtwork];
     UIImage* imgArtwork = [artwork imageWithSize:cell.imgView.image.size];
     if (imgArtwork) {
         [cell.imgView setImage:imgArtwork];
+    } else {
+        // [170510] 이미지 없는 경우, nil 처리
+        cell.imgView.image = nil;
     }
+    cell.imgView.layer.masksToBounds = YES;
+    cell.imgView.layer.cornerRadius = 6.0;
+    
+    // [170510] 현재 재생 중인 곡이라면 표시해주기
+    [cell.imgView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
+        MPMusicPlayerController* mpController = [MPMusicPlayerController systemMusicPlayer];
+        MPMediaItem* nowPlaying = mpController.nowPlayingItem;
+        if ([nowPlaying isEqual:nowMItem]) {
+            
+            UIImageView* imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.imgView.frame.size.width, cell.imgView.frame.size.height)];
+            [imgView setBackgroundColor:[UIColor colorWithRed:161.0f/255.0f green:161.0f/255.0f blue:161.0f/255.0f alpha:0.7f]];
+            [imgView setImage:[UIImage imageNamed:@"play.png"]];
+            [cell.imgView addSubview:imgView];
+        }
+    }
+    
     
     // [170430] 텍스트에 따라 textview 위치와 크기를 재설정한다.
     [cell adjustContentPosition];
@@ -246,7 +302,33 @@
 }
 
 
+// [170510]
+- (void) remoteControlReceivedWithCommand:(MPRemoteCommandEvent*)event {
+    if (event.command == [[MPRemoteCommandCenter sharedCommandCenter] nextTrackCommand]) {
+        [self.tableSongs reloadData];
+    } else if (event.command == [[MPRemoteCommandCenter sharedCommandCenter] previousTrackCommand]) {
+        [self.tableSongs reloadData];
+    }
+}
+
+- (BOOL) canBecomeFirstResponder {
+    return YES;
+}
 
 
+// [170510] remote command 동작시,
+- (void) remoteControlReceivedWithEvent:(UIEvent *)event {
+    if (event.type == UIEventTypeRemoteControl) {
+        switch (event.subtype) {
+            case UIEventSubtypeRemoteControlNextTrack:
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                [self.tableSongs reloadData];
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
 
 @end

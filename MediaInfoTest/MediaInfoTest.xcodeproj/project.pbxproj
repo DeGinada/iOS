@@ -10,6 +10,8 @@
 		9F272A671EB0C7060006B492 /* SongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F272A661EB0C7060006B492 /* SongTableViewCell.m */; };
 		9F2C24F21EB4B1C900F733DF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2C24F11EB4B1C900F733DF /* AudioToolbox.framework */; };
 		9F903F2E1EB2096E0055A210 /* SongDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F903F2D1EB2096E0055A210 /* SongDetailViewController.m */; };
+		9FE530141EC34C9500995CD3 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FE530131EC34C9500995CD3 /* play.png */; };
+		9FE530161EC35FC200995CD3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE530151EC35FC200995CD3 /* AVFoundation.framework */; };
 		9FE5E9C71EAF7825009A1F37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5E9C61EAF7825009A1F37 /* main.m */; };
 		9FE5E9CA1EAF7825009A1F37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5E9C91EAF7825009A1F37 /* AppDelegate.m */; };
 		9FE5E9CD1EAF7825009A1F37 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE5E9CC1EAF7825009A1F37 /* ViewController.m */; };
@@ -39,6 +41,8 @@
 		9F2C24F11EB4B1C900F733DF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9F903F2C1EB2096E0055A210 /* SongDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongDetailViewController.h; sourceTree = "<group>"; };
 		9F903F2D1EB2096E0055A210 /* SongDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongDetailViewController.m; sourceTree = "<group>"; };
+		9FE530131EC34C9500995CD3 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		9FE530151EC35FC200995CD3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9FE5E9C21EAF7824009A1F37 /* MediaInfoTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaInfoTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE5E9C61EAF7825009A1F37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9FE5E9C81EAF7825009A1F37 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -59,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE530161EC35FC200995CD3 /* AVFoundation.framework in Frameworks */,
 				9FE5E9E21EAF7C6E009A1F37 /* MediaPlayer.framework in Frameworks */,
 				9F2C24F21EB4B1C900F733DF /* AudioToolbox.framework in Frameworks */,
 			);
@@ -67,9 +72,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9FE530121EC34C9500995CD3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9FE530131EC34C9500995CD3 /* play.png */,
+			);
+			name = Resources;
+			path = MediaInfoTest/Resources;
+			sourceTree = "<group>";
+		};
 		9FE5E9B91EAF7824009A1F37 = {
 			isa = PBXGroup;
 			children = (
+				9FE530121EC34C9500995CD3 /* Resources */,
 				9FE5E9C41EAF7824009A1F37 /* MediaInfoTest */,
 				9FE5E9C31EAF7824009A1F37 /* Products */,
 				9FE5E9DC1EAF7BE7009A1F37 /* Frameworks */,
@@ -116,6 +131,7 @@
 		9FE5E9DC1EAF7BE7009A1F37 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9FE530151EC35FC200995CD3 /* AVFoundation.framework */,
 				9F2C24F11EB4B1C900F733DF /* AudioToolbox.framework */,
 				9FE5E9E11EAF7C6E009A1F37 /* MediaPlayer.framework */,
 				9FE5E9DF1EAF7BF7009A1F37 /* MediaAccessibility.framework */,
@@ -193,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FE5E9D51EAF7825009A1F37 /* LaunchScreen.storyboard in Resources */,
+				9FE530141EC34C9500995CD3 /* play.png in Resources */,
 				9FE5E9D21EAF7825009A1F37 /* Assets.xcassets in Resources */,
 				9FE5E9D01EAF7825009A1F37 /* Main.storyboard in Resources */,
 			);

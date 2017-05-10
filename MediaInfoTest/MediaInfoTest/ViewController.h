@@ -11,6 +11,7 @@
 
 @interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property IBOutlet UITableView* tableSongs;
 
 
 @end

@@ -64,6 +64,10 @@
 170510
 
  - song list 소팅 방법 변경 (아티스트별로)
+ - 메인 테이블에서 현재 play 중인 노래 표시 
+    . 다음곡으로 넘어가는 경우, table reload 필요
+ - tableview에 footer view 적용
+
 
 
     

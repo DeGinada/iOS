@@ -91,6 +91,9 @@
     UIImage* imgTemp = [artwork imageWithSize:artwork.bounds.size];
     [imgArtwork setContentMode:UIViewContentModeScaleToFill];
     [imgArtwork setImage:imgTemp];
+    imgArtwork.layer.masksToBounds = YES;
+    imgArtwork.layer.cornerRadius = 15.0;
+    
     
     txArtist.text = [self.m_songDetail valueForProperty:MPMediaItemPropertyArtist];
     txTitle.text = [self.m_songDetail valueForProperty:MPMediaItemPropertyTitle];
