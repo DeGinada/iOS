@@ -61,4 +61,9 @@
  - 테이블뷰셀 custom으로 인해 text 길이가 다를 때마다 textview adjust가 필요
 
 
+170510
+
+ - song list 소팅 방법 변경 (아티스트별로)
+
+
     

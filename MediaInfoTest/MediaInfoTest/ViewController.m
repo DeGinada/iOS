@@ -26,7 +26,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
     // 음악 정보 가져오기
     g_arSongs = [self getSongList];
     
@@ -82,7 +81,8 @@
 
 
 // [170425] 아티스트 이름별로 그룹핑하기
-- (void) groupSongsbyArtist {
+// [170510] 아티스트별로 sorting된 노래를 리턴한다.
+- (NSArray*) getGroupSongsbyArtist {
     
     /*
     // 팟캐스트가 포함됨
@@ -101,6 +101,8 @@
     
     MPMediaQuery* artistQuery = [MPMediaQuery artistsQuery];
     NSArray* arArtist = [artistQuery collections];
+    
+    NSMutableArray* arSongList = [[NSMutableArray alloc] init];
     for (MPMediaItemCollection* entity in arArtist) {
         
         NSLog(@"\t%@", [[[entity items] objectAtIndex:0] valueForProperty:MPMediaItemPropertyArtist]);
@@ -108,8 +110,11 @@
         NSArray* arSongs = [entity items];
         for (MPMediaItem* song in arSongs) {
             NSLog(@"\t\t%@", [song valueForProperty:MPMediaItemPropertyTitle]);
+            [arSongList addObject:song];
         }
     }
+    
+    return arSongList;
     
 }
 
@@ -134,8 +139,12 @@
 // [170426] 디바이스에 있는 song 정보를 가져온다.
 - (NSArray*) getSongList {
     
-    MPMediaQuery* mediaQuery = [MPMediaQuery songsQuery];
-    NSArray* arSongs = [mediaQuery items];
+    // 단순하게 song list를 가져옴
+//    MPMediaQuery* mediaQuery = [MPMediaQuery songsQuery];
+//    NSArray* arSongs = [mediaQuery items];
+    
+    // [170510] 음악앱 보관함 노래 방식으로 sorting -> 아티스트별로 보여줌
+    NSArray* arSongs = [self getGroupSongsbyArtist];
     
     return arSongs;
 }
@@ -195,6 +204,7 @@
     // cell에 내용도 선택할 수 있게 하고 싶어 textview로 바꿨으나 user interaction 때문에 cell 선택에 문제가 생김.
     [cell.textView setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtist]];
     [cell.detailTextView setText:[[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyTitle]];
+
     
     MPMediaItemArtwork* artwork = [[g_arSongs objectAtIndex:indexPath.row] valueForProperty:MPMediaItemPropertyArtwork];
     UIImage* imgArtwork = [artwork imageWithSize:cell.imgView.image.size];
