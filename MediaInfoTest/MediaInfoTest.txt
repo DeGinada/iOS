@@ -69,5 +69,12 @@
  - tableview에 footer view 적용
 
 
+170511
+
+ - 다음 곡으로 넘어가는 경우 table reload (현재곡 표시 관련)
+    . control center를 건드는 경우를 고려해서 해당 부분을 건들였을때 값 변경을 받아 오고 싶었지만 실패
+    . 옵저버로 systemmusic 노래가 바뀌는 경우를 등록해서 적용함
+
+
 
     

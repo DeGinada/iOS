@@ -7,12 +7,13 @@
 //
 
 #import "ViewController.h"
+#import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MPMediaQuery.h>
 #import <MediaPlayer/MPMediaPlaylist.h>
 #import "SongTableViewCell.h"
 #import "SongDetailViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
-#import <AVFoundation/AVFoundation.h>
+
 
 @interface ViewController ()
 
@@ -30,14 +31,23 @@
     
     
     // [170510] music control center
-    MPRemoteCommandCenter *rcc = [MPRemoteCommandCenter sharedCommandCenter];
-    [[rcc previousTrackCommand] addTarget:self action:@selector(remoteControlReceivedWithCommand:)];
-    [[rcc nextTrackCommand] addTarget:self action:@selector(remoteControlReceivedWithCommand:)];
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+//    MPRemoteCommandCenter *rcc = [MPRemoteCommandCenter sharedCommandCenter];
+//    [[rcc previousTrackCommand] addTarget:self action:@selector(remoteControlReceivedWithCommand:)];
+//    [[rcc nextTrackCommand] addTarget:self action:@selector(remoteControlReceivedWithCommand:)];
+//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
-    NSError *error  = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker|AVAudioSessionCategoryOptionAllowAirPlay|AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP error:&error];
+//    NSError *error  = nil;
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker|AVAudioSessionCategoryOptionAllowAirPlay|AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP error:&error];
+//    
+
+    // [170511] 시스템뮤직 play item이 바뀌면.. 옵저버 등록
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
+    [notificationCenter addObserver:self
+                           selector:@selector(handleNowPlayingItemChanged:)
+                               name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification
+                             object:[MPMusicPlayerController systemMusicPlayer]];
+    [[MPMusicPlayerController systemMusicPlayer] beginGeneratingPlaybackNotifications];
     
     // 음악 정보 가져오기
     g_arSongs = [self getSongList];
@@ -49,8 +59,8 @@
 }
 
 
-- (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     // [170510] remote control event 받기 등록
 //    UIDevice* devie = [UIDevice currentDevice];
@@ -63,6 +73,21 @@
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
 }
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    //End recieving events
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self resignFirstResponder];
+}
+
+
+- (BOOL) canBecomeFirstResponder {
+    return YES;
+}
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -311,10 +336,6 @@
     }
 }
 
-- (BOOL) canBecomeFirstResponder {
-    return YES;
-}
-
 
 // [170510] remote command 동작시,
 - (void) remoteControlReceivedWithEvent:(UIEvent *)event {
@@ -329,6 +350,13 @@
                 break;
         }
     }
+}
+
+
+// [170511] 시스템뮤직 play item이 바뀌면..
+-(void)handleNowPlayingItemChanged:(id)notification {
+    
+    [self.tableSongs reloadData];
 }
 
 @end
