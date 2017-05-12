@@ -52,8 +52,11 @@
     // 음악 정보 가져오기
     g_arSongs = [self getSongList];
     
-    self.tableSongs.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableSongs.frame.size.width, 100)];
+    self.tableSongs.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableSongs.frame.size.width, 67)];
     
+    
+    // [170512] 하단 now playing bar에 정보 출력
+    [self showNowPlaying];
     
     
 }
@@ -189,6 +192,9 @@
     if ([[segue identifier] isEqualToString:@"segShowDetail"]) {
         SongDetailViewController* vcSongDetail = [segue destinationViewController];
         vcSongDetail.m_songDetail = g_selSong;
+    } else if ([[segue identifier] isEqualToString:@"seqNowPlay"]) {
+        SongDetailViewController* vcSongDetail = [segue destinationViewController];
+        vcSongDetail.m_songDetail = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
     }
 }
 
@@ -275,7 +281,7 @@
         cell.imgView.image = nil;
     }
     cell.imgView.layer.masksToBounds = YES;
-    cell.imgView.layer.cornerRadius = 6.0;
+    cell.imgView.layer.cornerRadius = 5.0;
     
     // [170510] 현재 재생 중인 곡이라면 표시해주기
     [cell.imgView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -354,9 +360,42 @@
 
 
 // [170511] 시스템뮤직 play item이 바뀌면..
--(void)handleNowPlayingItemChanged:(id)notification {
+- (void)handleNowPlayingItemChanged:(id)notification {
     
     [self.tableSongs reloadData];
+    [self showNowPlaying];
+}
+
+
+// [170512] now playing 정보 출력
+- (void) showNowPlaying {
+    
+    [self.viewNowPlaying setHidden:NO];
+    
+    // 현재 재생 중이면 bar정보 수정
+    if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
+        
+        // 이미지 등록
+        MPMediaItem* nowPlaying = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
+        MPMediaItemArtwork* artwork = [nowPlaying valueForProperty:MPMediaItemPropertyArtwork];
+        UIImage* imgArtwork = [artwork imageWithSize:self.imgNowPlaying.image.size];
+        if (imgArtwork) {
+            [self.imgNowPlaying setImage:imgArtwork];
+        } else {
+            self.imgNowPlaying.image = nil;
+        }
+        self.imgNowPlaying.layer.masksToBounds = YES;
+        self.imgNowPlaying.layer.borderWidth = 0.1;
+        self.imgNowPlaying.layer.cornerRadius = 5.0;
+        
+        // 제목 등록
+        [self.lbNowPlaying setText:[nowPlaying valueForKey:MPMediaItemPropertyTitle]];
+        
+    } else {
+        
+        // 재생 중이 아니면 bar가 안보임
+        [self.viewNowPlaying setHidden:YES];
+    }
 }
 
 @end

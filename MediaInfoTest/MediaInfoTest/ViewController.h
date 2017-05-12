@@ -13,6 +13,10 @@
 
 @property IBOutlet UITableView* tableSongs;
 
+@property IBOutlet UIImageView* imgNowPlaying;
+@property IBOutlet UILabel* lbNowPlaying;
+@property IBOutlet UIVisualEffectView* viewNowPlaying;
+
 
 @end
 
