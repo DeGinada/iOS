@@ -49,16 +49,15 @@
                              object:[MPMusicPlayerController systemMusicPlayer]];
     [[MPMusicPlayerController systemMusicPlayer] beginGeneratingPlaybackNotifications];
     
-    // 음악 정보 가져오기
-    g_arSongs = [self getSongList];
     
+    // 테이블뷰 footerview 적용
     self.tableSongs.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableSongs.frame.size.width, 67)];
-    
     
     // [170512] 하단 now playing bar에 정보 출력
     [self showNowPlaying];
     
-    
+    // [170513] 세그먼트 적용 -> 첫 시작은 첫번째 Songs;
+    [self selectSongList];
 }
 
 
@@ -166,11 +165,8 @@
     NSMutableArray* arSongList = [[NSMutableArray alloc] init];
     for (MPMediaItemCollection* entity in arArtist) {
         
-        NSLog(@"\t%@", [[[entity items] objectAtIndex:0] valueForProperty:MPMediaItemPropertyArtist]);
-        
         NSArray* arSongs = [entity items];
         for (MPMediaItem* song in arSongs) {
-            NSLog(@"\t\t%@", [song valueForProperty:MPMediaItemPropertyTitle]);
             [arSongList addObject:song];
         }
     }
@@ -397,5 +393,62 @@
         [self.viewNowPlaying setHidden:YES];
     }
 }
+
+
+
+#pragma mark - SEGMENT
+
+// [170513] 세그먼트를 통해 리스트 바꿈
+- (IBAction) changeSegmentValues:(id)sender {
+    
+    UISegmentedControl* selSegment = sender;
+    
+    if (selSegment.selectedSegmentIndex == 0) {
+        [self selectSongList];
+    } else if (selSegment.selectedSegmentIndex == 1) {
+        [self selectAlbumList];
+    }
+    
+    // tableview reload
+    [self.tableSongs reloadData];
+    [self.tableSongs setContentOffset:CGPointZero];
+    
+}
+
+- (void) selectSongList {
+    
+    // 음악 정보 가져오기
+    g_arSongs = [self getSongList];
+
+}
+
+//#define EFFECT_VIEW_BG      1024
+
+- (void) selectAlbumList {
+    
+    // 음악 정보 가져오기
+    g_arSongs = [self getAlbumSongs];
+    
+}
+
+
+// [170513] album별 곡 목록을 가져온다.
+- (NSArray*) getAlbumSongs {
+    
+    MPMediaQuery* albumsQuery = [MPMediaQuery albumsQuery];
+    NSArray* arAlbum = [albumsQuery collections];
+    
+    NSMutableArray* arSongList = [[NSMutableArray alloc] init];
+    for (MPMediaItemCollection* entity in arAlbum) {
+        
+        NSArray* arSongs = [entity items];
+        for (MPMediaItem* song in arSongs) {
+            [arSongList addObject:song];
+        }
+    }
+    
+    return arSongList;
+}
+
 
 @end

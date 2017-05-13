@@ -92,16 +92,20 @@
     [imgArtwork setContentMode:UIViewContentModeScaleToFill];
     [imgArtwork setImage:imgTemp];
     imgArtwork.layer.masksToBounds = YES;
-    imgArtwork.layer.cornerRadius = 15.0;
+    imgArtwork.layer.cornerRadius = 14.0;
     
     
     txArtist.text = [self.m_songDetail valueForProperty:MPMediaItemPropertyArtist];
     txTitle.text = [self.m_songDetail valueForProperty:MPMediaItemPropertyTitle];
+    txAlbum.text = [self.m_songDetail valueForProperty:MPMediaItemPropertyAlbumTitle];
+    if ([self.m_songDetail valueForProperty:MPMediaItemPropertyComments]) {
+        txAlbum.text = [NSString stringWithFormat:@"%@\n%@", [self.m_songDetail valueForProperty:MPMediaItemPropertyAlbumTitle], [self.m_songDetail valueForProperty:MPMediaItemPropertyComments]];
+    }
     
     
     // [170429] 현재 플레이 중인 노래인 경우 text 컬러 넣기
     // 현재 플레이 중일 경우, MPMediaItem정보를 가져온다.(내부 음악 앱이기때문에 systemMusicPlayer, 아닌 경우는 applicationMusicPlayer)
-    if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
+    //if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
         MPMusicPlayerController* mpController = [MPMusicPlayerController systemMusicPlayer];
         MPMediaItem* nowPlaying = mpController.nowPlayingItem;
         if ([nowPlaying isEqual:self.m_songDetail]) {
@@ -110,7 +114,7 @@
             [txArtist setFont:[UIFont boldSystemFontOfSize:15.0f]];
             [txTitle setFont:[UIFont boldSystemFontOfSize:15.0f]];
         }
-    }
+    //}
     
     
 }
@@ -163,6 +167,10 @@
         [mpController skipToBeginning];
     } else {
         [mpController setNowPlayingItem:self.m_songDetail];
+    }
+    
+    if ([mpController playbackState] == MPMusicPlaybackStatePaused) {
+        [mpController play];
     }
     
     [self showDetailInfo];

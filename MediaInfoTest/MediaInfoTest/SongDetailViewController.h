@@ -13,6 +13,7 @@
     IBOutlet UIImageView* imgArtwork;
     IBOutlet UITextView* txArtist;
     IBOutlet UITextView* txTitle;
+    IBOutlet UITextView* txAlbum;
 }
 
 @property(nonatomic, retain) MPMediaItem* m_songDetail;
