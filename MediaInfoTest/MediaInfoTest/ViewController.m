@@ -451,4 +451,43 @@
 }
 
 
+#pragma mark - SEARCH
+
+#define SEARCH_BG       1024
+
+// [170514] 검색 창을 만들어 띄운다
+- (IBAction) showSearchView:(id)sender  {
+    
+    
+    UIButton* btnBG = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [btnBG setBackgroundColor:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:0.6]];
+    btnBG.tag = SEARCH_BG;
+    btnBG.userInteractionEnabled = YES;
+    [btnBG addTarget:self action:@selector(closetSearchView) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnBG];
+    
+    UIView* viewBG = [[UIView alloc] initWithFrame:CGRectMake(35, 80, self.view.frame.size.width-70, self.view.frame.size.height-160)];
+    viewBG.userInteractionEnabled = YES;
+    viewBG.backgroundColor = [UIColor whiteColor];
+    viewBG.layer.cornerRadius = 15.0;
+    viewBG.layer.masksToBounds = YES;
+    [btnBG addSubview:viewBG];
+    
+    
+    
+}
+
+
+- (void) closetSearchView {
+    
+    UIButton* btnTemp = [self.view viewWithTag:SEARCH_BG];
+    
+    if (btnTemp) {
+        [btnTemp.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    }
+    
+    [btnTemp removeFromSuperview];
+}
+
+
 @end
