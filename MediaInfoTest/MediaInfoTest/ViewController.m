@@ -23,6 +23,8 @@
 {
     NSArray* g_arSongs;
     MPMediaItem* g_selSong;
+    
+    BOOL g_isShownKeyboard;
 }
 
 - (void)viewDidLoad {
@@ -38,7 +40,9 @@
     
 //    NSError *error  = nil;
 //    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker|AVAudioSessionCategoryOptionAllowAirPlay|AVAudioSessionCategoryOptionAllowBluetooth|AVAudioSessionCategoryOptionAllowBluetoothA2DP error:&error];
-//    
+//
+    
+    g_isShownKeyboard = NO;
 
     // [170511] 시스템뮤직 play item이 바뀌면.. 옵저버 등록
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -454,6 +458,7 @@
 #pragma mark - SEARCH
 
 #define SEARCH_BG       1024
+#define SEARCH_FIELD    1030
 
 // [170514] 검색 창을 만들어 띄운다
 - (IBAction) showSearchView:(id)sender  {
@@ -467,26 +472,172 @@
     [self.view addSubview:btnBG];
     
     UIView* viewBG = [[UIView alloc] initWithFrame:CGRectMake(35, 80, self.view.frame.size.width-70, self.view.frame.size.height-160)];
-    viewBG.userInteractionEnabled = YES;
+//    viewBG.userInteractionEnabled = YES;
     viewBG.backgroundColor = [UIColor whiteColor];
     viewBG.layer.cornerRadius = 15.0;
     viewBG.layer.masksToBounds = YES;
     [btnBG addSubview:viewBG];
     
     
+    // [170515] 서치창
+    UITextField* txField = [[UITextField alloc] initWithFrame:CGRectMake(10, 18, viewBG.frame.size.width-25-50, 38)];
+    txField.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1.0f];
+    txField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    txField.delegate = self;
+    txField.returnKeyType = UIReturnKeyDone;
+    txField.layer.cornerRadius = 4.0;
+    txField.layer.masksToBounds = YES;
+    txField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 38)];
+    txField.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, 38)];
+    txField.leftViewMode = UITextFieldViewModeAlways;
+    txField.rightViewMode = UITextFieldViewModeAlways;
+    txField.tintColor = [UIColor blackColor];
+    txField.tag = SEARCH_FIELD;
+    [viewBG addSubview:txField];
+    
+    // 서치 정보 보여줄 scrollview
+    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 73, viewBG.frame.size.width, viewBG.frame.size.height-73-15)];
+    [scrollView setContentSize:scrollView.frame.size];
+    scrollView.scrollEnabled = YES;
+    [viewBG addSubview:scrollView];
+    
+    // 서치버튼
+    UIButton* btnSearch = [[UIButton alloc] initWithFrame:CGRectMake(txField.frame.origin.x+txField.frame.size.width+5, 18, 50, 38)];
+    [btnSearch setTitle:@"검색" forState:UIControlStateNormal];
+    [btnSearch setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    btnSearch.titleLabel.font = [UIFont systemFontOfSize:15];
+    btnSearch.layer.cornerRadius = 4.0;
+    btnSearch.layer.borderWidth = 0.2f;
+    btnSearch.layer.masksToBounds = YES;
+    // 꼼수지만, 이미지로 텍스트필드와 스크롤뷰를 넘긴다
+    [btnSearch setImage:(UIImage*)txField forState:UIControlStateDisabled];
+    [btnSearch setImage:(UIImage*)scrollView forState:UIControlStateSelected];
+    [btnSearch addTarget:self action:@selector(searchSong:) forControlEvents:UIControlEventTouchUpInside];
+    [viewBG addSubview:btnSearch];
     
 }
 
 
+// [170514] 검색 창을 닫는다
 - (void) closetSearchView {
     
     UIButton* btnTemp = [self.view viewWithTag:SEARCH_BG];
     
-    if (btnTemp) {
-        [btnTemp.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    // [170515] 키보드가 띄어져있는 경우, 키보드부터 닫기
+    if (g_isShownKeyboard) {
+        [self.view endEditing:YES];
+    } else {
+        if (btnTemp) {
+            [btnTemp.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        }
+        
+        [btnTemp removeFromSuperview];
+    }
+}
+
+
+// [170515] 노래 검색하기
+- (void) searchSong:(id)sender {
+    
+    UIButton* btnSelected = sender;
+    UITextField* txSearch = (UITextField*)[btnSelected imageForState:UIControlStateDisabled];
+    UIScrollView* scrollView = (UIScrollView*)[btnSelected imageForState:UIControlStateSelected];
+    [scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    NSString* strResult = [txSearch.text lowercaseString];
+    [txSearch resignFirstResponder];
+    
+    NSMutableArray* arSearchResult = [[NSMutableArray alloc] init];
+    if (txSearch.text.length > 0) {
+        // 검색하기
+        for (MPMediaItem* song in g_arSongs) {
+            
+            NSString* strSongName = [[song valueForProperty:MPMediaItemPropertyTitle] lowercaseString];
+            
+            NSRange range = [strSongName rangeOfString:strResult];
+            
+            if (range.location != NSNotFound) {
+                // 문자열 포함하니까 결과에 넣기
+                [arSearchResult addObject:song];
+            }
+        }
     }
     
-    [btnTemp removeFromSuperview];
+    // 결과 정보 띄어주기
+    
+    CGFloat height = 0.0;
+    for (MPMediaItem* song in arSearchResult) {
+        UIButton* btnTemp = [[UIButton alloc] initWithFrame:CGRectMake(0, height, scrollView.contentSize.width, 60)];
+        [btnTemp addTarget:self action:@selector(showDetailInfo:) forControlEvents:UIControlEventTouchUpInside];
+        // 해당하는 곡 정보 버튼에 실어서 넘겨주기
+        [btnTemp setImage:(UIImage*)song forState:UIControlStateDisabled];
+        [scrollView addSubview:btnTemp];
+        
+        // 정보 띄우기
+        UIImageView* imgView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 4, 52, 52)];
+        MPMediaItemArtwork* artwork = [song valueForProperty:MPMediaItemPropertyArtwork];
+        UIImage* imgArtwork = [artwork imageWithSize:imgView.image.size];
+        
+        if (imgArtwork) {
+            [imgView setImage:imgArtwork];
+        } else {
+            // [170510] 이미지 없는 경우, nil 처리
+            imgView.image = nil;
+        }
+        imgView.layer.masksToBounds = YES;
+        imgView.layer.cornerRadius = 52.0/2.0;
+        imgView.layer.borderWidth = 0.1;
+        imgView.backgroundColor = [UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1.0f];
+        [btnTemp addSubview:imgView];
+        
+        UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(8+52+8, 0, btnTemp.frame.size.width-24-52, btnTemp.frame.size.height)];
+        lbTitle.numberOfLines = 0;
+        [lbTitle setText:[song valueForProperty:MPMediaItemPropertyTitle]];
+        lbTitle.textColor = [UIColor blackColor];
+        lbTitle.font = [UIFont systemFontOfSize:13.0];
+        [btnTemp addSubview:lbTitle];
+        
+        height = height+60.0;
+    }
+    
+    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width, height);
+    
+    
+}
+
+
+// [170515] 상세 화면 창으로 넘기기
+- (void) showDetailInfo:(id)sender {
+    
+//    UIButton* btnSelected = sender;
+//    MPMediaItem* selSong = (MPMediaItem*)[btnSelected imageForState:UIControlStateDisabled];
+//
+//    // 이러면 안돼..
+//    SongDetailViewController* vcSongDetail = [[SongDetailViewController alloc] init];
+//    vcSongDetail.m_songDetail = selSong;
+//    [self presentViewController:vcSongDetail animated:YES completion:^{
+//        
+//    }];
+    
+}
+
+
+#pragma mark - TEXTFIELD
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    g_isShownKeyboard = NO;
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    g_isShownKeyboard = YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    g_isShownKeyboard = NO;
 }
 
 
