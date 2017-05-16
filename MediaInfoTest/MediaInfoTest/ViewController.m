@@ -333,7 +333,7 @@
 }
 
 
-// [170510]
+// [170510] 안쓰는 거..
 - (void) remoteControlReceivedWithCommand:(MPRemoteCommandEvent*)event {
     if (event.command == [[MPRemoteCommandCenter sharedCommandCenter] nextTrackCommand]) {
         [self.tableSongs reloadData];
@@ -343,7 +343,7 @@
 }
 
 
-// [170510] remote command 동작시,
+// [170510] remote command 동작시, -> 안쓰는 거..
 - (void) remoteControlReceivedWithEvent:(UIEvent *)event {
     if (event.type == UIEventTypeRemoteControl) {
         switch (event.subtype) {
@@ -543,12 +543,21 @@
     UITextField* txSearch = (UITextField*)[btnSelected imageForState:UIControlStateDisabled];
     UIScrollView* scrollView = (UIScrollView*)[btnSelected imageForState:UIControlStateSelected];
     [scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    NSString* strResult = [txSearch.text lowercaseString];
+    //NSString* strResult = txSearch.text;    //[txSearch.text lowercaseString];
+    // [170516] 입력된 언어가 일본어일 경우, 히라가나는 가타카나로, 가타카나는 히라가나로 저장 (일본어를 제외하고는 둘다 입력값으로 리턴됨)
+    NSMutableString* strResult = [NSMutableString stringWithString:txSearch.text];
+    CFStringTransform((CFMutableStringRef)strResult, NULL, kCFStringTransformHiraganaKatakana, true);
+    NSMutableString* strConvert = [NSMutableString stringWithString:txSearch.text];
+    CFStringTransform((CFMutableStringRef)strConvert, NULL, kCFStringTransformHiraganaKatakana, false);
     [txSearch resignFirstResponder];
     
+    
+    NSLog(@"%@ -> %@", strResult, strConvert);
+    
     NSMutableArray* arSearchResult = [[NSMutableArray alloc] init];
-    if (txSearch.text.length > 0) {
+    if (strResult.length > 0) {
         // 검색하기
+        /*
         for (MPMediaItem* song in g_arSongs) {
             
             NSString* strSongName = [[song valueForProperty:MPMediaItemPropertyTitle] lowercaseString];
@@ -559,6 +568,18 @@
                 // 문자열 포함하니까 결과에 넣기
                 [arSearchResult addObject:song];
             }
+        }
+         */
+        // [170516] NSPredicate를 이용하여 검색 -> 영어의 경우 소문자로 문자변환해서 검색할 필요가 없어졌다
+        // 일본어(히라가나, 가타카타)도 검색가능하게 수정
+        if ([strResult isEqualToString:strConvert]) {
+            NSPredicate* searchPredicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@", strResult];
+            NSArray* filteredArray = [g_arSongs filteredArrayUsingPredicate:searchPredicate];
+            [arSearchResult setArray:filteredArray];
+        } else {
+            NSPredicate* searchPredicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@ OR title contains[cd] %@", strResult, strConvert];
+            NSArray* filteredArray = [g_arSongs filteredArrayUsingPredicate:searchPredicate];
+            [arSearchResult setArray:filteredArray];
         }
     }
     
@@ -608,15 +629,15 @@
 // [170515] 상세 화면 창으로 넘기기
 - (void) showDetailInfo:(id)sender {
     
-//    UIButton* btnSelected = sender;
-//    MPMediaItem* selSong = (MPMediaItem*)[btnSelected imageForState:UIControlStateDisabled];
-//
-//    // 이러면 안돼..
-//    SongDetailViewController* vcSongDetail = [[SongDetailViewController alloc] init];
-//    vcSongDetail.m_songDetail = selSong;
-//    [self presentViewController:vcSongDetail animated:YES completion:^{
-//        
-//    }];
+    UIButton* btnSelected = sender;
+    MPMediaItem* selSong = (MPMediaItem*)[btnSelected imageForState:UIControlStateDisabled];
+
+    // 이러면 안돼..
+    //SongDetailViewController* vcSongDetail = [[SongDetailViewController alloc] init];
+    // [170516] code로 넘기는 방법 storyboad id 값으로 vc 가져와서 호출
+    SongDetailViewController *vcSongDetail = [self.storyboard instantiateViewControllerWithIdentifier:@"SongDetailVC"];
+    vcSongDetail.m_songDetail = selSong;
+    [self presentViewController:vcSongDetail animated:YES completion:nil];
     
 }
 

@@ -165,7 +165,7 @@
         <!--Song Detail View Controller-->
         <scene sceneID="46R-I8-8QI">
             <objects>
-                <viewController id="mwr-Nn-wy0" customClass="SongDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SongDetailVC" id="mwr-Nn-wy0" customClass="SongDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qI7-fl-1jr"/>
                         <viewControllerLayoutGuide type="bottom" id="Hfr-v9-d1y"/>
