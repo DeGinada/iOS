@@ -67,4 +67,8 @@
     . 빠지는 경우 필요 없음 -> word table에 word.xml 기준으로 보이기 때문 
 
 
+170517
+ - word table에 sort 적용 (あ->순으로)
+
+
 

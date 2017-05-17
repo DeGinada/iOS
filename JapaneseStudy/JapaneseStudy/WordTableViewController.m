@@ -49,6 +49,11 @@
     if (!g_arWords) {
         g_arWords = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"word" ofType:@"xml"]];
     }
+    
+    // [170517] 정렬 
+    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:@"jp" ascending:YES];
+    NSArray* arSorted = [g_arWords sortedArrayUsingDescriptors:@[sort]];
+    g_arWords = arSorted;
 }
 
 
