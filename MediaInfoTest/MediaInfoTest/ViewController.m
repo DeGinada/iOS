@@ -270,7 +270,12 @@
     // cell에 내용도 선택할 수 있게 하고 싶어 textview로 바꿨으나 user interaction 때문에 cell 선택에 문제가 생김.
     [cell.textView setText:[nowMItem valueForProperty:MPMediaItemPropertyArtist]];
     [cell.detailTextView setText:[nowMItem valueForProperty:MPMediaItemPropertyTitle]];
-
+    
+    // 테이블 tag가 3000인 경우, playcount표시 해주기
+    if (tableView.tag == 3000) {
+        NSString* strTitle = [NSString stringWithFormat:@"%@\t[%ld]", [nowMItem valueForProperty:MPMediaItemPropertyTitle], [[nowMItem valueForProperty:MPMediaItemPropertyPlayCount] integerValue]];
+        [cell.detailTextView setText:strTitle];
+    }
     
     MPMediaItemArtwork* artwork = [nowMItem valueForProperty:MPMediaItemPropertyArtwork];
     UIImage* imgArtwork = [artwork imageWithSize:cell.imgView.image.size];
@@ -407,10 +412,19 @@
     
     UISegmentedControl* selSegment = sender;
     
+    // [170517] 특정 테이블 상태를 위해 태그값 지정, 3001은 default, 3000은 play count 경우
     if (selSegment.selectedSegmentIndex == 0) {
         [self selectSongList];
+        self.tableSongs.tag = 3001;
     } else if (selSegment.selectedSegmentIndex == 1) {
         [self selectAlbumList];
+        self.tableSongs.tag = 3001;
+    } else if (selSegment.selectedSegmentIndex == 2) {
+        [self selectPlaycountList];
+        self.tableSongs.tag = 3000;
+    } else if (selSegment.selectedSegmentIndex == 3) {
+        [self selectFavoriteList];
+        self.tableSongs.tag = 3001;
     }
     
     // tableview reload
@@ -435,6 +449,16 @@
     
 }
 
+// [170516] 많이 들은 순대로 볼 수 있게 정렬
+- (void) selectPlaycountList {
+    g_arSongs = [self getPlaycountSongs];
+}
+
+// [170517] 내가 좋아요한 순대로 볼 수 있게 정렬
+- (void) selectFavoriteList {
+    g_arSongs = [self getFavoriteList];
+}
+
 
 // [170513] album별 곡 목록을 가져온다.
 - (NSArray*) getAlbumSongs {
@@ -452,6 +476,57 @@
     }
     
     return arSongList;
+}
+
+
+// [170516] 많이 들은 순대로 정렬된 곡 목록을 가져온다.
+- (NSArray*) getPlaycountSongs {
+    
+    //MPMediaQuery* mediaQuery = [MPMediaQuery songsQuery];
+    NSArray* arSongs = [self getGroupSongsbyArtist];
+    
+    
+//    NSSortDescriptor* sort = [NSSortDescriptor sortDescriptorWithKey:MPMediaItemPropertyPlayCount ascending:NO];
+//    NSArray* arSortedSong = [arSongs sortedArrayUsingDescriptors:@[sort]];
+//    
+    NSArray* sortedArray;
+    sortedArray = [arSongs sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        NSNumber* first = [(MPMediaItem*)a valueForProperty:MPMediaItemPropertyPlayCount];
+        NSNumber* second = [(MPMediaItem*)b valueForProperty:MPMediaItemPropertyPlayCount];
+        return [second compare:first];      // 내림차순
+        //return [first compare:second];      // 오름차순
+    }];
+    
+    return sortedArray;
+}
+
+// [170517] 좋아요한 순서대로 정렬된 곡 목록을 가져온다
+// 좋아요 순대로 하고 싶었지만.. 방법을 못 찾아서 최근에 들은 순으로 변경
+- (NSArray*) getFavoriteList {
+    
+    NSArray* arSongs = [self getAlbumSongs];
+    
+    NSArray* arFavorite;
+    arFavorite = [arSongs sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSDate* first = [(MPMediaItem*)obj1 valueForProperty:MPMediaItemPropertyLastPlayedDate];
+        NSDate* second = [(MPMediaItem*)obj2 valueForProperty:MPMediaItemPropertyLastPlayedDate];
+        NSTimeInterval firstTime = [first timeIntervalSince1970];
+        NSTimeInterval secondTime = [second timeIntervalSince1970];
+        //NSNumber* numFirst = [NSNumber numberWithDouble:firstTime];
+        //NSNumber* numSecond = [NSNumber numberWithDouble:secondTime];
+        
+        if (firstTime > secondTime) {
+            return NSOrderedAscending;
+        } else if (firstTime < secondTime) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+        
+        //return [numSecond compare:numFirst];
+    }];
+    
+    return arFavorite;
 }
 
 
