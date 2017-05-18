@@ -275,6 +275,17 @@
     if (tableView.tag == 3000) {
         NSString* strTitle = [NSString stringWithFormat:@"%@\t[%ld]", [nowMItem valueForProperty:MPMediaItemPropertyTitle], [[nowMItem valueForProperty:MPMediaItemPropertyPlayCount] integerValue]];
         [cell.detailTextView setText:strTitle];
+    } else if (tableView.tag == 3002) {
+        
+//        // [170518] IsCloudItem은 뭔지 확인해봄
+//        NSString* strTitle = [NSString stringWithFormat:@"%@\t[%d]", [nowMItem valueForProperty:MPMediaItemPropertyTitle], [[nowMItem valueForProperty:MPMediaItemPropertyIsCloudItem] boolValue]];
+//        [cell.detailTextView setText:strTitle];
+
+//        // [170518] bookmarktiem은 뭔지 확인해봄
+//        NSTimeInterval time = [[nowMItem valueForProperty:MPMediaItemPropertyBookmarkTime] doubleValue];
+//        NSString* strTitle = [NSString stringWithFormat:@"%@\t[%f]", [nowMItem valueForProperty:MPMediaItemPropertyTitle], time];
+//        [cell.detailTextView setText:strTitle];
+        
     }
     
     MPMediaItemArtwork* artwork = [nowMItem valueForProperty:MPMediaItemPropertyArtwork];
@@ -424,7 +435,7 @@
         self.tableSongs.tag = 3000;
     } else if (selSegment.selectedSegmentIndex == 3) {
         [self selectFavoriteList];
-        self.tableSongs.tag = 3001;
+        self.tableSongs.tag = 3002;
     }
     
     // tableview reload
@@ -508,12 +519,28 @@
     
     NSArray* arFavorite;
     arFavorite = [arSongs sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        NSDate* first = [(MPMediaItem*)obj1 valueForProperty:MPMediaItemPropertyLastPlayedDate];
-        NSDate* second = [(MPMediaItem*)obj2 valueForProperty:MPMediaItemPropertyLastPlayedDate];
+        NSDate* first = [(MPMediaItem*)obj1 valueForProperty:MPMediaItemPropertyBookmarkTime];
+        NSDate* second = [(MPMediaItem*)obj2 valueForProperty:MPMediaItemPropertyBookmarkTime];
         NSTimeInterval firstTime = [first timeIntervalSince1970];
         NSTimeInterval secondTime = [second timeIntervalSince1970];
         //NSNumber* numFirst = [NSNumber numberWithDouble:firstTime];
         //NSNumber* numSecond = [NSNumber numberWithDouble:secondTime];
+        
+//        // [170518] IsCloudItem은 뭔지 확인해봄
+//        BOOL first = [[(MPMediaItem*)obj1 valueForProperty:MPMediaItemPropertyIsCloudItem] boolValue];
+//        BOOL second = [[(MPMediaItem*)obj2 valueForProperty:MPMediaItemPropertyIsCloudItem] boolValue];
+//        
+//        if (first != second) {
+//            return NSOrderedAscending;
+//        } else {
+//            return NSOrderedSame;
+//        }
+        
+        
+//        // [170518] bookmarktiem은 뭔지 확인해봄
+//        NSTimeInterval firstTime = [[(MPMediaItem*)obj1 valueForProperty:MPMediaItemPropertyBookmarkTime] doubleValue];
+//        NSTimeInterval secondTime = [[(MPMediaItem*)obj2 valueForProperty:MPMediaItemPropertyBookmarkTime] doubleValue];
+
         
         if (firstTime > secondTime) {
             return NSOrderedAscending;

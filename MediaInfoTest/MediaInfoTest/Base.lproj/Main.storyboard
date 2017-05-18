@@ -75,7 +75,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Ys-bs-G4Z">
-                                <rect key="frame" x="66.5" y="25" width="243" height="29"/>
+                                <rect key="frame" x="66" y="25" width="243" height="29"/>
                                 <segments>
                                     <segment title="Artists"/>
                                     <segment title="Albums"/>
@@ -271,6 +271,7 @@
                             <constraint firstItem="Q7h-D5-KeP" firstAttribute="centerX" secondItem="vQN-ZH-nkV" secondAttribute="centerX" id="2hQ-Ba-Rtx"/>
                             <constraint firstItem="Q7h-D5-KeP" firstAttribute="leading" secondItem="2OF-aJ-Prn" secondAttribute="leading" constant="11.5" id="7kK-Xd-sua"/>
                             <constraint firstItem="uJJ-Z7-qBb" firstAttribute="centerX" secondItem="vQN-ZH-nkV" secondAttribute="centerX" id="O0q-Y9-wM7"/>
+                            <constraint firstItem="uJJ-Z7-qBb" firstAttribute="leading" secondItem="vQN-ZH-nkV" secondAttribute="leadingMargin" constant="19.5" id="XcK-H3-CBT"/>
                             <constraint firstItem="uJJ-Z7-qBb" firstAttribute="leading" secondItem="2OF-aJ-Prn" secondAttribute="leading" id="XvH-Xo-p1G"/>
                             <constraint firstItem="uJJ-Z7-qBb" firstAttribute="top" secondItem="2OF-aJ-Prn" secondAttribute="bottom" priority="750" constant="10" id="boi-pJ-HoH"/>
                             <constraint firstItem="i4d-Mm-VIw" firstAttribute="top" secondItem="qI7-fl-1jr" secondAttribute="bottom" constant="4" id="f2P-ao-neS"/>
@@ -280,6 +281,7 @@
                             <constraint firstItem="HC1-II-TmA" firstAttribute="leading" secondItem="vQN-ZH-nkV" secondAttribute="leadingMargin" constant="19" id="lQO-dN-k55"/>
                             <constraint firstItem="HC1-II-TmA" firstAttribute="top" secondItem="uJJ-Z7-qBb" secondAttribute="bottom" constant="10" id="n90-0J-SsX"/>
                             <constraint firstAttribute="trailing" secondItem="i4d-Mm-VIw" secondAttribute="trailing" constant="6" id="pna-2A-mVu"/>
+                            <constraint firstItem="2OF-aJ-Prn" firstAttribute="leading" secondItem="vQN-ZH-nkV" secondAttribute="leadingMargin" constant="19.5" id="tBZ-q2-Ecg"/>
                             <constraint firstItem="2OF-aJ-Prn" firstAttribute="centerX" secondItem="vQN-ZH-nkV" secondAttribute="centerX" id="uW7-pn-hvj"/>
                             <constraint firstItem="2OF-aJ-Prn" firstAttribute="top" secondItem="Q7h-D5-KeP" secondAttribute="bottom" constant="25" id="vAV-Q8-qHu"/>
                         </constraints>
