@@ -4,3 +4,13 @@
     . 현재 뼈대화면만 구성
 
 
+170519
+ - search 화면 구현 먼저!
+    . https://developer.apple.com/library/content/samplecode/TableSearch_UISearchController/Introduction/Intro.html -> 예제 참고함
+    . UITableViewController 상속받은 vc에서 했을 때는 되는 데 status bar 위로 search bar가 올라감
+    . UIViewController 상속받은 vc에 UITableView 넣어서했는데 오류난다 (status bar 보이게 하려고)
+    . 내일 관련해서 다시 확인해 보기
+
+
+
+
