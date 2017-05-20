@@ -12,5 +12,21 @@
     . 내일 관련해서 다시 확인해 보기
 
 
+170520
+ - 현재까지도 구현 못함 -> 삽질의 연속
+ - UITableViewController 상속받은 vc에서 했을 때는 되는 데 status bar 위로 search bar가 올라감
+    . 오류 나는 것 보단 이 방법을 통해서 해결하는 게 좋을 것 같아서 시도 중
+    . table view에 inset 주기 -> 처음에 떴을때는 원하는 대로 보이나 터치바 선택하고 나면 status bar에 overlap 됨
+    . 검색해보니 navigation controller를 추가하는 게 맞는 것 같아서 추가 함
+    . 새로운 문제로 네비게이션바가 계속 떠 있게 되었음
+    . 이걸 해결하기 위해 네비게이션바를 숨겨봄 -> 이전과 똑같이 overlap됨
+    . 네비게이션바 높이를 바꿔봄 viewWillAppear, viewDidLoad에서 바꿨을때는 아무 변화 없음
+    . 네비게이션바 높이를 바꿔봄 viewDidLayoutSubviews에서 바꿨을 때는 이상 없다가, 터치바 선택했다 돌아오면 변화되어 있음 -> 하지만 터치바의 위치는 네비바 본 높이의 영향을 받아서 원래와 같음
+ - 정확하게 내가 하고 싶은 상태는 music app 검색창과 같은 화면
+    . 테이블뷰 헤더에 검색이라는 라벨, search bar가 포함되어 있는 건 맞는 것 같음
+    . 네비게이션 바가 없음
+    . status bar에 overlap 되지 않음
+
+
 
 
