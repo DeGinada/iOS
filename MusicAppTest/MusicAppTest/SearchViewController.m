@@ -9,10 +9,11 @@
 #import "SearchViewController.h"
 #import "ResultViewController.h"
 
-@interface SearchViewController () <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
+@interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 
 @property (nonatomic, strong) UISearchController* searchController;
 @property (nonatomic, strong) ResultViewController* resultTableVC;
+@property IBOutlet UITableView* tableView;
 
 @property BOOL searchControllerWasActive;
 @property BOOL searchControllerSearchFieldWasFirstResponder;
@@ -99,13 +100,29 @@
 // [170519] table view를 설정한다.
 - (void) setBasicTableview {
     
+//    UIView* viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 80)];
+//    [viewHeader setBackgroundColor:[UIColor clearColor]];
+//    
+//    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, viewHeader.frame.size.width-20, 30)];
+//    [lbTitle setText:@"검색"];
+//    [lbTitle setTextAlignment:NSTextAlignmentLeft];
+//    [lbTitle setFont:[UIFont boldSystemFontOfSize:25.0f]];
+//    [lbTitle setTextColor:[UIColor blackColor]];
+//    [viewHeader addSubview:lbTitle];
+    
+    
     
     _resultTableVC = [[ResultViewController alloc] init];
     _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultTableVC];
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
+    //[self.searchController.searchBar setFrame:CGRectMake(0, 50, viewHeader.frame.size.width, 30)];
     [self.searchController.searchBar sizeToFit];
+    //[viewHeader addSubview:self.searchController.searchBar];
+    
+    //self.tableView.tableHeaderView = viewHeader;
     self.tableView.tableHeaderView = self.searchController.searchBar;
+//    self.searchController.searchBar.translatesAutoresizingMaskIntoConstraints = true;
     
     
     self.resultTableVC.tableView.delegate = self;

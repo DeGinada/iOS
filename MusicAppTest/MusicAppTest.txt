@@ -28,5 +28,12 @@
     . status bar에 overlap 되지 않음
 
 
+170521
+ - UIViewController 상속받은 vc에 UITableView 넣어서했는데 오류난다
+    . 이 방법으로 다시 바꿈
+    . 지금 다시 하니 오류는 안남(전에는 tableviewdatasource, tableviewdelegate를 잘못 연결 한듯)
+    . 이제 정상적으로 status바 아래에 있고, 선택 후에도 status바에 overlap 안됨
+
+
 
 
