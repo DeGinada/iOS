@@ -20,11 +20,17 @@
 
 @end
 
-@implementation SearchViewController
+@implementation SearchViewController {
+    NSArray* g_arPopularity;
+    NSMutableArray* g_arLatest;
+    NSDictionary* g_dicSearch;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     
 //    // status bar 밑으로 보내기
 //    self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
@@ -37,7 +43,16 @@
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     
+    // [170522] 검색어 관련 정보 가져오기
+    g_arPopularity = [[NSArray alloc] initWithObjects:@"칸쟈니", @"kanjani8", @"백퍼센트", nil];
+    g_arLatest = [[NSUserDefaults standardUserDefaults] objectForKey:@"LatestSearch"];
+    if (!g_arLatest) {
+        g_arLatest = [[NSMutableArray alloc] init];
+    }
     
+//    g_dicSearch = [NSDictionary dictionary];
+//    [g_dicSearch setValue:g_arLatest forKey:@"최근 검색어"];
+//    [g_dicSearch setValue:g_arPopularity forKey:@"인기 검색어"];
     
     
     [self setBasicTableview];
@@ -116,7 +131,6 @@
     _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultTableVC];
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
-    //[self.searchController.searchBar setFrame:CGRectMake(0, 50, viewHeader.frame.size.width, 30)];
     [self.searchController.searchBar sizeToFit];
     //[viewHeader addSubview:self.searchController.searchBar];
     
@@ -138,10 +152,30 @@
 #pragma mark - TABLE_VIEW
 
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 2;
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 3;
+    if (g_arLatest.count > 0) {
+        if (section == 0) {
+            return g_arLatest.count;
+        } else {
+            return g_arPopularity.count;
+        }
+    } else {
+        return g_arPopularity.count;
+    }
+    
+//    if (section == 0) {
+//        return g_arLatest.count+g_arPopularity.count;
+//    }
+    
+//    NSString* key = [[g_dicSearch allKeys] objectAtIndex:section];
+//    return [[g_dicSearch objectForKey:key] count];
 }
 
 
@@ -154,10 +188,59 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
+    if (g_arLatest.count > 0) {
+        if (indexPath.row >= g_arLatest.count) {
+            // 인기 검색어
+            cell.textLabel.text = [g_arPopularity objectAtIndex:(indexPath.row-g_arLatest.count)];
+        } else {
+            // 최근 검색어
+            cell.textLabel.text = [g_arLatest objectAtIndex:indexPath.row];
+        }
+        
+    } else {
+        cell.textLabel.text = [g_arPopularity objectAtIndex:indexPath.row];
+    }
+    
+    cell.textLabel.textColor = [UIColor blackColor];
+    
     
     return cell;
 }
 
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    
+    if (g_arLatest.count > 0) {
+        if (section == 0) {
+            return @"최근 검색어";
+        } else {
+            return @"인기 검색어";
+        }
+    }
+    
+    return @"인기 검색어";
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 44.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView* viewSection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)];
+    [viewSection setBackgroundColor:[UIColor clearColor]];
+    
+    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, viewSection.frame.size.width-30, viewSection.frame.size.height)];
+    [lbTitle setText:[self tableView:tableView titleForHeaderInSection:section]];
+    [lbTitle setFont:[UIFont boldSystemFontOfSize:20.0]];
+    [lbTitle setTextColor:[UIColor blackColor]];
+    [viewSection addSubview:lbTitle];
+    
+    
+    return viewSection;
+}
 
 
 #pragma mark - SEARCH_RESULT
@@ -166,5 +249,25 @@
     
 }
 
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    if (g_arLatest.count > 0) {
+        [g_arLatest insertObject:searchBar.text atIndex:0];
+        
+        if (g_arLatest.count > 3) {
+            [g_arLatest removeObjectAtIndex:3];
+        }
+    } else {
+        [g_arLatest addObject:searchBar.text];
+    }
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:g_arLatest forKey:@"LatestSearch"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
+    [self.tableView reloadData];
+}
 
 @end

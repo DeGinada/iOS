@@ -35,5 +35,18 @@
     . 이제 정상적으로 status바 아래에 있고, 선택 후에도 status바에 overlap 안됨
 
 
+170522
+ - 서치바 위에 검색이라는 제목은 어떻게 넣은걸까? 
+    . headerview에 새로운 view를 만들고 그걸 뮤직앱처럼 구성해서 넣어보니 안됨
+    . 처음 진입시 그렇게 보이긴 하지만 서치바 누르면 서치바가 사라짐
+    . 이 부분은 일단 스킵
+ - 검색어 목록 가져오는 부분 작업
+    . 인기 검색어는 임의로 넣어둠
+    . 서치바에서 검색 버튼 누르면 최근 검색어로 저장됨
+    . 인기, 최근을 둘로 나눠서 Array로 작업했는데 두개를 합쳐서 dictionary로 관리해도 될듯
+    . (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section -> section별로 수량 넘겨줘야하는데 합쳐서 넘겨서 에러나기도 함
+    . (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView -> section 수는 여기서 관리
+
+
 
 
