@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9F3D6F441ECF350E00677EB8 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3D6F431ECF350E00677EB8 /* ResultViewController.m */; };
+		9F3D6F471ED4810F00677EB8 /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3D6F461ED4810F00677EB8 /* SearchTableViewCell.m */; };
 		9F65BC191ECDDF2100708A38 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F65BC181ECDDF2100708A38 /* main.m */; };
 		9F65BC1C1ECDDF2100708A38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F65BC1B1ECDDF2100708A38 /* AppDelegate.m */; };
 		9F65BC1F1ECDDF2100708A38 /* StorageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F65BC1E1ECDDF2100708A38 /* StorageViewController.m */; };
@@ -20,6 +21,8 @@
 /* Begin PBXFileReference section */
 		9F3D6F421ECF350E00677EB8 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		9F3D6F431ECF350E00677EB8 /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
+		9F3D6F451ED4810F00677EB8 /* SearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewCell.h; sourceTree = "<group>"; };
+		9F3D6F461ED4810F00677EB8 /* SearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewCell.m; sourceTree = "<group>"; };
 		9F65BC141ECDDF2100708A38 /* MusicAppTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicAppTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F65BC181ECDDF2100708A38 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9F65BC1A1ECDDF2100708A38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +73,8 @@
 				9F65BC1E1ECDDF2100708A38 /* StorageViewController.m */,
 				9F65BC201ECDDF2100708A38 /* SearchViewController.h */,
 				9F65BC211ECDDF2100708A38 /* SearchViewController.m */,
+				9F3D6F451ED4810F00677EB8 /* SearchTableViewCell.h */,
+				9F3D6F461ED4810F00677EB8 /* SearchTableViewCell.m */,
 				9F3D6F421ECF350E00677EB8 /* ResultViewController.h */,
 				9F3D6F431ECF350E00677EB8 /* ResultViewController.m */,
 				9F65BC231ECDDF2100708A38 /* Main.storyboard */,
@@ -166,6 +171,7 @@
 				9F65BC1F1ECDDF2100708A38 /* StorageViewController.m in Sources */,
 				9F3D6F441ECF350E00677EB8 /* ResultViewController.m in Sources */,
 				9F65BC191ECDDF2100708A38 /* main.m in Sources */,
+				9F3D6F471ED4810F00677EB8 /* SearchTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

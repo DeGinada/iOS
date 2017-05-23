@@ -48,5 +48,13 @@
     . (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView -> section 수는 여기서 관리
 
 
+170523
+ - cell 정보가 잘못 나는 거 수정
+    . (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath -> 셀 정보 줄때, section에 맞게 줘야함
+ - 최근 검색어 삭제가능 하게 수정
+ - tableview 간격 등 비주얼적인 면 수정
+ - cell을 custom으로 바꾸는 과정에서 글씨가 출력이 안되는 상황 발생  -> 내일 수정
+    . string은 제대로 넘어가는데 무언가 문제가 있는지 button이 출력되지 않음
+
 
 

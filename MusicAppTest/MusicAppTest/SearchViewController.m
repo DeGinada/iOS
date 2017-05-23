@@ -8,6 +8,9 @@
 
 #import "SearchViewController.h"
 #import "ResultViewController.h"
+#import "SearchTableViewCell.h"
+
+#define RED_COLOR       [UIColor colorWithRed:252.0/255.0 green:24.0/255.0 blue:88.0/255.0 alpha:1.0]
 
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 
@@ -45,7 +48,7 @@
     
     // [170522] 검색어 관련 정보 가져오기
     g_arPopularity = [[NSArray alloc] initWithObjects:@"칸쟈니", @"kanjani8", @"백퍼센트", nil];
-    g_arLatest = [[NSUserDefaults standardUserDefaults] objectForKey:@"LatestSearch"];
+    g_arLatest = [[[NSUserDefaults standardUserDefaults] objectForKey:@"LatestSearch"] mutableCopy];
     if (!g_arLatest) {
         g_arLatest = [[NSMutableArray alloc] init];
     }
@@ -145,8 +148,49 @@
     self.searchController.searchBar.delegate = self;
     
     self.definesPresentationContext = YES;
+    
+    
+    // [170523] 테이블뷰에 빈공간에 생기는 separator line 없애기
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
+
+// [170523] 선택된 단어 검색하기
+- (IBAction) searchSelectedWord:(id)sender {
+    
+    UIButton* button = sender;
+    
+    self.searchController.searchBar.text = button.titleLabel.text;
+    
+}
+
+
+
+// [170523] 검색했던 단어목록 지우기
+- (void) removeSearchedWord {
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* actionCancel = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction* actionOk = [UIAlertAction actionWithTitle:@"최근 검색 지우기" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 지우기
+        g_arLatest = [[NSMutableArray alloc] init];
+        [[NSUserDefaults standardUserDefaults] setObject:g_arLatest forKey:@"LatestSearch"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self.tableView reloadData];
+    }];
+    
+    [actionCancel setValue:RED_COLOR forKey:@"titleTextColor"];
+    [actionOk setValue:RED_COLOR forKey:@"titleTextColor"];
+    
+    [alertController addAction:actionOk];
+    [alertController addAction:actionCancel];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 
 #pragma mark - TABLE_VIEW
@@ -154,7 +198,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 2;
+//    return 2;
+    if (g_arLatest.count > 0) {
+        return 2;
+    }
+    
+    return 1;
 }
 
 
@@ -181,27 +230,62 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+//    static NSString* identifier = @"Cell";
+//    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+//    
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+//    }
+//    
+//    if (g_arLatest.count > 0) {
+//        
+//        
+//        
+////        if (indexPath.row >= g_arLatest.count) {
+////            // 인기 검색어
+////            cell.textLabel.text = [g_arPopularity objectAtIndex:(indexPath.row-g_arLatest.count)];
+////        } else {
+////            // 최근 검색어
+////            cell.textLabel.text = [g_arLatest objectAtIndex:indexPath.row];
+////        }
+//        
+//        // [170523] 정보 출력 오류로 수정
+//        if (indexPath.section == 0) {
+//            cell.textLabel.text = [g_arLatest objectAtIndex:indexPath.row];
+//        } else {
+//            cell.textLabel.text = [g_arPopularity objectAtIndex:indexPath.row];
+//        }
+//        
+//    } else {
+//        cell.textLabel.text = [g_arPopularity objectAtIndex:indexPath.row];
+//    }
+//    
+//    cell.textLabel.textColor = [UIColor blackColor];
+    
+    
+    // [170523] custom cell로 변경
     static NSString* identifier = @"Cell";
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    SearchTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[SearchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
+    NSString* strTitle = @"";
+    
     if (g_arLatest.count > 0) {
-        if (indexPath.row >= g_arLatest.count) {
-            // 인기 검색어
-            cell.textLabel.text = [g_arPopularity objectAtIndex:(indexPath.row-g_arLatest.count)];
+        // [170523] 정보 출력 오류로 수정
+        if (indexPath.section == 0) {
+            strTitle = [g_arLatest objectAtIndex:indexPath.row];
         } else {
-            // 최근 검색어
-            cell.textLabel.text = [g_arLatest objectAtIndex:indexPath.row];
+            strTitle = [g_arPopularity objectAtIndex:indexPath.row];
         }
         
     } else {
-        cell.textLabel.text = [g_arPopularity objectAtIndex:indexPath.row];
+        strTitle = [g_arPopularity objectAtIndex:indexPath.row];
     }
     
-    cell.textLabel.textColor = [UIColor blackColor];
+    [cell setButtonInfo:strTitle];
     
     
     return cell;
@@ -225,22 +309,35 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 44.0;
+    return 54.0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView* viewSection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)];
-    [viewSection setBackgroundColor:[UIColor clearColor]];
+    UIView* viewSection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 54.0)];
+    [viewSection setBackgroundColor:self.view.backgroundColor];
+//    [viewSection setBackgroundColor:[UIColor clearColor]];
     
-    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, viewSection.frame.size.width-30, viewSection.frame.size.height)];
+    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(15, 20, viewSection.frame.size.width-30, 34)];
     [lbTitle setText:[self tableView:tableView titleForHeaderInSection:section]];
     [lbTitle setFont:[UIFont boldSystemFontOfSize:20.0]];
     [lbTitle setTextColor:[UIColor blackColor]];
     [viewSection addSubview:lbTitle];
     
+    // [170522] 최근 검색어가 있는 경우, 최근 검색어는 지우기 가능하게
+    if (g_arLatest.count > 0 && section == 0) {
+        UIButton* btnRemove = [[UIButton alloc] initWithFrame:CGRectMake(viewSection.frame.size.width-85, 20, 70, 34)];
+        [btnRemove setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
+        [btnRemove setTitleColor:RED_COLOR forState:UIControlStateNormal];
+        [btnRemove setTitle:@"비우기" forState:UIControlStateNormal];
+        btnRemove.titleLabel.font = [UIFont systemFontOfSize:18.0];
+        [btnRemove addTarget:self action:@selector(removeSearchedWord) forControlEvents:UIControlEventTouchUpInside];
+        [viewSection addSubview:btnRemove];
+    }
+    
     
     return viewSection;
 }
+
 
 
 #pragma mark - SEARCH_RESULT
