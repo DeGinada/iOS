@@ -57,4 +57,12 @@
     . string은 제대로 넘어가는데 무언가 문제가 있는지 button이 출력되지 않음
 
 
+170524
+ - cell을 custom으로 바꾸는 과정에서 글씨가 출력이 안되는 상황 수정
+    . storyboard에서 cell을 custom으로 바꾸고 identifier값을 지정 안해줘서 생긴 문제
+    . cell 누르면 해당 단어가 search bar에 들어가는 거 확인함
+ - 최근 검색 단어에 중복이 있을 경우 지우고 리스트 맨 위에 올림
+ - search bar 작동 부분이 어색함 -> 확인 필요
+
+
 

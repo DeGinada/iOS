@@ -161,6 +161,7 @@
     UIButton* button = sender;
     
     self.searchController.searchBar.text = button.titleLabel.text;
+    [self searchBarSearchButtonClicked:self.searchController.searchBar];
     
 }
 
@@ -350,6 +351,14 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     if (g_arLatest.count > 0) {
+        
+        // [170524] 들어온 검색어가 중복되는 경우는 기존에꺼 지우고 다시 저장
+        for (NSString* string in g_arLatest) {
+            if ([string isEqualToString:searchBar.text]) {
+                [g_arLatest removeObject:string];
+            }
+        }
+        
         [g_arLatest insertObject:searchBar.text atIndex:0];
         
         if (g_arLatest.count > 3) {
