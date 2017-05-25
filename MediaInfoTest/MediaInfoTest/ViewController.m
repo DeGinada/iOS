@@ -519,8 +519,8 @@
     
     NSArray* arFavorite;
     arFavorite = [arSongs sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        NSDate* first = [(MPMediaItem*)obj1 valueForProperty:MPMediaItemPropertyBookmarkTime];
-        NSDate* second = [(MPMediaItem*)obj2 valueForProperty:MPMediaItemPropertyBookmarkTime];
+        NSDate* first = [(MPMediaItem*)obj1 valueForProperty:MPMediaItemPropertyLastPlayedDate];
+        NSDate* second = [(MPMediaItem*)obj2 valueForProperty:MPMediaItemPropertyLastPlayedDate];
         NSTimeInterval firstTime = [first timeIntervalSince1970];
         NSTimeInterval secondTime = [second timeIntervalSince1970];
         //NSNumber* numFirst = [NSNumber numberWithDouble:firstTime];
