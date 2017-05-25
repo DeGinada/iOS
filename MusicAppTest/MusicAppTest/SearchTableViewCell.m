@@ -25,12 +25,14 @@
 
 
 // [170523] 버튼을 세팅한다
-- (void) setButtonInfo:(NSString*)string {
+- (void) setButtonInfo:(NSString*)string last:(BOOL)isLastCell {
     
     [self.button setTitle:string forState:UIControlStateNormal];
     [self.button setTitleColor:RED_COLOR forState:UIControlStateNormal];
     [self.button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
-    
+ 
+    self.separator.hidden = isLastCell;
+   
 }
 
 @end

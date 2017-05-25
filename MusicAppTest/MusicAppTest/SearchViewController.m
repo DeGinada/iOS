@@ -33,7 +33,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    // [170525] 테이블뷰 상단 bounce area 컬러 바꾸기 (light gray -> white)
+    UIView* viewBack = [[UIView alloc] initWithFrame:self.tableView.frame];
+    [viewBack setBackgroundColor:[UIColor whiteColor]];
+    self.tableView.backgroundView = viewBack;
+
     
 //    // status bar 밑으로 보내기
 //    self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
@@ -59,6 +64,8 @@
     
     
     [self setBasicTableview];
+    
+
 }
 
 
@@ -144,10 +151,20 @@
     
     self.resultTableVC.tableView.delegate = self;
     self.searchController.delegate = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.dimsBackgroundDuringPresentation = TRUE;
     self.searchController.searchBar.delegate = self;
     
     self.definesPresentationContext = YES;
+    
+    
+    // 취소 버튼 폰트 크기 바꾸기
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]]
+     setTitleTextAttributes:@{
+                              NSForegroundColorAttributeName: RED_COLOR,
+                              NSFontAttributeName: [UIFont systemFontOfSize:17]}
+     forState:UIControlStateNormal];
+    
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"취소"];
     
     
     // [170523] 테이블뷰에 빈공간에 생기는 separator line 없애기
@@ -286,7 +303,12 @@
         strTitle = [g_arPopularity objectAtIndex:indexPath.row];
     }
     
-    [cell setButtonInfo:strTitle];
+    BOOL isLast = NO;
+    if (indexPath.row == (g_arLatest.count-1) || indexPath.row == (g_arPopularity.count-1)) {
+        isLast= YES;
+    }
+    
+    [cell setButtonInfo:strTitle last:isLast];
     
     
     return cell;
@@ -334,6 +356,8 @@
         [btnRemove addTarget:self action:@selector(removeSearchedWord) forControlEvents:UIControlEventTouchUpInside];
         [viewSection addSubview:btnRemove];
     }
+    
+    [self.searchController.searchBar setBackgroundColor:[UIColor whiteColor]];
     
     
     return viewSection;

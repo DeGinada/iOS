@@ -11,7 +11,8 @@
 @interface SearchTableViewCell : UITableViewCell
 
 @property IBOutlet UIButton* button;
+@property IBOutlet UIView* separator;
 
-- (void) setButtonInfo:(NSString*)string;
+- (void) setButtonInfo:(NSString*)string last:(BOOL)isLastCell;
 
 @end

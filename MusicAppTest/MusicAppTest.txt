@@ -65,4 +65,17 @@
  - search bar 작동 부분이 어색함 -> 확인 필요
 
 
+170525
+ - self.searchController.dimsBackgroundDuringPresentation = TRUE -> 터치바영역 제외하고 불투명뷰가 띄어짐
+    . 이거 status bar에는 적용 안되게 하고 싶으니 찾아보자
+ - tableview header section 고정
+    . tableview type을 group으로 수정 -> separator가 header에도 적용됨
+    . separator 없애고, cell에 view로 만듬
+ - tableview background view color 변경
+ - 문제점을 발견..
+    . 이렇게 보여야된다는 거에 치중을 하다보니 지금 one vc로 검색화면이 만들어진 상태 
+	-> 검색시, 노래는 바로 재생 그 외에는 상세 정보 보여주게 넘어가므로 navicon vc로 변경해야함.
+    . 그래서 설계를 다시해야하는데 일단은 검색 결과 화면부터 작업을 하자
+
+
 
