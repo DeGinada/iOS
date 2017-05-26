@@ -10,6 +10,10 @@
 #import "ResultViewController.h"
 #import "SearchTableViewCell.h"
 
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MPMediaQuery.h>
+#import <MediaPlayer/MediaPlayer.h>
+
 #define RED_COLOR       [UIColor colorWithRed:252.0/255.0 green:24.0/255.0 blue:88.0/255.0 alpha:1.0]
 
 @interface SearchViewController () <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
@@ -369,6 +373,62 @@
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
+    if (searchController.searchBar.text.length == 0)
+        return;
+    
+    NSMutableArray* arArtists = [[NSMutableArray alloc] init];
+    NSMutableArray* arAlbums = [[NSMutableArray alloc] init];
+    NSMutableArray* arSongs = [[NSMutableArray alloc] init];
+    
+    // 내가 가진 노래가 일본 노래가 많기에 검색 단어가 일본어일 경우, 히라가나, 가타카나로 가지고 있어야함.
+    // 일어를 제외하고는 두 단어가 같기에 둘 중 하나로 검색하면 됨. 일어일 경우 둘다 검색 시 포함 필요
+    NSMutableString* strWord = [NSMutableString stringWithString:searchController.searchBar.text];
+    CFStringTransform((CFMutableStringRef)strWord, NULL, kCFStringTransformHiraganaKatakana, true);
+    NSMutableString* strConvert = [NSMutableString stringWithString:searchController.searchBar.text];
+    CFStringTransform((CFMutableStringRef)strConvert, NULL, kCFStringTransformHiraganaKatakana, false);
+    
+    // [170526] 검색하기
+    // 아티스트
+    MPMediaQuery* queryArtist = [MPMediaQuery artistsQuery];
+    if ([strWord isEqualToString:strConvert]) {
+        MPMediaPredicate* artist = [MPMediaPropertyPredicate predicateWithValue:strWord forProperty:MPMediaItemPropertyArtist comparisonType:MPMediaPredicateComparisonContains];
+        [queryArtist addFilterPredicate:artist];
+    } else {
+        MPMediaPredicate* artist = [MPMediaPropertyPredicate predicateWithValue:strWord forProperty:MPMediaItemPropertyArtist comparisonType:MPMediaPredicateComparisonContains];
+        [queryArtist addFilterPredicate:artist];
+        MPMediaPredicate* artist1 = [MPMediaPropertyPredicate predicateWithValue:strConvert forProperty:MPMediaItemPropertyArtist comparisonType:MPMediaPredicateComparisonContains];
+        [queryArtist addFilterPredicate:artist1];
+    }
+    [arArtists setArray:[queryArtist collections]];
+    
+    
+    // 앨범
+    MPMediaQuery* queryAlbum = [MPMediaQuery albumsQuery];
+    if ([strWord isEqualToString:strConvert]) {
+        MPMediaPredicate* album = [MPMediaPropertyPredicate predicateWithValue:strWord forProperty:MPMediaItemPropertyAlbumTitle comparisonType:MPMediaPredicateComparisonContains];
+        [queryAlbum addFilterPredicate:album];
+    } else {
+        MPMediaPredicate* album = [MPMediaPropertyPredicate predicateWithValue:strWord forProperty:MPMediaItemPropertyAlbumTitle comparisonType:MPMediaPredicateComparisonContains];
+        [queryAlbum addFilterPredicate:album];
+        MPMediaPredicate* album1 = [MPMediaPropertyPredicate predicateWithValue:strConvert forProperty:MPMediaItemPropertyAlbumTitle comparisonType:MPMediaPredicateComparisonContains];
+        [queryAlbum addFilterPredicate:album1];
+    }
+    [arAlbums setArray:[queryAlbum collections]];
+//    // 아무래도 에러!
+//    NSArray* arAlbum = [queryAlbum collections];
+//    NSPredicate* album = [NSPredicate predicateWithFormat:@"title contains[cd] %@ OR title contains[cd] %@", strWord, strConvert];
+//    NSArray* arSearchAlbum = [arAlbum filteredArrayUsingPredicate:album];
+//    [arAlbums setArray:arSearchAlbum];
+    
+    
+    // 노래
+    MPMediaQuery* querySong = [MPMediaQuery songsQuery];
+    NSArray* arSong = [querySong items];
+    NSPredicate* song = [NSPredicate predicateWithFormat:@"title contains[cd] %@ OR title contains[cd] %@", strWord, strConvert];
+    NSArray* arSearchSong = [arSong filteredArrayUsingPredicate:song];
+    [arSongs setArray:arSearchSong];
+    
+    NSLog(@"result/n%@/n%@/%@", arArtists, arAlbums, arSongs);
 }
 
 
