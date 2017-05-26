@@ -87,4 +87,13 @@
     . 뮤직정보는 NSAppleMusicUsageDescription
 
 
+170527
+ - 동일한 검색어 두번 검색시, 에러
+    . 해당 단어를 array에서 삭제한 후에도 for in이 계속 돌면서 생기는 문제였음 -> break;
+ - 검색결과 관련
+    . 검색결과화면에 검색된 array값 넘겨줌 -> artist, album의 경우 array로 넘기니 에러남 (MPMediaItemCollection으로 넘김)
+    . resultviewcontroller가 연결된것 같음에도 제대로 보이지 않는다 -> 섹션이 전 화면 섹션들을 가져와 뿌려줌
+    . 검색결과 화면에 tableview 스크롤시, search bar를 넘어가서 status bar에 오버랩됨
+   
+
 

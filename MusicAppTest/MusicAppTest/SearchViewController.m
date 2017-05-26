@@ -141,7 +141,7 @@
     
     
     
-    _resultTableVC = [[ResultViewController alloc] init];
+    _resultTableVC = [[ResultViewController alloc] initWithStyle:UITableViewStyleGrouped];
     _searchController = [[UISearchController alloc] initWithSearchResultsController:self.resultTableVC];
     self.searchController.searchResultsUpdater = self;
     [self.searchController.searchBar setSearchBarStyle:UISearchBarStyleMinimal];
@@ -428,7 +428,14 @@
     NSArray* arSearchSong = [arSong filteredArrayUsingPredicate:song];
     [arSongs setArray:arSearchSong];
     
-    NSLog(@"result/n%@/n%@/%@", arArtists, arAlbums, arSongs);
+    
+    // [170527] 결과 테이블에 정보 넘겨주기
+    ResultViewController* resultController = (ResultViewController*)self.searchController.searchResultsController;
+    resultController.arArtist = [MPMediaItemCollection collectionWithItems:[queryArtist items]];
+    resultController.arAlbum = [MPMediaItemCollection collectionWithItems:[queryAlbum items]];
+    resultController.arSong = [[NSArray alloc] initWithArray:[arSongs mutableCopy]];
+    [resultController.tableView reloadData];
+    
 }
 
 
@@ -440,6 +447,8 @@
         for (NSString* string in g_arLatest) {
             if ([string isEqualToString:searchBar.text]) {
                 [g_arLatest removeObject:string];
+                // [170527] 중간에 중복단어가 있는 후, 지우고 나서 다시for 돌면서 뻗음 -> 작업 종료 후, for문 종료
+                break;
             }
         }
         
