@@ -153,9 +153,10 @@
 //    self.searchController.searchBar.translatesAutoresizingMaskIntoConstraints = true;
     
     
-    self.resultTableVC.tableView.delegate = self;
+//    self.resultTableVC.tableView.delegate = self;
+//    self.resultTableVC.tableView.dataSource = self;
     self.searchController.delegate = self;
-    self.searchController.dimsBackgroundDuringPresentation = TRUE;
+    self.searchController.dimsBackgroundDuringPresentation = YES;
     self.searchController.searchBar.delegate = self;
     
     self.definesPresentationContext = YES;

@@ -17,12 +17,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+    
+   
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     
     UIView* viewBack = [[UIView alloc] initWithFrame:self.tableView.frame];
     [viewBack setBackgroundColor:[UIColor whiteColor]];
     self.tableView.backgroundView = viewBack;
+    
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -34,6 +39,23 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear: animated];
+    
+    // [170528] 결과에 대한 tableview 크기 지정
+    [self.tableView setFrame:CGRectMake(0, 20, self.tableView.frame.size.width, 598)];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // viewController에서 view의 edge를 확장하지 마...
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
 }
 
 
@@ -144,13 +166,13 @@
 
 // [170526] header height
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 118.0;
+    return 59.0;
 }
 
 
 // [170526] row height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 170.0;
+    return 85.0;
 }
 
 

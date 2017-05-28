@@ -96,4 +96,17 @@
     . 검색결과 화면에 tableview 스크롤시, search bar를 넘어가서 status bar에 오버랩됨
    
 
+170528
+ - 직접적으로 코딩하는 시간보다 삽질하는 시간이 많아졌다 -> 도저히 원하는 대로 안되는게 왜 이렇게 많은거지..
+ - resultviewcontroller가 연결된것 같음에도 제대로 보이지 않는다 -> 섹션이 전 화면 섹션들을 가져와 뿌려줌
+    . resultviewcontroller가 제대로 연결된게 아니었다
+    . self.resultTableVC.tableView.delegate = self; -> 이 코드가 문제, 삭제하니 원하는 대로 보여진다
+ - 검색결과 화면에 tableview 스크롤시, search bar를 넘어가서 status bar에 오버랩됨
+    . 이 부분은 resultviewcontroller에 tableview크기를 다시 지정해줬다
+    . 그랬더니 overlap은 안되는데 서치바보다 20 떨어져서 보임
+    . viewWillAppear에 self.edgesForExtendedLayout = UIRectEdgeNone; 넣었더니 원하는 대로 보임
+ - 이 결과들까지 도출하는데 너무 오래 걸려.. 심지어 원본에 가깝게도 안 만들어지는게 너무 슬프다. 그냥 다른 프로젝트를 시작해봐야겠다. 알고리즘보다는 UI에 너무 오래 시간을 뺏기는 느낌이다
+
+
+
 
