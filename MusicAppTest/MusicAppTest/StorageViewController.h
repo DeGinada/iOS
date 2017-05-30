@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StorageViewController : UIViewController 
+@interface StorageViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 
 @end
