@@ -122,3 +122,14 @@
     . 감기 기운에 몽롱하므로 오늘은 양심없게 여기까지만ㅠㅠ
 
 
+170531
+ - tableview 관련
+    . 보관함 정렬 방법에 따른 list 값 띄우기
+    . cell에 > 표시는 Table view Cell Accessory 에서 Disclosure indicator
+ - 보관함 문구 -> header 섹션에서 header view로 이동
+    . 헤더 섹션에 띄었을 때 separator가 길게 표시되서 옮긴것
+    . headerview에서는 아예 안 나타남 -> 추후에 코드로 넣기
+
+
+
+   
