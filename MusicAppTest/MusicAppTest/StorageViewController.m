@@ -56,7 +56,9 @@
     [viewHeader addSubview:btnEdit];
     
     self.tableView.tableHeaderView = viewHeader;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+//    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    
+    [self setTableFooterView];
     
     
 }
@@ -96,17 +98,73 @@
 }
 
 
+- (void) setTableFooterView {
+    
+    // 정보 가져오기
+//    MPMediaQuery* queryAlbum = [MPMediaQuery albumsQuery];
+    
+    /*
+    // [170601] 최근 추가된 순서대로 정렬 하고 싶었으나 에러!
+    // Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[MPMediaQuery sortedArrayUsingComparator:]: unrecognized selector sent to instance
+    NSArray* arAlbums = [[MPMediaQuery albumsQuery] copy];
+    NSArray* sortedAlbums;
+    sortedAlbums = [arAlbums sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSDate* first = [(MPMediaEntity*)obj1 valueForProperty:MPMediaItemPropertyDateAdded];
+        NSDate* second = [(MPMediaEntity*)obj2 valueForProperty:MPMediaItemPropertyDateAdded];
+        NSTimeInterval firstTime = [first timeIntervalSince1970];
+        NSTimeInterval secondTime = [second timeIntervalSince1970];
+        
+        if (firstTime > secondTime) {
+            return NSOrderedAscending;
+        } else if (firstTime < secondTime) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+    */
+    
+    MPMediaQuery* queryAlbum = [MPMediaQuery albumsQuery];
+    
+    NSSortDescriptor* sorter = [NSSortDescriptor sortDescriptorWithKey:@"representativeItem" ascending:YES comparator:^NSComparisonResult(MPMediaEntity* obj1, MPMediaEntity* obj2) {
+        NSDate* first = [obj1 valueForProperty:MPMediaItemPropertyDateAdded];
+        NSDate* second = [obj2 valueForProperty:MPMediaItemPropertyDateAdded];
+        NSString* strFirst = [NSString stringWithFormat:@"%f", [first timeIntervalSince1970]];
+        NSString* strSecond = [NSString stringWithFormat:@"%f", [second timeIntervalSince1970]];
+        
+        return [strFirst localizedStandardCompare:strSecond];
+    }];
+    NSArray *allAlbums = [queryAlbum.collections sortedArrayUsingDescriptors:@[sorter]];
+    
+    
+    NSLog(@"%@", allAlbums);
+    
+    // 너무 많으니까 최근부터 20개만 보여주게  최상단 높이 65, 216 (158*158, 58)
+    // footer view 높이 정해주기
+    float fFooterHeight = 0.0;
+    if (allAlbums.count > 20) {
+        fFooterHeight = 65+(216*20);
+    } else {
+        long nHeight = ((allAlbums.count)+1)/2;
+        fFooterHeight = 65+(216*nHeight);
+    }
+    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, fFooterHeight)];
+    
+}
+
+
 #pragma mark - TABLE_VIEW
 
 /*
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
+ 
     return  88;
 }
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
+ 
     // [170531] 이걸 section에 넣는게 맞나? 왠지 테이블 뷰에 해얄것 같은 느낌 -> 나중에 보고 수정
     UIView* viewSection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 88)];
     [viewSection setBackgroundColor:[UIColor whiteColor]];

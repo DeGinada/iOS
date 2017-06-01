@@ -131,5 +131,12 @@
     . headerview에서는 아예 안 나타남 -> 추후에 코드로 넣기
 
 
+170601
+ - 보관함 정렬 관련
+    . [MPMediaQuery albumsQuery]를 MPMediaItemPropertyDateAdded 사용하여 최근에 추가된 순서대로 정렬
+    . 추후에 playlist 도 위와 같은 방식으로 정렬해서 합쳐야함
+ - tableview 관련
+    . footerview에 해당 내용 뿌려주기 위해 footerview 크기 계산 뮤직앱은 60개 정도까지 보여주는 것 같은데 많으니까 20개로 작업
+    . 일단은  그냥 버튼으로 보관함처럼 보이게 할거임 ->  추후에 collection view나 다른 걸 사용할지는 봐서 결정하기로
 
-   
+
