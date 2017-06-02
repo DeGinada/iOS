@@ -70,10 +70,10 @@
     
     int nCount = 0;
     
-    if (self.arAlbum.count > 0)
+    if ([self.arAlbum collections].count > 0)
         nCount++;
     
-    if (self.arArtist.count > 0)
+    if ([self.arArtist collections].count > 0)
         nCount++;
     
     if (self.arSong.count > 0)
@@ -90,32 +90,32 @@
     
     if ([self numberOfSectionsInTableView:tableView] == 3) {
         if (section == 0) {
-            return self.arArtist.count;
+            return [self.arArtist collections].count;
         } else if (section == 1) {
-            return self.arAlbum.count;
+            return [self.arAlbum collections].count;
         } else {
             return self.arSong.count;
         }
     } else if ([self numberOfSectionsInTableView:tableView] == 2) {
         if (section == 0) {
-            if (self.arArtist.count) {
-                return self.arArtist.count;
+            if ([self.arArtist collections].count) {
+                return [self.arArtist collections].count;
             } else {
-                return self.arAlbum.count;
+                return [self.arAlbum collections].count;
             }
         } else {
             if (self.arSong.count) {
                 return self.arSong.count;
             } else {
-                return self.arAlbum.count;
+                return [self.arAlbum collections].count;
             }
         }
     } else if ([self numberOfSectionsInTableView:tableView] == 1) {
-        if (self.arAlbum.count > 0)
-            return self.arAlbum.count;
+        if ([self.arAlbum collections].count > 0)
+            return [self.arAlbum collections].count;
         
-        if (self.arArtist.count > 0)
-            return self.arArtist.count;
+        if ([self.arArtist collections].count > 0)
+            return [self.arArtist collections].count;
         
         if (self.arSong.count > 0)
             return self.arSong.count;
@@ -140,7 +140,7 @@
         }
     } else if ([self numberOfSectionsInTableView:tableView] == 2) {
         if (section == 0) {
-            if (self.arArtist.count) {
+            if ([self.arArtist items].count) {
                 return @"아티스트";
             } else {
                 return @"앨범";
@@ -153,10 +153,10 @@
             }
         }
     } else if ([self numberOfSectionsInTableView:tableView] == 1) {
-        if (self.arAlbum.count > 0)
+        if ([self.arAlbum items].count > 0)
             return @"앨범";
         
-        if (self.arArtist.count > 0)
+        if ([self.arArtist items].count > 0)
             return @"아티스트";
         
         if (self.arSong.count > 0)
@@ -261,7 +261,8 @@
     
     NSString* strSection = [self tableView:tableView titleForHeaderInSection:indexPath.section];
     if ([strSection isEqualToString:@"아티스트"]) {
-        MPMediaEntity* mediaEntity = [[self.arArtist items] objectAtIndex:indexPath.row];
+        MPMediaItemCollection* media = [[self.arArtist collections] objectAtIndex:indexPath.row];
+        MPMediaItem* mediaEntity = [[media items] objectAtIndex:0]; // 대표 하나 가져와서 처리
         
         [lbFirst setText:[mediaEntity valueForProperty:MPMediaItemPropertyArtist]];
         [lbFirst sizeToFit];
@@ -275,7 +276,9 @@
         imgView.layer.cornerRadius = imgView.frame.size.height/2.0;
     } else if ([strSection isEqualToString:@"앨범"]) {
         float fHeight = 0.0;
-        MPMediaEntity* mediaEntity = [[self.arAlbum items] objectAtIndex:indexPath.row];
+        MPMediaItemCollection* media = [[self.arAlbum collections] objectAtIndex:indexPath.row];
+        MPMediaItem* mediaEntity = [[media items] objectAtIndex:0]; // 대표 하나 가져와서 처리
+        
         [lbFirst setText:[mediaEntity valueForProperty:MPMediaItemPropertyAlbumTitle]];
         [lbFirst sizeToFit];
         fHeight = fHeight + lbFirst.frame.size.height + BlankHieght;

@@ -432,8 +432,10 @@
     
     // [170527] 결과 테이블에 정보 넘겨주기
     ResultViewController* resultController = (ResultViewController*)self.searchController.searchResultsController;
-    resultController.arArtist = [MPMediaItemCollection collectionWithItems:[queryArtist items]];
-    resultController.arAlbum = [MPMediaItemCollection collectionWithItems:[queryAlbum items]];
+//    resultController.arArtist = [MPMediaItemCollection collectionWithItems:[queryArtist items]];
+//    resultController.arAlbum = [MPMediaItemCollection collectionWithItems:[queryAlbum items]];
+    resultController.arArtist = queryArtist;
+    resultController.arAlbum = queryAlbum;
     resultController.arSong = [[NSArray alloc] initWithArray:[arSongs mutableCopy]];
     [resultController.tableView reloadData];
     

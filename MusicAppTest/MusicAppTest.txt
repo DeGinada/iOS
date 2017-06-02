@@ -141,7 +141,17 @@
 
 
 170602
- - footerview에 앨범 띄울 공간 적용
+ - footer view에 앨범 띄울 공간 적용
+
+
+170603
+ - footer view에 앨범 띄우기 (버튼화)
+    . 앨범 이미지 비율에 따라 다르게 보이게 적용
+    . 앨범 이미지에 따라 간혹 layer border가 안 보이는 경우가 생김 (픽셀상 문제인듯??)
+    . separator line 적용 (footer view top, header view bottom)
+ - tabbar icon 변경
+ - search result에서 앨범 여러개 뜨는 경우 수정
+    . collection을 기준으로 보여줬어야했는데 item을 보여줘서 생긴 오류였음
 
 
 

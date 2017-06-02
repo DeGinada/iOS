@@ -38,11 +38,11 @@
             </objects>
             <point key="canvasLocation" x="1810" y="1430"/>
         </scene>
-        <!--Storage-->
+        <!--보관함-->
         <scene sceneID="8Gy-UR-YY7">
             <objects>
                 <navigationController id="Hst-nz-yRV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Storage" image="first" id="f9I-sF-6MT"/>
+                    <tabBarItem key="tabBarItem" title="보관함" image="Music" id="f9I-sF-6MT"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="K8M-mc-7E5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -55,7 +55,7 @@
             </objects>
             <point key="canvasLocation" x="882" y="-214"/>
         </scene>
-        <!--Item-->
+        <!--검색-->
         <scene sceneID="3id-Fa-DDt">
             <objects>
                 <viewController id="ebc-Zm-uQ7" customClass="SearchViewController" sceneMemberID="viewController">
@@ -113,7 +113,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" image="second" id="adC-RP-7rj"/>
+                    <tabBarItem key="tabBarItem" title="검색" image="Search" id="adC-RP-7rj"/>
                     <connections>
                         <outlet property="tableView" destination="2W7-sG-iLF" id="iX8-9U-oH9"/>
                     </connections>
@@ -219,7 +219,9 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.9882352941176471" green="0.094117647058823528" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.98823529409999999" green="0.094117647060000004" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="Hst-nz-yRV" kind="relationship" relationship="viewControllers" id="9JI-50-YEf"/>
@@ -251,7 +253,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
+        <image name="Music" width="25" height="25"/>
+        <image name="Search" width="25" height="25"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

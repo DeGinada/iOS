@@ -40,6 +40,11 @@
     UIView* viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 88)];
     [viewHeader setBackgroundColor:[UIColor whiteColor]];
     
+    CALayer* layerTop = [CALayer layer];
+    layerTop.frame = CGRectMake(20, 87.7, self.tableView.frame.size.width, 0.3);
+    layerTop.backgroundColor = [UIColor lightGrayColor].CGColor;
+    [viewHeader.layer addSublayer:layerTop];
+    
     UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(18, 20, self.tableView.frame.size.width-36, 68)];
     [lbTitle setText:@"보관함"];
     [lbTitle setFont:[UIFont boldSystemFontOfSize:34]];
@@ -132,7 +137,8 @@
     
     MPMediaQuery* queryAlbum = [MPMediaQuery albumsQuery];
     
-    NSSortDescriptor* sorter = [NSSortDescriptor sortDescriptorWithKey:@"representativeItem" ascending:YES comparator:^NSComparisonResult(MPMediaEntity* obj1, MPMediaEntity* obj2) {
+    // ascending:NO -> 최신부터 과거순, YES -> 과거부터 최신순
+    NSSortDescriptor* sorter = [NSSortDescriptor sortDescriptorWithKey:@"representativeItem" ascending:NO comparator:^NSComparisonResult(MPMediaEntity* obj1, MPMediaEntity* obj2) {
         NSDate* first = [obj1 valueForProperty:MPMediaItemPropertyDateAdded];
         NSDate* second = [obj2 valueForProperty:MPMediaItemPropertyDateAdded];
         NSString* strFirst = [NSString stringWithFormat:@"%f", [first timeIntervalSince1970]];
@@ -143,7 +149,7 @@
     NSArray *allAlbums = [queryAlbum.collections sortedArrayUsingDescriptors:@[sorter]];
     
     
-    NSLog(@"%@", allAlbums);
+//    NSLog(@"%@", allAlbums);
     
     // 너무 많으니까 최근부터 20개만 보여주게  최상단 높이 65, 216 (158*158, 58)
     // footer view 높이 정해주기
@@ -160,6 +166,11 @@
     UIView* viewFooter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, fFooterHeight)];
     [viewFooter setBackgroundColor:[UIColor whiteColor]];
     
+    CALayer* layerTop = [CALayer layer];
+    layerTop.frame = CGRectMake(20, 0, self.tableView.frame.size.width, 0.3);
+    layerTop.backgroundColor = [UIColor lightGrayColor].CGColor;
+    [viewFooter.layer addSublayer:layerTop];
+    
     
     // 타이틀
     UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(18, 13, self.tableView.frame.size.width-36, 52)];
@@ -173,6 +184,9 @@
     int nCount = 0;
     for (MPMediaItemCollection* item in allAlbums) {
         
+        // MPMediaItemCollection 값에서 바로 정보 뽑으니 전부 nil. 대표되는 하나의 item정보로 출력?
+        MPMediaItem* firstItem = [[item items] objectAtIndex:0];
+        
         // nCount가 짝수면 left, 홀수면 right
         // nCount/2로 해서 나온 몫이 높이 카운트
         UIButton* btnAlbum = [[UIButton alloc] initWithFrame:CGRectMake(nCount%2 == 0 ? 20 : 197, 65+((nCount/2)*216), 158, 216)];
@@ -181,32 +195,50 @@
         [viewFooter addSubview:btnAlbum];
         
         
-        UIImageView* imgAlbum = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 158, 158)];
-        [imgAlbum setImage:nil];
+        UIImageView* imgAlbum = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 158.0, 158.0)];
         [imgAlbum setBackgroundColor:[UIColor whiteColor]];
-        imgAlbum.layer.cornerRadius = 5;
-        imgAlbum.layer.borderWidth = 0.1;
+        imgAlbum.layer.cornerRadius = 4.0;
+        imgAlbum.layer.borderWidth = 0.3;
         imgAlbum.layer.borderColor = [UIColor lightGrayColor].CGColor;
         imgAlbum.clipsToBounds = YES;
         [btnAlbum addSubview:imgAlbum];
         
+        MPMediaItemArtwork* artwork = [firstItem valueForProperty:MPMediaItemPropertyArtwork];
+        UIImage* image = [artwork imageWithSize:imgAlbum.frame.size];
+        if (image) {
+            [imgAlbum setImage:image];
+        } else {
+            [imgAlbum setImage:nil];
+        }
+        [imgAlbum setContentMode:UIViewContentModeScaleToFill];
+        
+        // 뮤직처럼 보이게 하기 위해서 앨범 이미지 비율에 따라 보여지는거 다르게 계산
+        float ratio = image.size.height/image.size.width;
+        if (ratio < 0.9) {
+            [imgAlbum setFrame:CGRectMake(imgAlbum.frame.origin.x, 158.0*(1.0-ratio), imgAlbum.frame.size.width, 158.0*ratio)];
+        } else if (ratio > 1.1) {
+            ratio = image.size.width/image.size.height;
+            [imgAlbum setFrame:CGRectMake((158.0-(158.0*ratio))/2.0, imgAlbum.frame.origin.y, 158.0*ratio, imgAlbum.frame.size.height)];
+        }
         
         UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 162, 158, 19)];
-        [lbTitle setText:@"제목"];
+        [lbTitle setText:[firstItem valueForProperty:MPMediaItemPropertyAlbumTitle]];
         [lbTitle setTextColor:[UIColor blackColor]];
-        [lbTitle setFont:[UIFont systemFontOfSize:15]];
+        [lbTitle setFont:[UIFont systemFontOfSize:14]];
         [lbTitle setTextAlignment:NSTextAlignmentLeft];
-        [lbTitle setLineBreakMode:NSLineBreakByCharWrapping];
+//        [lbTitle setLineBreakMode:NSLineBreakByCharWrapping];
         [btnAlbum addSubview:lbTitle];
         
         UILabel* lbArtist = [[UILabel alloc] initWithFrame:CGRectMake(0, 182, 158, 19)];
-        [lbArtist setText:@"아티스트"];
+        [lbArtist setText:[firstItem valueForProperty:MPMediaItemPropertyArtist]];
         [lbArtist setTextColor:[UIColor lightGrayColor]];
-        [lbArtist setFont:[UIFont systemFontOfSize:15]];
+        [lbArtist setFont:[UIFont systemFontOfSize:14]];
         [lbArtist setTextAlignment:NSTextAlignmentLeft];
-        [lbArtist setLineBreakMode:NSLineBreakByCharWrapping];
+//        [lbArtist setLineBreakMode:NSLineBreakByCharWrapping];
         [btnAlbum addSubview:lbArtist];
         
+        
+        NSLog(@"%@ - %0.1f, %0.1f", lbTitle.text, image.size.width, image.size.height);
         
         nCount++;
         if (nCount >= 20) {
