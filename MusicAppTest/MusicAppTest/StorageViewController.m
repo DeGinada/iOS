@@ -8,6 +8,7 @@
 
 #import "StorageViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "AlbumDetailViewController.h"
 
 
 #define RED_COLOR       [UIColor colorWithRed:252.0/255.0 green:24.0/255.0 blue:88.0/255.0 alpha:1.0]
@@ -105,6 +106,12 @@
 
 // [170602] album 상세 화면으로 간다
 - (void) goAlbumDetail:(id)sender {
+    
+    MPMediaItemCollection* album = (MPMediaItemCollection*)[(UIButton*)sender imageForState:UIControlStateDisabled];
+    
+    AlbumDetailViewController* vcAlbumDetail = [self.storyboard instantiateViewControllerWithIdentifier:@"AlbumDetailvc"];
+    vcAlbumDetail.arAlbum = album;
+    [self.navigationController pushViewController:vcAlbumDetail animated:YES];
     
 }
 

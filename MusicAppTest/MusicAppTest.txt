@@ -154,4 +154,15 @@
     . collection을 기준으로 보여줬어야했는데 item을 보여줘서 생긴 오류였음
 
 
+170604
+ - AlbumDetailViewController 연결
+    . 앨범을 눌렀을때 곡정보 등을 보여주는 상세 화면 연결
+    . storyboard, navigation bar 적용
+ - navigation bar 작업 관련
+    . [self.navigationController.navigationBar.backItem setTitle:@"보관함"]; -> back 버튼 옆에 타이틀 지정
+    . self.navigationController.navigationBar.clipsToBounds = YES;
+      [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]]; -> 하단에 1px 정도에 해당하는 line 지움
+    . [self.navigationController.navigationBar setTintColor:RED_COLOR]; -> back버튼과 타이틀 컬러 지정
+
+
 

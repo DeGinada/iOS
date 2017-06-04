@@ -12,6 +12,7 @@
 		9F3D6F4A1ED7C91400677EB8 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3D6F491ED7C91400677EB8 /* MediaPlayer.framework */; };
 		9F3D6F4C1ED7C91A00677EB8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3D6F4B1ED7C91A00677EB8 /* AVFoundation.framework */; };
 		9F3D6F4E1ED7C92100677EB8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3D6F4D1ED7C92100677EB8 /* AudioToolbox.framework */; };
+		9F567DBB1EE3F99D00E09637 /* AlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F567DBA1EE3F99D00E09637 /* AlbumDetailViewController.m */; };
 		9F65BC191ECDDF2100708A38 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F65BC181ECDDF2100708A38 /* main.m */; };
 		9F65BC1C1ECDDF2100708A38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F65BC1B1ECDDF2100708A38 /* AppDelegate.m */; };
 		9F65BC1F1ECDDF2100708A38 /* StorageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F65BC1E1ECDDF2100708A38 /* StorageViewController.m */; };
@@ -30,6 +31,8 @@
 		9F3D6F4B1ED7C91A00677EB8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9F3D6F4D1ED7C92100677EB8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		9F3D6F4F1ED7C9B800677EB8 /* MusicAppTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicAppTest.entitlements; sourceTree = "<group>"; };
+		9F567DB91EE3F99D00E09637 /* AlbumDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumDetailViewController.h; sourceTree = "<group>"; };
+		9F567DBA1EE3F99D00E09637 /* AlbumDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumDetailViewController.m; sourceTree = "<group>"; };
 		9F65BC141ECDDF2100708A38 /* MusicAppTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicAppTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F65BC181ECDDF2100708A38 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9F65BC1A1ECDDF2100708A38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 				9F65BC1B1ECDDF2100708A38 /* AppDelegate.m */,
 				9F65BC1D1ECDDF2100708A38 /* StorageViewController.h */,
 				9F65BC1E1ECDDF2100708A38 /* StorageViewController.m */,
+				9F567DB91EE3F99D00E09637 /* AlbumDetailViewController.h */,
+				9F567DBA1EE3F99D00E09637 /* AlbumDetailViewController.m */,
 				9F65BC201ECDDF2100708A38 /* SearchViewController.h */,
 				9F65BC211ECDDF2100708A38 /* SearchViewController.m */,
 				9F3D6F451ED4810F00677EB8 /* SearchTableViewCell.h */,
@@ -199,6 +204,7 @@
 				9F3D6F441ECF350E00677EB8 /* ResultViewController.m in Sources */,
 				9F65BC191ECDDF2100708A38 /* main.m in Sources */,
 				9F3D6F471ED4810F00677EB8 /* SearchTableViewCell.m in Sources */,
+				9F567DBB1EE3F99D00E09637 /* AlbumDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
