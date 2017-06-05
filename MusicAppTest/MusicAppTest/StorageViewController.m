@@ -245,7 +245,7 @@
         [btnAlbum addSubview:lbArtist];
         
         
-        NSLog(@"%@ - %0.1f, %0.1f", lbTitle.text, image.size.width, image.size.height);
+//        NSLog(@"%@ - %0.1f, %0.1f", lbTitle.text, image.size.width, image.size.height);
         
         nCount++;
         if (nCount >= 20) {

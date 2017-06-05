@@ -165,4 +165,14 @@
     . [self.navigationController.navigationBar setTintColor:RED_COLOR]; -> back버튼과 타이틀 컬러 지정
 
 
+170605
+ - AlbumDetailViewController tableview header, footer
+    . footer에 곡 수및 시간 계산해서 보여주기
+    . header에 앨범 자켓 및 타이틀 보여주기
+ - 또.. 삽질의 연속이ㅠㅠ table view와 status, navi의 관계가 이해가 안된다
+    . 작업 중 또 table view가 status bar에 오버랩되기 시작
+    . 현재 vc는 navi가 있기에 navi높이와 y값 조정으로 수정
+    . vc의 adjust scroll view insets check 해제
+
+
 
