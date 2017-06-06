@@ -7,6 +7,7 @@
 //
 
 #import "AlbumDetailViewController.h"
+#import "AlbumDetailTableViewCell.h"
 
 
 #define RED_COLOR       [UIColor colorWithRed:252.0/255.0 green:24.0/255.0 blue:88.0/255.0 alpha:1.0]
@@ -88,6 +89,7 @@
     UIImage* image = [artwork imageWithSize:imgAlbum.frame.size];
     if (image) {
         [imgAlbum setImage:image];
+        [imgAlbum setContentMode:UIViewContentModeScaleAspectFit];
     } else {
         [imgAlbum setImage:nil];
     }
@@ -101,6 +103,38 @@
     [lbTitle setNumberOfLines:0];
     [viewHeader addSubview:lbTitle];
     
+    UILabel* lbArtist = [[UILabel alloc] initWithFrame:CGRectMake(178, lbTitle.frame.origin.y+lbTitle.frame.size.height, lbTitle.frame.size.width, 18)];
+    [lbArtist setFont:[UIFont systemFontOfSize:16.0]];
+    [lbArtist setText:[itemMedia valueForProperty:MPMediaItemPropertyArtist]];
+    [lbArtist setTextColor:[UIColor lightGrayColor]];
+    [lbArtist setTextAlignment:NSTextAlignmentLeft];
+    [lbArtist sizeToFit];
+    [lbArtist setFrame:CGRectMake(lbArtist.frame.origin.x, lbArtist.frame.origin.y+2, lbTitle.frame.size.width, lbArtist.frame.size.height)];
+    [lbArtist setLineBreakMode:NSLineBreakByCharWrapping];
+    [viewHeader addSubview:lbArtist];
+    
+    // 년도 표시(있을 경우에)
+    NSNumber* year = [itemMedia valueForProperty:@"year"];
+    if ([year intValue] > 0) {
+        UILabel* lbYear = [[UILabel alloc] initWithFrame:CGRectMake(178, lbArtist.frame.origin.y+lbArtist.frame.size.height+2, lbTitle.frame.size.width, 18)];
+        [lbYear setFont:[UIFont systemFontOfSize:16.0]];
+        [lbYear setText:[NSString stringWithFormat:@"%d년", [year intValue]]];
+        [lbYear setTextColor:[UIColor lightGrayColor]];
+        [lbYear setTextAlignment:NSTextAlignmentLeft];
+        [lbYear sizeToFit];
+        [viewHeader addSubview:lbYear];
+    }
+    
+    // 더보기 버튼
+    UIButton* btnMore = [[UIButton alloc] initWithFrame:CGRectMake(326, 111, 30, 30)];
+    [btnMore setImage:[UIImage imageNamed:@"btn_more.png"] forState:UIControlStateNormal];
+    [btnMore addTarget:self action:@selector(showMoreInfomation) forControlEvents:UIControlEventTouchUpInside];
+    [viewHeader addSubview:btnMore];
+    
+    CALayer* layerBottom = [CALayer layer];
+    layerBottom.frame = CGRectMake(20, viewHeader.frame.size.height-0.3, self.tableView.frame.size.width, 0.3);
+    layerBottom.backgroundColor = [UIColor lightGrayColor].CGColor;
+    [viewHeader.layer addSublayer:layerBottom];
     
     self.tableView.tableHeaderView = viewHeader;
 }
@@ -138,6 +172,11 @@
         [lbInfo setText:[NSString stringWithFormat:@"%ld곡, %ld분", nCount, nAllSongLen]];
     }
     
+    CALayer* layerTop = [CALayer layer];
+    layerTop.frame = CGRectMake(50, 0, self.tableView.frame.size.width, 0.3);
+    layerTop.backgroundColor = [UIColor lightGrayColor].CGColor;
+    [viewFooter.layer addSublayer:layerTop];
+    
     
     self.tableView.tableFooterView = viewFooter;
 }
@@ -160,6 +199,12 @@
     return (fHeight*nHeight);
 }
 
+
+// 각 앨범정보에 대한 더보기 버튼
+- (void) showMoreInfomation {
+    
+}
+
 #pragma mark - TABLE_VIEW
 
 
@@ -172,10 +217,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    AlbumDetailTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell = [[AlbumDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    }
+    
+    
+    if (indexPath.row == 0) {
+        // 전체 재생 뛰울 위치
+        [cell.imgShuffle setHidden:NO];
+        [cell.lbNumber setHidden:YES];
+        cell.lbTitle.text = @"전체 임의 재생";
+    } else {
+        
+        MPMediaItem* mediaItem = [self.arAlbum.items objectAtIndex:(indexPath.row-1)];
+        [cell.imgShuffle setHidden:YES];
+        [cell.lbNumber setHidden:NO];
+        cell.lbTitle.text = [mediaItem valueForProperty:MPMediaItemPropertyTitle];
+        cell.lbNumber.text = [NSString stringWithFormat:@"%ld", indexPath.row];
+        [cell.lbNumber setTextAlignment:NSTextAlignmentCenter];
+//        [cell.lbNumber sizeToFit];
     }
     
     

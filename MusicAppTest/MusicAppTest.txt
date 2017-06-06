@@ -175,4 +175,12 @@
     . vc의 adjust scroll view insets check 해제
 
 
+170606
+ - 앨범 상세 화면 적용
+    . cell 작업 등 UI 완성
+    . 더보기 버튼에 따른 동작, 재생 등 작업 필요
+ - 플레이리스트 작업 필요
+    . albumDetailView를 확장할까? 다시 만들까?
+
+
 
