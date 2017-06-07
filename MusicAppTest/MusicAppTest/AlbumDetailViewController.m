@@ -8,6 +8,7 @@
 
 #import "AlbumDetailViewController.h"
 #import "AlbumDetailTableViewCell.h"
+#import "UILabel+Appearance.h"
 
 
 #define RED_COLOR       [UIColor colorWithRed:252.0/255.0 green:24.0/255.0 blue:88.0/255.0 alpha:1.0]
@@ -203,6 +204,60 @@
 // 각 앨범정보에 대한 더보기 버튼
 - (void) showMoreInfomation {
     
+    // alert
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* actionCancel = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        // action sheet를 닫음
+    }];
+    
+    UIAlertAction* actionDownload = [UIAlertAction actionWithTitle:@"다운로드" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 해당 앨범을 오프라인에서 들을 수 있게 다운로드 -> 다운로드 하면 제거로 바뀌고, 보관함에서 삭제가 사라짐
+        // 제거로 바꼈을때 -> 다운로드 삭제, 보괌함에서 삭제로 나뉨
+    }];
+    
+    UIAlertAction* actionRemove = [UIAlertAction actionWithTitle:@"보관함에서 삭제" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 해당 앨범을 삭제
+    }];
+    
+    UIAlertAction* actionAddPlaylist = [UIAlertAction actionWithTitle:@"재생목록에 추가..." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 해당 앨범을 플레이리스트에 추가 -> 최근 재생목록, 새로운 재생목록, 기존 재생목록 중 선택 가능
+    }];
+    
+    UIAlertAction* actionPlayNext = [UIAlertAction actionWithTitle:@"다음 재생" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 해당 앨범을 현재 재생중인 곡 바로 뒤에 넣음
+    }];
+    
+    UIAlertAction* actionPlayLast = [UIAlertAction actionWithTitle:@"나중에 재생" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 해당 앨범을 현재 재생중인 리스트 제일 아래에 넣음
+        
+    }];
+    
+    [actionCancel setValue:RED_COLOR forKey:@"titleTextColor"];
+    [actionDownload setValue:RED_COLOR forKey:@"titleTextColor"];
+    [actionRemove setValue:RED_COLOR forKey:@"titleTextColor"];
+    [actionAddPlaylist setValue:RED_COLOR forKey:@"titleTextColor"];
+    [actionPlayNext setValue:RED_COLOR forKey:@"titleTextColor"];
+    [actionPlayLast setValue:RED_COLOR forKey:@"titleTextColor"];
+    
+    [alertController addAction:actionDownload];
+    [alertController addAction:actionRemove];
+    [alertController addAction:actionAddPlaylist];
+    [alertController addAction:actionPlayNext];
+    [alertController addAction:actionPlayLast];
+    [alertController addAction:actionCancel];
+    
+    /*
+    // action에 title을 정렬시키고 싶은데 안됨..
+    UILabel* lbDownload = [UILabel appearanceWhenContainedInInstancesOfClasses:@[[UIAlertController class]]];
+    [lbDownload setAppearanceAlignment:NSTextAlignmentLeft];
+     */
+    
+    
+//    UIButton* lbDownload = [UIButton appearanceWhenContainedInInstancesOfClasses:@[[UIAlertController class]]];
+//    [lbDownload.titleLabel setTextAlignment:NSTextAlignmentLeft];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - TABLE_VIEW

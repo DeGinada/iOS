@@ -184,5 +184,8 @@
  - 왜.. 밤 11시대만 되면.. contributions이 제대로 표시되지 않는 거냐 깃허브!!
 
 
-
+170707
+ - 앨범 상세 화면 더보기 작업 중
+    . action sheet 적용
+    . action sheet custom 방법 찾는 중
 
