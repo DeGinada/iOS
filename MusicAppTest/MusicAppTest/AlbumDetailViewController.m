@@ -96,7 +96,7 @@
     }
     
     NSString* strTitle = [itemMedia valueForProperty:MPMediaItemPropertyAlbumTitle];
-    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(178, 1, self.tableView.frame.size.width-178-20, [self getHeightAlbumTitle:strTitle])];
+    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(178, 1, self.tableView.frame.size.width-178-20, [self getHeightLabelWithString:strTitle width:(self.tableView.frame.size.width-178-20) fontsize:16.0 bold:YES])];
     [lbTitle setFont:[UIFont boldSystemFontOfSize:16.0]];
     [lbTitle setText:strTitle];
     [lbTitle setTextColor:[UIColor blackColor]];
@@ -184,16 +184,20 @@
 
 
 // string을 넘겨주면 album title창에 맞는 높이를 리턴해준다.
-- (CGFloat) getHeightAlbumTitle:(NSString*)strTitle {
+- (CGFloat) getHeightLabelWithString:(NSString*)strTitle width:(CGFloat)width fontsize:(CGFloat)fontsize bold:(BOOL)bold {
     
-    CGFloat fWidht = self.tableView.frame.size.width-178-20;
-    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(178, 0, fWidht, 100)];
-    [lbTitle setFont:[UIFont boldSystemFontOfSize:16.0]];
+//    CGFloat fWidht = self.tableView.frame.size.width-178-20;
+    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 100)];
+    if (bold) {
+        [lbTitle setFont:[UIFont boldSystemFontOfSize:fontsize]];
+    } else {
+        [lbTitle setFont:[UIFont systemFontOfSize:fontsize]];
+    }
     [lbTitle setText:strTitle];
     [lbTitle sizeToFit];
     
     CGFloat fHeight = lbTitle.frame.size.height;
-    NSInteger nHeight = (lbTitle.frame.size.width/fWidht)+1;
+    NSInteger nHeight = (lbTitle.frame.size.width/width)+1;
     
     
 //    NSLog(@"%f", fHeight*nHeight);
@@ -206,6 +210,71 @@
     
     // alert
     UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    UIView* viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 355, 122)];
+    [viewHeader setBackgroundColor:[UIColor clearColor]];
+    [alertController.view addSubview:viewHeader];
+    
+    MPMediaItem* itemMedia = [self.arAlbum.items objectAtIndex:0];
+    
+    // 15, 74, 74
+    UIImageView* imgAlbum = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 90, 90)];
+    imgAlbum.layer.cornerRadius = 4.0;
+    imgAlbum.clipsToBounds = YES;
+    [imgAlbum setBackgroundColor:[UIColor clearColor]];
+    [viewHeader addSubview:imgAlbum];
+    
+    MPMediaItemArtwork* artwork = [itemMedia valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage* image = [artwork imageWithSize:imgAlbum.frame.size];
+    if (image) {
+        [imgAlbum setImage:image];
+    } else {
+        [imgAlbum setImage:nil];
+    }
+    [imgAlbum setContentMode:UIViewContentModeScaleAspectFit];
+    
+    NSString* strAlbum = [itemMedia valueForProperty:MPMediaItemPropertyAlbumTitle];
+    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(16+15+90, 15, 355-32-15-90, [self getHeightLabelWithString:strAlbum width:(355-32-15-90) fontsize:15.0 bold:YES])];
+    [lbTitle setText:strAlbum];
+    [lbTitle setFont:[UIFont boldSystemFontOfSize:15.0]];
+    [lbTitle setTextColor:[UIColor blackColor]];
+    lbTitle.numberOfLines = 2;
+    [viewHeader addSubview:lbTitle];
+    
+    UILabel* lbArtist = [[UILabel alloc] initWithFrame:CGRectMake(16+15+90, 15, 355-32-15-90, 20)];
+    [lbArtist setText:[itemMedia valueForProperty:MPMediaItemPropertyArtist]];
+    [lbArtist setFont:[UIFont systemFontOfSize:15.0]];
+    [lbArtist setTextColor:[UIColor blackColor]];
+    [lbArtist setTextAlignment:NSTextAlignmentLeft];
+    [lbArtist sizeToFit];
+    [viewHeader addSubview:lbArtist];
+    
+    // 년도 표시(있을 경우에)
+    NSNumber* year = [itemMedia valueForProperty:@"year"];
+    if ([year intValue] > 0) {
+        UILabel* lbYear = [[UILabel alloc] initWithFrame:CGRectMake(16+15+90, 15, 355-32-15-90, 20)];
+        [lbYear setFont:[UIFont systemFontOfSize:15.0]];
+        [lbYear setText:[NSString stringWithFormat:@"%d년", [year intValue]]];
+        [lbYear setTextColor:[UIColor lightGrayColor]];
+        [lbYear setTextAlignment:NSTextAlignmentLeft];
+        [lbYear sizeToFit];
+        [viewHeader addSubview:lbYear];
+        
+        
+        // vertical center로 정렬
+        float fHeight = lbTitle.frame.size.height + lbArtist.frame.size.height + lbYear.frame.size.height + 4;
+        [lbTitle setFrame:CGRectMake(lbTitle.frame.origin.x, (viewHeader.frame.size.height-fHeight)/2, lbTitle.frame.size.width, lbTitle.frame.size.height)];
+        // sizetofit 영향으로 label width 크기 길어졌을 경우 대비하여 title width로 지정
+        [lbArtist setFrame:CGRectMake(lbArtist.frame.origin.x, lbTitle.frame.origin.y+lbTitle.frame.size.height+2, lbTitle.frame.size.width, lbArtist.frame.size.height)];
+        [lbYear setFrame:CGRectMake(lbYear.frame.origin.x, lbArtist.frame.origin.y+lbArtist.frame.size.height+2, lbTitle.frame.size.width, lbYear.frame.size.height)];
+    } else {
+        // vertical center로 정렬
+        float fHeight = lbTitle.frame.size.height + lbArtist.frame.size.height + 2;
+        [lbTitle setFrame:CGRectMake(lbTitle.frame.origin.x, (viewHeader.frame.size.height-fHeight)/2, lbTitle.frame.size.width, lbTitle.frame.size.height)];
+        // sizetofit 영향으로 label width 크기 길어졌을 경우 대비하여 title width로 지정
+        [lbArtist setFrame:CGRectMake(lbArtist.frame.origin.x, lbTitle.frame.origin.y+lbTitle.frame.size.height+2, lbTitle.frame.size.width, lbArtist.frame.size.height)];
+    }
     
     UIAlertAction* actionCancel = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         // action sheet를 닫음
@@ -239,6 +308,13 @@
     [actionAddPlaylist setValue:RED_COLOR forKey:@"titleTextColor"];
     [actionPlayNext setValue:RED_COLOR forKey:@"titleTextColor"];
     [actionPlayLast setValue:RED_COLOR forKey:@"titleTextColor"];
+    
+    // 이미지 넣기
+    [actionDownload setValue:[[UIImage imageNamed:@"btn_download.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+    [actionRemove setValue:[[UIImage imageNamed:@"btn_remove.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+    [actionAddPlaylist setValue:[[UIImage imageNamed:@"btn_addplaylist.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+    [actionPlayNext setValue:[[UIImage imageNamed:@"btn_playnext.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+    [actionPlayLast setValue:[[UIImage imageNamed:@"btn_playlast.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
     
     [alertController addAction:actionDownload];
     [alertController addAction:actionRemove];

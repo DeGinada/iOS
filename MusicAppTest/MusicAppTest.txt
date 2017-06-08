@@ -189,3 +189,11 @@
     . action sheet 적용
     . action sheet custom 방법 찾는 중
 
+
+170708
+ - 앨범 상세 화면 더보기 작업 중
+    . action sheet header 부분 적용
+    . alertaction에 이미지 추가
+    . 뮤직앱 처럼되는 방법은 없는 건가? alertaction의 custom이 원하는 대로 안됨 -> text 정렬과 이미지 위치
+
+
