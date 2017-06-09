@@ -7,6 +7,7 @@
 //
 
 #import "ResultViewController.h"
+#import "CustomTabBarViewController.h"
 
 @interface ResultViewController ()
 
@@ -24,6 +25,15 @@
     [viewHeader setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:250.0/255.0 alpha:1.0]];
     self.tableView.tableHeaderView = viewHeader;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    
+//    // 현재 재생 중인 곡이 있을 경우 view 높이를 더 높임
+//    if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
+//        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 64)];
+//    }
+    // 현재 재생 중인 곡이 있을 경우 tableview 크기 조정
+    if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height-64)];
+    }
     
     UIView* viewBack = [[UIView alloc] initWithFrame:self.tableView.frame];
     [viewBack setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:250.0/255.0 alpha:1.0]];

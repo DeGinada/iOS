@@ -184,16 +184,22 @@
  - 왜.. 밤 11시대만 되면.. contributions이 제대로 표시되지 않는 거냐 깃허브!!
 
 
-170707
+170607
  - 앨범 상세 화면 더보기 작업 중
     . action sheet 적용
     . action sheet custom 방법 찾는 중
 
 
-170708
+170608
  - 앨범 상세 화면 더보기 작업 중
     . action sheet header 부분 적용
     . alertaction에 이미지 추가
     . 뮤직앱 처럼되는 방법은 없는 건가? alertaction의 custom이 원하는 대로 안됨 -> text 정렬과 이미지 위치
 
+
+170609
+ - 재생바 작업
+    . 현재 재생 중인 곡이 있을 경우 재생바 영역 설정
+    . 그에 맞춰서 각 테이블뷰 크기 재조정
+    . CustomTabbarVC에서 작업
 

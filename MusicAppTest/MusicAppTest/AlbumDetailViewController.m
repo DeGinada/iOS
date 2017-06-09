@@ -9,6 +9,7 @@
 #import "AlbumDetailViewController.h"
 #import "AlbumDetailTableViewCell.h"
 #import "UILabel+Appearance.h"
+#import "CustomTabBarViewController.h"
 
 
 #define RED_COLOR       [UIColor colorWithRed:252.0/255.0 green:24.0/255.0 blue:88.0/255.0 alpha:1.0]
@@ -143,7 +144,7 @@
 
 - (void) setTableViewFooterView {
     
-    UIView* viewFooter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, (49+64))];
+    UIView* viewFooter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, (49))];
     [viewFooter setBackgroundColor:[UIColor whiteColor]];
     
     UILabel* lbInfo = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.tableView.frame.size.width-40, 49)];
@@ -179,7 +180,17 @@
     [viewFooter.layer addSublayer:layerTop];
     
     
+//    // 현재 재생 중인 곡이 있을 경우 view 높이를 더 높임
+//    if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
+//        [viewFooter setFrame:CGRectMake(viewFooter.frame.origin.x, viewFooter.frame.origin.y, viewFooter.frame.size.width, viewFooter.frame.size.height+64)];
+//    }
+    
     self.tableView.tableFooterView = viewFooter;
+    
+    // 현재 재생 중인 곡이 있을 경우 tableview 크기 조정
+    if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height-64)];
+    }
 }
 
 
