@@ -12,4 +12,6 @@
 
 @property (nonatomic, readwrite) BOOL isHiddenPlayer;
 
+- (void) setMiniPlayer;
+
 @end

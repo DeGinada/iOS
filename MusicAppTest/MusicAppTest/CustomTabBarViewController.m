@@ -52,14 +52,34 @@
 
 
 
+//- (UIVisualEffectView*) setMiniPlayer {
 - (void) setMiniPlayer {
+
     
 
-    self.viewPlayer = [[UIView alloc] initWithFrame:CGRectMake(0, self.tabBar.frame.origin.y-64, self.view.frame.size.width, 64)];
-    [self.viewPlayer setBackgroundColor:[UIColor lightGrayColor]];
-    [self.view addSubview:self.viewPlayer];
-    [self.view bringSubviewToFront:self.viewPlayer];
+//    self.viewPlayer = [[UIView alloc] initWithFrame:CGRectMake(0, self.tabBar.frame.origin.y-0.3-64, self.view.frame.size.width, 64)];
+//    [self.viewPlayer setBackgroundColor:[UIColor clearColor]];
+//    [self.view addSubview:self.viewPlayer];
+//    [self.view bringSubviewToFront:self.viewPlayer];
     
+    
+    // visual effect view 밑에서 밝기 조정할 뷰
+    UIView* viewTemp = [[UIView alloc] initWithFrame:CGRectMake(0, self.tabBar.frame.origin.y-64, self.view.frame.size.width, 64)];
+    [viewTemp setBackgroundColor:[UIColor lightGrayColor]];
+    viewTemp.alpha = 0.4;
+    [self.view addSubview:viewTemp];
+//    [self.view bringSubviewToFront:viewTemp];
+    
+    UIVisualEffectView* viewEffect = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
+    viewEffect.frame = CGRectMake(0, self.tabBar.frame.origin.y-64, self.view.frame.size.width, 64);
+    [self.view addSubview:viewEffect];
+    [self.view bringSubviewToFront:viewEffect];
+
+    CALayer* layerBottom = [CALayer layer];
+    layerBottom.frame = CGRectMake(0, 64-0.3, viewEffect.frame.size.width, 0.3);
+    layerBottom.backgroundColor = [UIColor lightGrayColor].CGColor;
+    [viewEffect.layer addSublayer:layerBottom];
+
 }
 
 @end

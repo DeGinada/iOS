@@ -30,10 +30,7 @@
 //    if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
 //        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 64)];
 //    }
-    // 현재 재생 중인 곡이 있을 경우 tableview 크기 조정
-    if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
-        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height-64)];
-    }
+
     
     UIView* viewBack = [[UIView alloc] initWithFrame:self.tableView.frame];
     [viewBack setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:250.0/255.0 alpha:1.0]];
@@ -48,6 +45,21 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // 현재 재생 중인 곡이 있을 경우 tableview 크기 조정
+    if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
+        //        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height-64)];
+        
+        self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 64)];
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 64, 0);
+        
+//        // visual effect view 밑에서 밝기 조정할 뷰 (여기에선 필요없음)
+//        UIView* viewTemp = [[UIView alloc] initWithFrame:CGRectMake(0, self.tabBarController.tabBar.frame.origin.y-64, self.view.frame.size.width, 64)];
+//        [viewTemp setBackgroundColor:[UIColor lightGrayColor]];
+//        viewTemp.alpha = 0.7;
+//        [self.view addSubview:viewTemp];
+//        [self.view bringSubviewToFront:viewTemp];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

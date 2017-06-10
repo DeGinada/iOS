@@ -203,3 +203,12 @@
     . 그에 맞춰서 각 테이블뷰 크기 재조정
     . CustomTabbarVC에서 작업
 
+
+170610
+ - 재생바 작업
+    . visualeffectview로 작업
+    . 뮤직바처럼 어두우면서도 effect가 있어 보이게 하기 위해 effctview에 어두운 불투명 view 두기
+    . 원래 각 vc마다 넣었는데 resultVC에서 원하는 대로 작업이 안되서 CustomTabbarVC에 작업
+    . CustomTabbarVC의 Translucent check 지움 -> status bar들이 정리된 느낌 
+
+

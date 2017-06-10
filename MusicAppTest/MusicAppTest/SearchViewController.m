@@ -9,6 +9,7 @@
 #import "SearchViewController.h"
 #import "ResultViewController.h"
 #import "SearchTableViewCell.h"
+#import "CustomTabBarViewController.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MPMediaQuery.h>
@@ -68,6 +69,15 @@
     
     
     [self setBasicTableview];
+    
+//    if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
+//        // visual effect view 밑에서 밝기 조정할 뷰
+//        UIView* viewTemp = [[UIView alloc] initWithFrame:CGRectMake(0, self.tabBarController.tabBar.frame.origin.y-64, self.view.frame.size.width, 64)];
+//        [viewTemp setBackgroundColor:[UIColor lightGrayColor]];
+//        viewTemp.alpha = 0.7;
+//        [self.view addSubview:viewTemp];
+//        [self.view bringSubviewToFront:viewTemp];
+//    }
     
 
 }
