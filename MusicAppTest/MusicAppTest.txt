@@ -212,3 +212,13 @@
     . CustomTabbarVC의 Translucent check 지움 -> status bar들이 정리된 느낌 
 
 
+170611
+ - 재생바 작업
+    . 재생 상태에 따라서 재생바의 유무 및 각 vc tableview 상태 컨트롤
+    . 재로드되지 않는 tableview의 footerview 경우 변경이 안됨 -> 확인 필요(setFrame이 정상동작하지 않음)
+ - notification center에 옵저버 등록
+    . 재생 상태에 따른 옵저버와 재생 아이템 변경시의 옵저버 적용
+
+
+
+

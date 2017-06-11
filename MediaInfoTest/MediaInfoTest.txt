@@ -135,5 +135,10 @@
     . 잘못된 property에 값을 가져와서 였음 -> 수정
 
 
+170611
+ 
+ - ViewController에 removeobserver 추가
+    . viewdidload에서 추가했던 observer에 대한 삭제가 없어서 viewdiddisappear에 추가
+    . [MPMusicPlayerController systemMusicPlayer]를 통한 notification도 중지시킴
 
 

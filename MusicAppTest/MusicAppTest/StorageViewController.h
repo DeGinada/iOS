@@ -10,6 +10,7 @@
 
 @interface StorageViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+- (void) adjustTableView;
 
 @end
 

@@ -54,6 +54,7 @@
     [[MPMusicPlayerController systemMusicPlayer] beginGeneratingPlaybackNotifications];
     
     
+    
     // 테이블뷰 footerview 적용
     self.tableSongs.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableSongs.frame.size.width, 67)];
     
@@ -63,6 +64,7 @@
     // [170513] 세그먼트 적용 -> 첫 시작은 첫번째 Songs;
     [self selectSongList];
 }
+
 
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -85,9 +87,19 @@
     [super viewWillDisappear:animated];
     
     //End recieving events
-    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+//    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
 }
+
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    // [170611] notification obserber 삭제
+    [[MPMusicPlayerController systemMusicPlayer] endGeneratingPlaybackNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 
 - (BOOL) canBecomeFirstResponder {
@@ -100,6 +112,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 // [170425] 유저가 만든 플레이리스트 가져오기

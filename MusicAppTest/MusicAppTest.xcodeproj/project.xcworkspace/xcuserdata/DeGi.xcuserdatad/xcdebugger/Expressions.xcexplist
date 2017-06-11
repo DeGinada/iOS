@@ -3,6 +3,9 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[CustomTabBarViewController handlePlayStateChanged:]:CustomTabBarViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[SearchViewController searchBarSearchButtonClicked:]:SearchViewController.m">
          <PersistentStrings>
             <PersistentString

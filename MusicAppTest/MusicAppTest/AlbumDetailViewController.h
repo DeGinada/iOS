@@ -13,5 +13,6 @@
 
 @property (nonatomic, readwrite) MPMediaItemCollection* arAlbum;
 
+- (void) adjustTableView;
 
 @end
