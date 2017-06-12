@@ -18,4 +18,6 @@
 @property (nonatomic, readwrite) MPMediaQuery* arAlbum;
 @property (nonatomic, readwrite) NSArray* arSong;
 
+- (void) adjustTableView;
+
 @end

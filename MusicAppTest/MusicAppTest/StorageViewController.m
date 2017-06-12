@@ -284,12 +284,20 @@
 - (void) adjustTableView {
     
     if (!((CustomTabBarViewController*)self.tabBarController).isHiddenPlayer) {
-        [self.tableView.tableFooterView setFrame:CGRectMake(self.tableView.tableFooterView.frame.origin.x, self.tableView.tableFooterView.frame.origin.y, self.tableView.tableFooterView.frame.size.width, self.tableView.tableFooterView.frame.size.height + 64)];
-        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 64, 0);
+        if (self.tableView.scrollIndicatorInsets.bottom == 0) {
+            UIView* viewFooter = self.tableView.tableFooterView;
+            [viewFooter setFrame:CGRectMake(self.tableView.tableFooterView.frame.origin.x, self.tableView.tableFooterView.frame.origin.y, self.tableView.tableFooterView.frame.size.width, self.tableView.tableFooterView.frame.size.height + 64)];
+            self.tableView.tableFooterView = viewFooter;
+            
+            self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 64, 0);
+        }
     } else {
         if (self.tableView.scrollIndicatorInsets.bottom == 64) {
             self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-            [self.tableView.tableFooterView setFrame:CGRectMake(self.tableView.tableFooterView.frame.origin.x, self.tableView.tableFooterView.frame.origin.y, self.tableView.tableFooterView.frame.size.width, self.tableView.tableFooterView.frame.size.height - 64)];
+            
+            UIView* viewFooter = self.tableView.tableFooterView;
+            [viewFooter setFrame:CGRectMake(self.tableView.tableFooterView.frame.origin.x, self.tableView.tableFooterView.frame.origin.y, self.tableView.tableFooterView.frame.size.width, self.tableView.tableFooterView.frame.size.height - 64)];
+            self.tableView.tableFooterView = viewFooter;
         }
     }
 }

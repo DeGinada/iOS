@@ -11,6 +11,7 @@
 
 #import "StorageViewController.h"
 #import "AlbumDetailViewController.h"
+#import "ResultViewController.h"
 
 @interface CustomTabBarViewController ()
 
@@ -83,6 +84,9 @@
 
 #define VIEW_TAG            1000
 #define VIEWEFFECT_TAG      1001
+#define IMG_ALBUM_TAG        1200
+#define LB_TITLE_TAG         1201
+#define BTN_PLAY_TAG         1300
 
 
 //- (UIVisualEffectView*) setMiniPlayer {
@@ -114,6 +118,55 @@
     layerBottom.frame = CGRectMake(0, 64-0.3, viewEffect.frame.size.width, 0.3);
     layerBottom.backgroundColor = [UIColor lightGrayColor].CGColor;
     [viewEffect.layer addSublayer:layerBottom];
+    
+    
+    // 곡 정보 가져와서 보여주기
+    MPMediaItem* nowItem = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
+    
+    UIImageView* imgAlbum = [[UIImageView alloc] initWithFrame:CGRectMake(20, 8, 48, 48)];
+    [imgAlbum setBackgroundColor:[UIColor lightGrayColor]];
+    [imgAlbum setAlpha:0.7];
+    imgAlbum.layer.cornerRadius = 4;
+    imgAlbum.clipsToBounds = YES;
+    imgAlbum.tag = IMG_ALBUM_TAG;
+    imgAlbum.contentMode = UIViewContentModeScaleAspectFit;
+    [viewEffect addSubview:imgAlbum];
+    
+    MPMediaItemArtwork* artwork = [nowItem valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage* album = [artwork imageWithSize:imgAlbum.frame.size];
+    if (album) {
+        imgAlbum.image = album;
+    } else {
+        imgAlbum.image = nil;
+    }
+    
+    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(20+48+17, 0, 185, 64)];
+    [lbTitle setText:[nowItem valueForProperty:MPMediaItemPropertyTitle]];
+    [lbTitle setFont:[UIFont systemFontOfSize:14]];
+    [lbTitle setTextColor:[UIColor blackColor]];
+    [lbTitle setTextAlignment:NSTextAlignmentLeft];
+    lbTitle.tag = LB_TITLE_TAG;
+    lbTitle.lineBreakMode = NSLineBreakByCharWrapping;
+    lbTitle.numberOfLines = 1;
+    [viewEffect addSubview:lbTitle];
+    
+    
+    UIButton* btnPlay = [[UIButton alloc] initWithFrame:CGRectMake(viewEffect.frame.size.width-65-30, 17, 30, 30)];
+    [btnPlay setImage:[UIImage imageNamed:@"btn_mini_play.png"] forState:UIControlStateNormal];
+    [btnPlay setImage:[UIImage imageNamed:@"btn_mini_pause.png"] forState:UIControlStateSelected];
+    [btnPlay addTarget:self action:@selector(changePlayState) forControlEvents:UIControlEventTouchUpInside];
+    btnPlay.tag = BTN_PLAY_TAG;
+    [viewEffect addSubview:btnPlay];
+    if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
+        btnPlay.selected = YES;
+    } else {
+        btnPlay.selected = NO;
+    }
+    
+    UIButton* btnNext = [[UIButton alloc] initWithFrame:CGRectMake(viewEffect.frame.size.width-20-30, 17, 30, 30)];
+    [btnNext setImage:[UIImage imageNamed:@"btn_mini_next.png"] forState:UIControlStateNormal];
+    [btnNext addTarget:self action:@selector(playNextTrack) forControlEvents:UIControlEventTouchUpInside];
+    [viewEffect addSubview:btnNext];
 
 }
 
@@ -129,6 +182,20 @@
 }
 
 
+- (void) changePlayState {
+    
+    if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
+        [[MPMusicPlayerController systemMusicPlayer] pause];
+    } else if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePaused) {
+        [[MPMusicPlayerController systemMusicPlayer] play];
+    }
+}
+
+
+- (void) playNextTrack {
+    
+}
+
 // 재생 중인 곡이 바꼈을 경우,
 - (void) handleNowPlayingItemChanged:(id)notification {
     
@@ -141,20 +208,36 @@
     if ( ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) ||
         ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePaused) ){
         self.isHiddenPlayer = NO;
-        [self setMiniPlayer];
+        
+        if ([self.view viewWithTag:VIEWEFFECT_TAG]) {
+            UIButton* btnPlay = [[self.view viewWithTag:VIEWEFFECT_TAG] viewWithTag:BTN_PLAY_TAG];
+            
+            if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
+                btnPlay.selected = YES;
+            } else if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePaused) {
+                btnPlay.selected = NO;
+            }
+            
+        } else {
+            [self setMiniPlayer];
+        }
     } else {
         self.isHiddenPlayer = YES;
         [self removeMiniPlayer];
     }
     
+    // 현재 vc 가져오기
     UIViewController* presentVC = [self topMostViewController];
     
     if ([[presentVC class] isSubclassOfClass:[AlbumDetailViewController class]]) {
         [((AlbumDetailViewController*)presentVC) adjustTableView];
     } else if ([[presentVC class] isSubclassOfClass:[StorageViewController class]]) {
         [((StorageViewController*)presentVC) adjustTableView];
+    } else if ([[presentVC class] isSubclassOfClass:[ResultViewController class]]) {
+        [((ResultViewController*)presentVC) adjustTableView];
     }
 }
+
 
 - (UIViewController*)topMostViewController {
     UIViewController *topMostViewController = nil;
@@ -179,7 +262,6 @@
         topMostViewController = rootViewController;
     
     return topMostViewController;
-    
 }
 
 @end
