@@ -13,6 +13,8 @@
 #import "AlbumDetailViewController.h"
 #import "ResultViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 @interface CustomTabBarViewController ()
 
 @property (nonatomic, readwrite) UIView* viewPlayer;
@@ -124,25 +126,48 @@
     MPMediaItem* nowItem = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
     
     UIImageView* imgAlbum = [[UIImageView alloc] initWithFrame:CGRectMake(20, 8, 48, 48)];
-    [imgAlbum setBackgroundColor:[UIColor lightGrayColor]];
-    [imgAlbum setAlpha:0.7];
+//    [imgAlbum setBackgroundColor:[UIColor lightGrayColor]];
+//    [imgAlbum setAlpha:0.7];
     imgAlbum.layer.cornerRadius = 4;
+//    UIBezierPath* shadowPath = [UIBezierPath bezierPathWithRect:imgAlbum.bounds];
+//    [imgAlbum.layer setMasksToBounds:NO];
+//    imgAlbum.layer.shadowRadius = 3.5;
+//    imgAlbum.layer.shadowColor = [UIColor redColor].CGColor;
+//    imgAlbum.layer.shadowOffset = CGSizeMake(0, 3);
+//    imgAlbum.layer.shadowOpacity = 1.0;
+//    [imgAlbum.layer setShadowPath:shadowPath.CGPath];
     imgAlbum.clipsToBounds = YES;
     imgAlbum.tag = IMG_ALBUM_TAG;
     imgAlbum.contentMode = UIViewContentModeScaleAspectFit;
     [viewEffect addSubview:imgAlbum];
     
+    
+    CAShapeLayer* shadow = [CAShapeLayer layer];
+    shadow.frame = imgAlbum.frame;
+    shadow.path = CFBridgingRetain([UIBezierPath bezierPathWithRoundedRect:imgAlbum.bounds cornerRadius:4]);
+    shadow.shadowOpacity = 1.0;
+    shadow.shadowRadius = 10;
+    shadow.shadowColor = [UIColor blackColor].CGColor;
+    shadow.masksToBounds = NO;
+    shadow.shadowOffset = CGSizeMake(0, 4);
+//    shadow.shouldRasterize = YES;
+    [imgAlbum.layer addSublayer:shadow];
+    
+    
     MPMediaItemArtwork* artwork = [nowItem valueForProperty:MPMediaItemPropertyArtwork];
     UIImage* album = [artwork imageWithSize:imgAlbum.frame.size];
+    NSLog(@"image size - %0.1f, %0.1f", album.size.width, album.size.height);
     if (album) {
         imgAlbum.image = album;
+        [imgAlbum setBackgroundColor:[UIColor clearColor]];
     } else {
         imgAlbum.image = nil;
+        [imgAlbum setBackgroundColor:[UIColor lightGrayColor]];
     }
     
     UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(20+48+17, 0, 185, 64)];
     [lbTitle setText:[nowItem valueForProperty:MPMediaItemPropertyTitle]];
-    [lbTitle setFont:[UIFont systemFontOfSize:14]];
+    [lbTitle setFont:[UIFont systemFontOfSize:16]];
     [lbTitle setTextColor:[UIColor blackColor]];
     [lbTitle setTextAlignment:NSTextAlignmentLeft];
     lbTitle.tag = LB_TITLE_TAG;
@@ -194,10 +219,38 @@
 
 - (void) playNextTrack {
     
+    [[MPMusicPlayerController systemMusicPlayer] skipToNextItem];
+    
 }
 
 // 재생 중인 곡이 바꼈을 경우,
 - (void) handleNowPlayingItemChanged:(id)notification {
+    
+    // skip next처리된 후 바뀐 아이템을 가져옴
+    MPMediaItem* nowItem = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
+    
+    UIVisualEffectView* viewMiniBar = [self.view viewWithTag:VIEWEFFECT_TAG];
+    if (viewMiniBar) {
+        UIImageView* imgAlbum = [viewMiniBar viewWithTag:IMG_ALBUM_TAG];
+        if (imgAlbum) {
+            
+            MPMediaItemArtwork* artwork = [nowItem valueForProperty:MPMediaItemPropertyArtwork];
+            UIImage* image = [artwork imageWithSize:imgAlbum.frame.size];
+            NSLog(@"image size - %0.1f, %0.1f", image.size.width, image.size.height);
+            if (image) {
+                [imgAlbum setImage:image];
+                [imgAlbum setBackgroundColor:[UIColor clearColor]];
+            } else {
+                [imgAlbum setImage:nil];
+                [imgAlbum setBackgroundColor:[UIColor lightGrayColor]];
+            }
+        }
+        
+        UILabel* lbTitle = [viewMiniBar viewWithTag:LB_TITLE_TAG];
+        if (lbTitle) {
+            [lbTitle setText:[nowItem valueForProperty:MPMediaItemPropertyTitle]];
+        }
+    }
     
 }
 
