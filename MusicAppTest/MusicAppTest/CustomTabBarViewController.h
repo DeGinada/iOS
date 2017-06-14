@@ -2,7 +2,7 @@
 //  CustomTabBarViewController.h
 //  MusicAppTest
 //
-//  Created by Sora Yeo on 2017. 6. 9..
+//  Created by DeGi on 2017. 6. 9..
 //  Copyright © 2017년 DeGi. All rights reserved.
 //
 

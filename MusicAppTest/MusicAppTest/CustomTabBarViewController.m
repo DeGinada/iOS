@@ -2,7 +2,7 @@
 //  CustomTabBarViewController.m
 //  MusicAppTest
 //
-//  Created by Sora Yeo on 2017. 6. 9..
+//  Created by DeGi on 2017. 6. 9..
 //  Copyright © 2017년 DeGi. All rights reserved.
 //
 
@@ -12,6 +12,7 @@
 #import "StorageViewController.h"
 #import "AlbumDetailViewController.h"
 #import "ResultViewController.h"
+#import "FullPlayerViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -89,6 +90,7 @@
 #define IMG_ALBUM_TAG        1200
 #define LB_TITLE_TAG         1201
 #define BTN_PLAY_TAG         1300
+#define VIEW_BG_TAG         1400
 
 
 //- (UIVisualEffectView*) setMiniPlayer {
@@ -122,6 +124,13 @@
     [viewEffect.layer addSublayer:layerBottom];
     
     
+    // full player로 연결되는 버튼
+    UIButton* btnFull = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, viewEffect.frame.size.width, 64)];
+    [btnFull setBackgroundColor:[UIColor clearColor]];
+    [btnFull addTarget:self action:@selector(goFullPlayer) forControlEvents:UIControlEventTouchUpInside];
+    [viewEffect addSubview:btnFull];
+    
+    
     // 곡 정보 가져와서 보여주기
     MPMediaItem* nowItem = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
     
@@ -141,17 +150,17 @@
     imgAlbum.contentMode = UIViewContentModeScaleAspectFit;
     [viewEffect addSubview:imgAlbum];
     
-    
-    CAShapeLayer* shadow = [CAShapeLayer layer];
-    shadow.frame = imgAlbum.frame;
-    shadow.path = CFBridgingRetain([UIBezierPath bezierPathWithRoundedRect:imgAlbum.bounds cornerRadius:4]);
-    shadow.shadowOpacity = 1.0;
-    shadow.shadowRadius = 10;
-    shadow.shadowColor = [UIColor blackColor].CGColor;
-    shadow.masksToBounds = NO;
-    shadow.shadowOffset = CGSizeMake(0, 4);
-//    shadow.shouldRasterize = YES;
-    [imgAlbum.layer addSublayer:shadow];
+//    // layer에 shadow 넣기
+//    CAShapeLayer* shadow = [CAShapeLayer layer];
+//    shadow.frame = imgAlbum.frame;
+//    shadow.path = CFBridgingRetain([UIBezierPath bezierPathWithRoundedRect:imgAlbum.bounds cornerRadius:4]);
+//    shadow.shadowOpacity = 1.0;
+//    shadow.shadowRadius = 10;
+//    shadow.shadowColor = [UIColor blackColor].CGColor;
+//    shadow.masksToBounds = NO;
+//    shadow.shadowOffset = CGSizeMake(0, 4);
+////    shadow.shouldRasterize = YES;
+//    [imgAlbum.layer addSublayer:shadow];
     
     
     MPMediaItemArtwork* artwork = [nowItem valueForProperty:MPMediaItemPropertyArtwork];
@@ -160,6 +169,14 @@
     if (album) {
         imgAlbum.image = album;
         [imgAlbum setBackgroundColor:[UIColor clearColor]];
+        
+        if (album.size.width < album.size.height) {
+            CGFloat rate = album.size.width/album.size.height;
+            [imgAlbum setFrame:CGRectMake(20+((1.0-rate)*48)/2, 8, 48.0*rate, 48)];
+        } else if (album.size.width > album.size.height) {
+            CGFloat rate = album.size.height/album.size.width;
+            [imgAlbum setFrame:CGRectMake(20, 8+((1.0-rate)*48)/2, 48, 48.0*rate)];
+        }
     } else {
         imgAlbum.image = nil;
         [imgAlbum setBackgroundColor:[UIColor lightGrayColor]];
@@ -206,6 +223,23 @@
     }
 }
 
+- (void) goFullPlayer {
+    
+    UIView* viewBG = [[UIView alloc] initWithFrame:self.view.frame];
+    [viewBG setBackgroundColor:[UIColor darkGrayColor]];
+    viewBG.alpha = 0.3;
+    viewBG.tag = VIEW_BG_TAG;
+    [self.view addSubview:viewBG];
+    [self.view bringSubviewToFront:viewBG];
+    
+    FullPlayerViewController* vcFullPlayer = [self.storyboard instantiateViewControllerWithIdentifier:@"FullPlayervc"];
+//    [self.navigationController pushViewController:vcAlbumDetail animated:YES];
+    [self presentViewController:vcFullPlayer animated:YES completion:^{
+
+    }];
+//    [[self topMostViewController] presentViewController:vcFullPlayer animated:YES completion:nil];
+}
+
 
 - (void) changePlayState {
     
@@ -234,12 +268,23 @@
         UIImageView* imgAlbum = [viewMiniBar viewWithTag:IMG_ALBUM_TAG];
         if (imgAlbum) {
             
+            // 앨범 크기가 변경된 경우 원래대로 돌리기
+            [imgAlbum setFrame:CGRectMake(20, 8, 48, 48)];
+            
             MPMediaItemArtwork* artwork = [nowItem valueForProperty:MPMediaItemPropertyArtwork];
             UIImage* image = [artwork imageWithSize:imgAlbum.frame.size];
             NSLog(@"image size - %0.1f, %0.1f", image.size.width, image.size.height);
             if (image) {
                 [imgAlbum setImage:image];
                 [imgAlbum setBackgroundColor:[UIColor clearColor]];
+                
+                if (image.size.width < image.size.height) {
+                    CGFloat rate = image.size.width/image.size.height;
+                    [imgAlbum setFrame:CGRectMake(20+((1.0-rate)*48)/2, 8, 48.0*rate, 48)];
+                } else if (image.size.width > image.size.height) {
+                    CGFloat rate = image.size.height/image.size.width;
+                    [imgAlbum setFrame:CGRectMake(20, 8+((1.0-rate)*48)/2, 48, 48.0*rate)];
+                }
             } else {
                 [imgAlbum setImage:nil];
                 [imgAlbum setBackgroundColor:[UIColor lightGrayColor]];

@@ -2,7 +2,7 @@
 //  AlbumDetailViewController.m
 //  MusicAppTest
 //
-//  Created by Sora Yeo on 2017. 6. 4..
+//  Created by DeGi on 2017. 6. 4..
 //  Copyright © 2017년 DeGi. All rights reserved.
 //
 

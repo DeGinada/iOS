@@ -2,7 +2,7 @@
 //  SearchTableViewCell.h
 //  MusicAppTest
 //
-//  Created by Sora Yeo on 2017. 5. 23..
+//  Created by DeGi on 2017. 5. 23..
 //  Copyright © 2017년 DeGi. All rights reserved.
 //
 
