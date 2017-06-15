@@ -14,4 +14,6 @@
 
 - (void) setMiniPlayer;
 
+- (void) closeBackground;
+
 @end

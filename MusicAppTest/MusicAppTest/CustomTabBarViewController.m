@@ -241,6 +241,15 @@
 }
 
 
+- (void) closeBackground {
+    
+    UIView* viewBG = [self.view viewWithTag:VIEW_BG_TAG];
+    if (viewBG) {
+        [viewBG removeFromSuperview];
+    }
+}
+
+
 - (void) changePlayState {
     
     if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
