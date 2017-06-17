@@ -15,6 +15,7 @@
 #define IMG_ALBUM_TAG           1550
 #define LB_TITLE_TAG            1551
 #define LB_ARTIST_TAG           1552
+#define SLD_PLAYTIME_TAG           1560
 
 
 @interface FullPlayerViewController () <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
@@ -136,6 +137,34 @@
     [viewHeader addSubview:btnNext];
     
     
+    double songTime = [[nowItem valueForProperty:MPMediaItemPropertyPlaybackDuration] doubleValue];
+    double currentTime = [[MPMusicPlayerController systemMusicPlayer] currentPlaybackTime];
+    
+    // 곡 진행 slider
+    UISlider* sliderSong = [[UISlider alloc] initWithFrame:CGRectMake(32, 364, viewHeader.frame.size.width-64, 3)];
+    [sliderSong setBackgroundColor:[UIColor lightGrayColor]];
+    [sliderSong setTintColor:[UIColor grayColor]];
+    sliderSong.minimumValue = 0.0;
+    sliderSong.maximumValue = 1.0;
+    sliderSong.continuous = YES;
+    sliderSong.value = currentTime/songTime;
+    sliderSong.tag = SLD_PLAYTIME_TAG;
+    [sliderSong addTarget:self action:@selector(changeSliderSongValue:) forControlEvents:UIControlEventValueChanged];
+    [viewHeader addSubview:sliderSong];
+    
+    
+    // 볼륨 slider -> MPVolumeView 이용해서 만들기
+//    UISlider* sliderVolume = [[UISlider alloc] initWithFrame:CGRectMake(35, 564, viewHeader.frame.size.width-70, 3)];
+//    [sliderVolume setBackgroundColor:[UIColor lightGrayColor]];
+//    [sliderVolume setTintColor:[UIColor grayColor]];
+//    sliderVolume.minimumValue = 0.0;
+//    sliderVolume.maximumValue = 1.0;
+//    sliderVolume.continuous = YES;
+//    sliderVolume.value = [MPVolumeView ];
+//    [sliderVolume addTarget:self action:@selector(changeSliderSongValue:) forControlEvents:UIControlEventValueChanged];
+//    [viewHeader addSubview:sliderVolume];
+    
+    
     self.tableView.tableHeaderView = viewHeader;
     
 //    UISwipeGestureRecognizer* swipeGesture;
@@ -210,6 +239,34 @@
     
     // skip next처리된 후 바뀐 아이템을 가져옴
     MPMediaItem* nowItem = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
+    
+    UIView* viewHeader = self.tableView.tableHeaderView;
+    UIImageView* imgAlbum = [viewHeader viewWithTag:IMG_ALBUM_TAG];
+    UILabel* lbTitle = [viewHeader viewWithTag:LB_TITLE_TAG];
+    UILabel* lbArtist = [viewHeader viewWithTag:LB_ARTIST_TAG];
+    
+    [lbTitle setText:[nowItem valueForProperty:MPMediaItemPropertyTitle]];
+    [lbArtist setText:[nowItem valueForProperty:MPMediaItemPropertyArtist]];
+    
+    [imgAlbum setFrame:CGRectMake(32, 32, 311, 311)];
+    
+    MPMediaItemArtwork* artwork = [nowItem valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage* image = [artwork imageWithSize:imgAlbum.frame.size];
+    if (image) {
+        [imgAlbum setImage:image];
+        [imgAlbum setBackgroundColor:[UIColor clearColor]];
+        
+        if (image.size.width > image.size.height) {
+            CGFloat rate = image.size.height/image.size.width;
+            [imgAlbum setFrame:CGRectMake(32, 32+((1.0-rate)*311.0)/2, 311.0, 311.0*rate)];
+        } else if (image.size.width < image.size.height) {
+            CGFloat rate = image.size.width/image.size.height;
+            [imgAlbum setFrame:CGRectMake(32+((1.0-rate)*311.0)/2, 32, 311.0*rate, 311.0)];
+        }
+    } else {
+        [imgAlbum setImage:nil];
+        [imgAlbum setBackgroundColor:[UIColor lightGrayColor]];
+    }
         
 }
 
@@ -225,6 +282,17 @@
     } else if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePaused) {
         btnPlay.selected = NO;
     }
+}
+
+
+- (void) changeSliderSongValue:(id) sender {
+    
+    UISlider* slider = sender;
+    
+    NSTimeInterval time = 0;
+    time = [[[[MPMusicPlayerController systemMusicPlayer] nowPlayingItem] valueForProperty:MPMediaItemPropertyPlaybackDuration] doubleValue] * slider.value;
+    
+    [[MPMusicPlayerController systemMusicPlayer] setCurrentPlaybackTime:time];
 }
 
 
