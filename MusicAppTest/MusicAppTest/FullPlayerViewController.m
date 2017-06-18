@@ -152,6 +152,10 @@
     [sliderSong addTarget:self action:@selector(changeSliderSongValue:) forControlEvents:UIControlEventValueChanged];
     [viewHeader addSubview:sliderSong];
     
+    // 스케쥴러
+    [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(checkPlayingRate) userInfo:nil repeats:YES];
+    
+    
     
     // 볼륨 slider -> MPVolumeView 이용해서 만들기
 //    UISlider* sliderVolume = [[UISlider alloc] initWithFrame:CGRectMake(35, 564, viewHeader.frame.size.width-70, 3)];
@@ -164,6 +168,16 @@
 //    [sliderVolume addTarget:self action:@selector(changeSliderSongValue:) forControlEvents:UIControlEventValueChanged];
 //    [viewHeader addSubview:sliderVolume];
     
+    UIView* viewVolumeBG = [[UIView alloc] initWithFrame:CGRectMake(50, 564, viewHeader.frame.size.width-75, 3)];
+    viewVolumeBG.backgroundColor = [UIColor clearColor];
+    [viewHeader addSubview:viewVolumeBG];
+    
+    MPVolumeView* viewVolume = [[MPVolumeView alloc] initWithFrame:viewVolumeBG.bounds];
+    [viewVolume setShowsVolumeSlider:YES];
+//    [viewVolume setBackgroundColor:[UIColor lightGrayColor]];
+//    [viewVolume setTintColor:[UIColor grayColor]];
+//    [viewVolume setVolumeWarningSliderImage:[UIImage imageNamed:@"img_volume_slider.png"]];
+    [viewVolumeBG addSubview:viewVolume];
     
     self.tableView.tableHeaderView = viewHeader;
     
@@ -293,6 +307,20 @@
     time = [[[[MPMusicPlayerController systemMusicPlayer] nowPlayingItem] valueForProperty:MPMediaItemPropertyPlaybackDuration] doubleValue] * slider.value;
     
     [[MPMusicPlayerController systemMusicPlayer] setCurrentPlaybackTime:time];
+}
+
+
+
+- (void) checkPlayingRate {
+    UIView* viewHeader = self.tableView.tableHeaderView;
+    UISlider* sliderSong = [viewHeader viewWithTag:SLD_PLAYTIME_TAG];
+    
+    MPMediaItem* nowItem = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
+    
+    double songTime = [[nowItem valueForProperty:MPMediaItemPropertyPlaybackDuration] doubleValue];
+    double currentTime = [[MPMusicPlayerController systemMusicPlayer] currentPlaybackTime];
+    
+    sliderSong.value = currentTime/songTime;
 }
 
 
