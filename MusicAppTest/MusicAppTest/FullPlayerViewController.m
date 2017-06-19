@@ -16,6 +16,9 @@
 #define LB_TITLE_TAG            1551
 #define LB_ARTIST_TAG           1552
 #define SLD_PLAYTIME_TAG           1560
+#define LB_PASSTIME_TAG         1570
+#define LB_REMAINTIME_TAG       1571
+
 
 
 @interface FullPlayerViewController () <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
@@ -142,8 +145,9 @@
     
     // 곡 진행 slider
     UISlider* sliderSong = [[UISlider alloc] initWithFrame:CGRectMake(32, 364, viewHeader.frame.size.width-64, 3)];
-    [sliderSong setBackgroundColor:[UIColor lightGrayColor]];
+//    [sliderSong setBackgroundColor:[UIColor lightGrayColor]];
     [sliderSong setTintColor:[UIColor grayColor]];
+    [sliderSong setThumbImage:[UIImage imageNamed:@"img_volume_thum.png"] forState:UIControlStateNormal];
     sliderSong.minimumValue = 0.0;
     sliderSong.maximumValue = 1.0;
     sliderSong.continuous = YES;
@@ -151,6 +155,32 @@
     sliderSong.tag = SLD_PLAYTIME_TAG;
     [sliderSong addTarget:self action:@selector(changeSliderSongValue:) forControlEvents:UIControlEventValueChanged];
     [viewHeader addSubview:sliderSong];
+    
+    double passTime = [[MPMusicPlayerController systemMusicPlayer] currentPlaybackTime];
+    double remainTime = [[nowItem valueForProperty:MPMediaItemPropertyPlaybackDuration] doubleValue]-passTime;
+    
+    int passTimeMin = passTime/60;
+    int remainTimeMin = remainTime/60;
+    
+    
+    // 시간 표시
+    UILabel* lbPassTime = [[UILabel alloc] initWithFrame:CGRectMake(33, 370, 50, 15)];
+    [lbPassTime setTextAlignment:NSTextAlignmentLeft];
+    [lbPassTime setFont:[UIFont systemFontOfSize:11]];
+    [lbPassTime setTextColor:[UIColor darkGrayColor]];
+    [lbPassTime setText:[NSString stringWithFormat:@"%0d:%02d", passTimeMin, (int)(passTime-(passTimeMin*60))]];
+    lbPassTime.tag = LB_PASSTIME_TAG;
+    [viewHeader addSubview:lbPassTime];
+    
+    // 시간 표시
+    UILabel* lbRemainTime = [[UILabel alloc] initWithFrame:CGRectMake(viewHeader.frame.size.width-50-33, 370, 50, 15)];
+    [lbRemainTime setTextAlignment:NSTextAlignmentRight];
+    [lbRemainTime setFont:[UIFont systemFontOfSize:11]];
+    [lbRemainTime setText:[NSString stringWithFormat:@"-%0d:%02d", remainTimeMin, (int)(remainTime-(remainTimeMin*60))]];
+    [lbRemainTime setTextColor:[UIColor darkGrayColor]];
+    lbRemainTime.tag = LB_REMAINTIME_TAG;
+    [viewHeader addSubview:lbRemainTime];
+    
     
     // 스케쥴러
     [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(checkPlayingRate) userInfo:nil repeats:YES];
@@ -168,16 +198,27 @@
 //    [sliderVolume addTarget:self action:@selector(changeSliderSongValue:) forControlEvents:UIControlEventValueChanged];
 //    [viewHeader addSubview:sliderVolume];
     
-    UIView* viewVolumeBG = [[UIView alloc] initWithFrame:CGRectMake(50, 564, viewHeader.frame.size.width-75, 3)];
+    UIView* viewVolumeBG = [[UIView alloc] initWithFrame:CGRectMake(50, 560, viewHeader.frame.size.width-75, 3)];
     viewVolumeBG.backgroundColor = [UIColor clearColor];
     [viewHeader addSubview:viewVolumeBG];
     
     MPVolumeView* viewVolume = [[MPVolumeView alloc] initWithFrame:viewVolumeBG.bounds];
     [viewVolume setShowsVolumeSlider:YES];
+//    [viewVolume setMinimumVolumeSliderImage:[UIImage imageNamed:@"img_volume_min.png"] forState:UIControlStateNormal];
+//    [viewVolume setMaximumVolumeSliderImage:[UIImage imageNamed:@"img_volume_max.png"] forState:UIControlStateNormal];
 //    [viewVolume setBackgroundColor:[UIColor lightGrayColor]];
 //    [viewVolume setTintColor:[UIColor grayColor]];
 //    [viewVolume setVolumeWarningSliderImage:[UIImage imageNamed:@"img_volume_slider.png"]];
     [viewVolumeBG addSubview:viewVolume];
+    
+    UIImageView* imgMinVolume = [[UIImageView alloc] initWithFrame:CGRectMake(20, 556, 25, 25)];
+    [imgMinVolume setImage:[UIImage imageNamed:@"img_volume_min.png"]];
+    [viewHeader addSubview:imgMinVolume];
+    
+    UIImageView* imgMaxVolume = [[UIImageView alloc] initWithFrame:CGRectMake(viewHeader.frame.size.width-20-25, 556, 25, 25)];
+    [imgMaxVolume setImage:[UIImage imageNamed:@"img_volume_max.png"]];
+    [viewHeader addSubview:imgMaxVolume];
+    
     
     self.tableView.tableHeaderView = viewHeader;
     
@@ -314,11 +355,20 @@
 - (void) checkPlayingRate {
     UIView* viewHeader = self.tableView.tableHeaderView;
     UISlider* sliderSong = [viewHeader viewWithTag:SLD_PLAYTIME_TAG];
+    UILabel* lbPassTime = [viewHeader viewWithTag:LB_PASSTIME_TAG];
+    UILabel* lbRemainTime = [viewHeader viewWithTag:LB_REMAINTIME_TAG];
     
     MPMediaItem* nowItem = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
     
     double songTime = [[nowItem valueForProperty:MPMediaItemPropertyPlaybackDuration] doubleValue];
     double currentTime = [[MPMusicPlayerController systemMusicPlayer] currentPlaybackTime];
+    double remainTime = [[nowItem valueForProperty:MPMediaItemPropertyPlaybackDuration] doubleValue]-currentTime;
+    
+    int passTimeMin = currentTime/60;
+    int remainTimeMin = remainTime/60;
+    
+    [lbPassTime setText:[NSString stringWithFormat:@"%0d:%02d", passTimeMin, (int)(currentTime-(passTimeMin*60))]];
+    [lbRemainTime setText:[NSString stringWithFormat:@"-%0d:%02d", remainTimeMin, (int)(remainTime-(remainTimeMin*60))]];
     
     sliderSong.value = currentTime/songTime;
 }
