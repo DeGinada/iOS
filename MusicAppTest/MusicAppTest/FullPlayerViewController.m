@@ -198,7 +198,7 @@
 //    [sliderVolume addTarget:self action:@selector(changeSliderSongValue:) forControlEvents:UIControlEventValueChanged];
 //    [viewHeader addSubview:sliderVolume];
     
-    UIView* viewVolumeBG = [[UIView alloc] initWithFrame:CGRectMake(50, 560, viewHeader.frame.size.width-75, 3)];
+    UIView* viewVolumeBG = [[UIView alloc] initWithFrame:CGRectMake(50, 560, viewHeader.frame.size.width-100, 3)];
     viewVolumeBG.backgroundColor = [UIColor clearColor];
     [viewHeader addSubview:viewVolumeBG];
     
@@ -209,15 +209,42 @@
 //    [viewVolume setBackgroundColor:[UIColor lightGrayColor]];
 //    [viewVolume setTintColor:[UIColor grayColor]];
 //    [viewVolume setVolumeWarningSliderImage:[UIImage imageNamed:@"img_volume_slider.png"]];
+    [viewVolume setShowsRouteButton:NO];
     [viewVolumeBG addSubview:viewVolume];
     
     UIImageView* imgMinVolume = [[UIImageView alloc] initWithFrame:CGRectMake(20, 556, 25, 25)];
     [imgMinVolume setImage:[UIImage imageNamed:@"img_volume_min.png"]];
     [viewHeader addSubview:imgMinVolume];
-    
+//    
     UIImageView* imgMaxVolume = [[UIImageView alloc] initWithFrame:CGRectMake(viewHeader.frame.size.width-20-25, 556, 25, 25)];
     [imgMaxVolume setImage:[UIImage imageNamed:@"img_volume_max.png"]];
     [viewHeader addSubview:imgMaxVolume];
+    
+    
+    // 블루투스 등 wireless용 버튼
+    MPVolumeView* viewWireless = [[MPVolumeView alloc] initWithFrame:CGRectMake((viewHeader.frame.size.width-30)/2, 590, 30, 30)];
+    [viewWireless setShowsVolumeSlider:NO];
+    [viewWireless setShowsRouteButton:YES];
+    [viewWireless setRouteButtonImage:[UIImage imageNamed:@"btn_full_device.png"] forState:UIControlStateNormal];
+    [viewHeader addSubview:viewWireless];
+    
+    
+    // 더보기 버튼
+    UIButton* btnMore = [[UIButton alloc] initWithFrame:CGRectMake(viewHeader.frame.size.width-20-30, 590, 30, 30)];
+    [btnMore setImage:[UIImage imageNamed:@"btn_full_more.png"] forState:UIControlStateNormal];
+    [btnMore addTarget:self action:@selector(showMoreInfo) forControlEvents:UIControlEventTouchUpInside];
+    [viewHeader addSubview:btnMore];
+    
+    
+    UIView* viewLine = [[UIView alloc] initWithFrame:CGRectMake(0, 638, viewHeader.frame.size.width, 1)];
+    [viewLine setBackgroundColor:[UIColor clearColor]];
+    [viewHeader addSubview:viewLine];
+    
+    CALayer* layerLine = [CALayer layer];
+    [layerLine setFrame:CGRectMake(0, 0.5, viewLine.frame.size.width, 0.5)];
+    layerLine.backgroundColor = [UIColor lightGrayColor].CGColor;
+    [viewLine.layer addSublayer:layerLine];
+    
     
     
     self.tableView.tableHeaderView = viewHeader;
@@ -371,6 +398,11 @@
     [lbRemainTime setText:[NSString stringWithFormat:@"-%0d:%02d", remainTimeMin, (int)(remainTime-(remainTimeMin*60))]];
     
     sliderSong.value = currentTime/songTime;
+}
+
+
+- (void) showMoreInfo {
+    
 }
 
 
