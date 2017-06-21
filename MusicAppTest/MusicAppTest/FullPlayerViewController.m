@@ -75,6 +75,7 @@
     imgAlbum.layer.cornerRadius = 8;
     imgAlbum.clipsToBounds = YES;
     imgAlbum.tag = IMG_ALBUM_TAG;
+    imgAlbum.contentMode = UIViewContentModeScaleAspectFit;
     [viewHeader addSubview:imgAlbum];
     
     MPMediaItemArtwork* artwork = [nowItem valueForProperty:MPMediaItemPropertyArtwork];
@@ -132,8 +133,10 @@
     
     if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
         btnPlay.selected = YES;
+        [imgAlbum setTransform:CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)];
     } else {
         btnPlay.selected = NO;
+        [imgAlbum setTransform:CGAffineTransformScale(CGAffineTransformIdentity, 0.8, 0.8)];
     }
     
     
@@ -404,11 +407,14 @@
     // 재생 관련 값 가져오기
     UIView* viewHeader = self.tableView.tableHeaderView;
     UIButton* btnPlay = [viewHeader viewWithTag:BTN_PLAY_TAG];
+    UIImageView* imgAlbum = [viewHeader viewWithTag:IMG_ALBUM_TAG];
     
     if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {
         btnPlay.selected = YES;
+        [imgAlbum setTransform:CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)];
     } else if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePaused) {
         btnPlay.selected = NO;
+        [imgAlbum setTransform:CGAffineTransformScale(CGAffineTransformIdentity, 0.8, 0.8)];
     }
 }
 
