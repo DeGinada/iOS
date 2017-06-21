@@ -6,6 +6,14 @@
          contextName = "-[CustomTabBarViewController handlePlayStateChanged:]:CustomTabBarViewController.m">
       </ContextState>
       <ContextState
+         contextName = "-[FullPlayerViewController viewDidLoad]:FullPlayerViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[MPMusicPlayerController systemMusicPlayer].shuffleMode">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[SearchViewController searchBarSearchButtonClicked:]:SearchViewController.m">
          <PersistentStrings>
             <PersistentString

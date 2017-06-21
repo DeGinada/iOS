@@ -19,6 +19,9 @@
 #define LB_PASSTIME_TAG         1570
 #define LB_REMAINTIME_TAG       1571
 
+#define ON_COLOR       [UIColor colorWithRed:255.0/255.0 green:46.0/255.0 blue:84.0/255.0 alpha:1.0]
+#define OFF_COLOR       [UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:250.0/255.0 alpha:1.0]
+
 
 
 @interface FullPlayerViewController () <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
@@ -246,6 +249,49 @@
     [viewLine.layer addSublayer:layerLine];
     
     
+    UIButton* btnShuffle = [[UIButton alloc] initWithFrame:CGRectMake(20, 658, 157, 45)];
+    [btnShuffle setTitle:@"  임의 재생" forState:UIControlStateNormal];
+    btnShuffle.layer.cornerRadius = 8;
+    if ([MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeSongs ||
+        [MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeAlbums) {
+        // 셔플 상태
+        [btnShuffle setImage:[UIImage imageNamed:@"btn_shuffle_on.png"] forState:UIControlStateNormal];
+        [btnShuffle setBackgroundColor:ON_COLOR];
+        [btnShuffle setTitleColor:OFF_COLOR forState:UIControlStateNormal];
+    } else if ([MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeOff) {
+        // 셔플 off
+        [btnShuffle setImage:[UIImage imageNamed:@"btn_shuffle_off.png"] forState:UIControlStateNormal];
+        [btnShuffle setBackgroundColor:OFF_COLOR];
+        [btnShuffle setTitleColor:ON_COLOR forState:UIControlStateNormal];
+    }
+    [btnShuffle addTarget:self action:@selector(changeShuffleMode:) forControlEvents:UIControlEventTouchUpInside];
+    [viewHeader addSubview:btnShuffle];
+    
+    
+    UIButton* btnRepeat = [[UIButton alloc] initWithFrame:CGRectMake(198, 658, 157, 45)];
+    [btnRepeat setTitle:@"  반복" forState:UIControlStateNormal];
+    btnRepeat.layer.cornerRadius = 8;
+    if ([MPMusicPlayerController systemMusicPlayer].repeatMode ==  MPMusicRepeatModeAll) {
+        // 반복 all
+        [btnRepeat setImage:[UIImage imageNamed:@"btn_repeat_all.png"] forState:UIControlStateNormal];
+        [btnRepeat setBackgroundColor:ON_COLOR];
+        [btnRepeat setTitleColor:OFF_COLOR forState:UIControlStateNormal];
+    } else if ([MPMusicPlayerController systemMusicPlayer].repeatMode == MPMusicRepeatModeOne) {
+        // 반복 only
+        [btnRepeat setImage:[UIImage imageNamed:@"btn_repeat_only.png"] forState:UIControlStateNormal];
+        [btnRepeat setBackgroundColor:ON_COLOR];
+        [btnRepeat setTitleColor:OFF_COLOR forState:UIControlStateNormal];
+    } else if ([MPMusicPlayerController systemMusicPlayer].repeatMode == MPMusicRepeatModeNone) {
+        // 반복 off
+        [btnRepeat setImage:[UIImage imageNamed:@"btn_repeat_off.png"] forState:UIControlStateNormal];
+        [btnRepeat setBackgroundColor:OFF_COLOR];
+        [btnRepeat setTitleColor:ON_COLOR forState:UIControlStateNormal];
+    }
+    [btnRepeat addTarget:self action:@selector(changeRepeatMode:) forControlEvents:UIControlEventTouchUpInside];
+    [viewHeader addSubview:btnRepeat];
+    
+    
+    
     
     self.tableView.tableHeaderView = viewHeader;
     
@@ -405,6 +451,61 @@
     
 }
 
+
+- (void) changeShuffleMode:(UIButton*)btnShuffle {
+    
+    if ([MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeSongs ||
+        [MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeAlbums) {
+        [[MPMusicPlayerController systemMusicPlayer] setShuffleMode:MPMusicShuffleModeOff];
+    } else if ([MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeOff) {
+        [[MPMusicPlayerController systemMusicPlayer] setShuffleMode:MPMusicShuffleModeSongs];
+    }
+    
+    
+    if ([MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeSongs ||
+        [MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeAlbums) {
+        // 셔플 상태
+        [btnShuffle setImage:[UIImage imageNamed:@"btn_shuffle_on.png"] forState:UIControlStateNormal];
+        [btnShuffle setBackgroundColor:ON_COLOR];
+        [btnShuffle setTitleColor:OFF_COLOR forState:UIControlStateNormal];
+    } else if ([MPMusicPlayerController systemMusicPlayer].shuffleMode == MPMusicShuffleModeOff) {
+        // 셔플 off
+        [btnShuffle setImage:[UIImage imageNamed:@"btn_shuffle_off.png"] forState:UIControlStateNormal];
+        [btnShuffle setBackgroundColor:OFF_COLOR];
+        [btnShuffle setTitleColor:ON_COLOR forState:UIControlStateNormal];
+    }
+}
+
+
+- (void) changeRepeatMode:(UIButton*)btnRepeat {
+ 
+    if ([MPMusicPlayerController systemMusicPlayer].repeatMode ==  MPMusicRepeatModeAll) {
+        [[MPMusicPlayerController systemMusicPlayer] setRepeatMode:MPMusicRepeatModeOne];
+    } else if ([MPMusicPlayerController systemMusicPlayer].repeatMode ==  MPMusicRepeatModeOne) {
+        [[MPMusicPlayerController systemMusicPlayer] setRepeatMode:MPMusicRepeatModeNone];
+    } else if ([MPMusicPlayerController systemMusicPlayer].repeatMode ==  MPMusicRepeatModeNone) {
+        [[MPMusicPlayerController systemMusicPlayer] setRepeatMode:MPMusicRepeatModeAll];
+    }
+    
+    if ([MPMusicPlayerController systemMusicPlayer].repeatMode ==  MPMusicRepeatModeAll) {
+        // 반복 all
+        [btnRepeat setImage:[UIImage imageNamed:@"btn_repeat_all.png"] forState:UIControlStateNormal];
+        [btnRepeat setBackgroundColor:ON_COLOR];
+        [btnRepeat setTitleColor:OFF_COLOR forState:UIControlStateNormal];
+    } else if ([MPMusicPlayerController systemMusicPlayer].repeatMode == MPMusicRepeatModeOne) {
+        // 반복 only
+        [btnRepeat setImage:[UIImage imageNamed:@"btn_repeat_only.png"] forState:UIControlStateNormal];
+        [btnRepeat setBackgroundColor:ON_COLOR];
+        [btnRepeat setTitleColor:OFF_COLOR forState:UIControlStateNormal];
+    } else if ([MPMusicPlayerController systemMusicPlayer].repeatMode == MPMusicRepeatModeNone) {
+        // 반복 off
+        [btnRepeat setImage:[UIImage imageNamed:@"btn_repeat_off.png"] forState:UIControlStateNormal];
+        [btnRepeat setBackgroundColor:OFF_COLOR];
+        [btnRepeat setTitleColor:ON_COLOR forState:UIControlStateNormal];
+    }
+
+    
+}
 
 
 #pragma mark - TABLE_VIEW
