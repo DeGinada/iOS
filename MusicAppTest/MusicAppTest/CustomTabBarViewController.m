@@ -250,6 +250,17 @@
 }
 
 
+- (void) goAlbumDetail:(MPMediaItemCollection*)album {
+    
+    // 현재 vc 가져오기
+    UIViewController* presentVC = [self topMostViewController];
+    
+    AlbumDetailViewController* vcAlbumDetail = [self.storyboard instantiateViewControllerWithIdentifier:@"AlbumDetailvc"];
+    vcAlbumDetail.arAlbum = album;
+    [presentVC.navigationController pushViewController:vcAlbumDetail animated:YES];
+}
+
+
 - (void) changePlayState {
     
     if ([[MPMusicPlayerController systemMusicPlayer] playbackState] == MPMusicPlaybackStatePlaying) {

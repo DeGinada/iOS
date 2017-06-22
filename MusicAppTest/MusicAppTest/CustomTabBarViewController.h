@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface CustomTabBarViewController : UITabBarController
 
@@ -15,5 +16,6 @@
 - (void) setMiniPlayer;
 
 - (void) closeBackground;
+- (void) goAlbumDetail:(MPMediaItemCollection*)album;
 
 @end

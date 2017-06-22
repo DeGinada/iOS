@@ -29,6 +29,8 @@
 @property IBOutlet UITableView* tableView;
 @property IBOutlet UIView* viewTableBG;
 
+//@property (nonatomic, readwrite) NSArray* arSongList;
+
 @end
 
 @implementation FullPlayerViewController
@@ -39,6 +41,10 @@
     
     self.viewTableBG.layer.cornerRadius = 8;
     self.viewTableBG.clipsToBounds = YES;
+    
+    
+//    // 플레이어 곡 정보 담고 있기
+//    [[MPMusicPlayerController systemMusicPlayer] ]
     
     
     // 재생이 되거나 곡이 넘어가는 경우등에 대한 스케쥴러
@@ -75,7 +81,7 @@
     imgAlbum.layer.cornerRadius = 8;
     imgAlbum.clipsToBounds = YES;
     imgAlbum.tag = IMG_ALBUM_TAG;
-    imgAlbum.contentMode = UIViewContentModeScaleAspectFit;
+//    imgAlbum.contentMode = UIViewContentModeScaleAspectFit;
     [viewHeader addSubview:imgAlbum];
     
     MPMediaItemArtwork* artwork = [nowItem valueForProperty:MPMediaItemPropertyArtwork];
@@ -455,6 +461,102 @@
 
 - (void) showMoreInfo {
     
+    // alert
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    MPMediaItem* itemMedia = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
+    
+    UIButton* viewHeader = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 355, 122)];
+    [viewHeader setBackgroundColor:[UIColor clearColor]];
+    [viewHeader addTarget:self action:@selector(goAlbumDetail:) forControlEvents:UIControlEventTouchUpInside];
+    [viewHeader setImage:(UIImage*)itemMedia forState:UIControlStateDisabled];
+    [alertController.view addSubview:viewHeader];
+    
+    
+    UIImageView* imgRight = [[UIImageView alloc] initWithFrame:CGRectMake(355-12-8, (122-13)/2, 8, 13)];
+    [imgRight setImage:[UIImage imageNamed:@"btn_full_album.png"]];
+    [viewHeader addSubview:imgRight];
+
+    
+    // 15, 74, 74
+    UIImageView* imgAlbum = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 90, 90)];
+    imgAlbum.layer.cornerRadius = 4.0;
+    imgAlbum.clipsToBounds = YES;
+    [imgAlbum setBackgroundColor:[UIColor clearColor]];
+    [viewHeader addSubview:imgAlbum];
+    
+    MPMediaItemArtwork* artwork = [itemMedia valueForProperty:MPMediaItemPropertyArtwork];
+    UIImage* image = [artwork imageWithSize:imgAlbum.frame.size];
+    if (image) {
+        [imgAlbum setImage:image];
+    } else {
+        [imgAlbum setImage:nil];
+    }
+    [imgAlbum setContentMode:UIViewContentModeScaleAspectFit];
+    
+    NSString* strSong = [itemMedia valueForProperty:MPMediaItemPropertyTitle];
+    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(16+15+90, 15, 355-16-25-15-90, [self getHeightLabelWithString:strSong width:(355-16-25-15-90) fontsize:16.0 bold:YES])];
+    [lbTitle setText:strSong];
+    [lbTitle setFont:[UIFont boldSystemFontOfSize:16.0]];
+    [lbTitle setTextColor:[UIColor blackColor]];
+    lbTitle.numberOfLines = 2;
+    [viewHeader addSubview:lbTitle];
+    
+    UILabel* lbArtist = [[UILabel alloc] initWithFrame:CGRectMake(16+15+90, 15, 355-16-25-15-90, 20)];
+    [lbArtist setText:[itemMedia valueForProperty:MPMediaItemPropertyArtist]];
+    [lbArtist setFont:[UIFont systemFontOfSize:16.0]];
+    [lbArtist setTextColor:[UIColor blackColor]];
+    [lbArtist setTextAlignment:NSTextAlignmentLeft];
+    [lbArtist sizeToFit];
+    [viewHeader addSubview:lbArtist];
+    
+    // 앨범 출력
+    UILabel* lbAlbum = [[UILabel alloc] initWithFrame:CGRectMake(16+15+90, 15, 355-16-25-15-90, 20)];
+    [lbAlbum setFont:[UIFont systemFontOfSize:16.0]];
+    [lbAlbum setText:[itemMedia valueForProperty:MPMediaItemPropertyAlbumTitle]];
+    [lbAlbum setTextColor:[UIColor lightGrayColor]];
+    [lbAlbum setTextAlignment:NSTextAlignmentLeft];
+    [lbAlbum sizeToFit];
+    [viewHeader addSubview:lbAlbum];
+    
+    
+    // vertical center로 정렬
+    float fHeight = lbTitle.frame.size.height + lbArtist.frame.size.height + lbAlbum.frame.size.height + 4;
+    [lbTitle setFrame:CGRectMake(lbTitle.frame.origin.x, (viewHeader.frame.size.height-fHeight)/2, lbTitle.frame.size.width, lbTitle.frame.size.height)];
+    // sizetofit 영향으로 label width 크기 길어졌을 경우 대비하여 title width로 지정
+    [lbArtist setFrame:CGRectMake(lbArtist.frame.origin.x, lbTitle.frame.origin.y+lbTitle.frame.size.height+2, lbTitle.frame.size.width, lbArtist.frame.size.height)];
+    [lbAlbum setFrame:CGRectMake(lbAlbum.frame.origin.x, lbArtist.frame.origin.y+lbArtist.frame.size.height+2, lbTitle.frame.size.width, lbAlbum.frame.size.height)];
+    
+    
+    
+    UIAlertAction* actionCancel = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        // action sheet를 닫음
+    }];
+    
+    UIAlertAction* actionRemove = [UIAlertAction actionWithTitle:@"보관함에서 삭제" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 해당 앨범을 삭제
+    }];
+    
+    UIAlertAction* actionAddPlaylist = [UIAlertAction actionWithTitle:@"재생목록에 추가..." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // 해당 앨범을 플레이리스트에 추가 -> 최근 재생목록, 새로운 재생목록, 기존 재생목록 중 선택 가능
+    }];
+    
+    [actionCancel setValue:RED_COLOR forKey:@"titleTextColor"];
+    [actionRemove setValue:RED_COLOR forKey:@"titleTextColor"];
+    [actionAddPlaylist setValue:RED_COLOR forKey:@"titleTextColor"];
+    
+    // 이미지 넣기
+    [actionRemove setValue:[[UIImage imageNamed:@"btn_remove.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+    [actionAddPlaylist setValue:[[UIImage imageNamed:@"btn_addplaylist.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forKey:@"image"];
+    
+    [alertController addAction:actionRemove];
+    [alertController addAction:actionAddPlaylist];
+    [alertController addAction:actionCancel];
+    
+
+    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 
@@ -510,6 +612,54 @@
         [btnRepeat setTitleColor:ON_COLOR forState:UIControlStateNormal];
     }
 
+    
+}
+
+
+// string을 넘겨주면 album title창에 맞는 높이를 리턴해준다.
+- (CGFloat) getHeightLabelWithString:(NSString*)strTitle width:(CGFloat)width fontsize:(CGFloat)fontsize bold:(BOOL)bold {
+    
+    //    CGFloat fWidht = self.tableView.frame.size.width-178-20;
+    UILabel* lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 100)];
+    if (bold) {
+        [lbTitle setFont:[UIFont boldSystemFontOfSize:fontsize]];
+    } else {
+        [lbTitle setFont:[UIFont systemFontOfSize:fontsize]];
+    }
+    [lbTitle setText:strTitle];
+    [lbTitle sizeToFit];
+    
+    CGFloat fHeight = lbTitle.frame.size.height;
+    NSInteger nHeight = (lbTitle.frame.size.width/width)+1;
+    
+    return (fHeight*nHeight);
+}
+
+
+// 앨범 정보 더보기에서 정보 누르면 앨범으로 가기
+- (void) goAlbumDetail:(UIButton*)btnAlbum {
+    
+    MPMediaItem* mediaItem = (MPMediaItem*)[btnAlbum imageForState:UIControlStateDisabled];
+//    MPMediaItemCollection* album;
+    
+    MPMediaQuery* queryAlbum = [MPMediaQuery albumsQuery];
+    MPMediaPredicate* album = [MPMediaPropertyPredicate predicateWithValue:[mediaItem valueForProperty:MPMediaItemPropertyAlbumTitle] forProperty:MPMediaItemPropertyAlbumTitle comparisonType:MPMediaPredicateComparisonContains];
+    [queryAlbum addFilterPredicate:album];
+    
+    
+    // 옵저버 지우기
+    [[MPMusicPlayerController systemMusicPlayer] endGeneratingPlaybackNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [((CustomTabBarViewController*)rootViewController) closeBackground];
+    
+
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self dismissViewControllerAnimated:YES completion:^{
+            [((CustomTabBarViewController*)rootViewController) goAlbumDetail:[queryAlbum.collections objectAtIndex:0]];
+        }];
+    }];
     
 }
 
