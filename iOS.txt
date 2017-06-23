@@ -18,3 +18,12 @@
 
  - 170518 ~
  - 아이폰 기본 음악앱에 있는 보관함과 검색만 떼서 똑같이 만들어 보기
+
+
+
+* SeoulKoreanQuiz
+
+ - 170623 ~
+ - 서울시 우리말 정보를 이용한 게임
+ - http://data.seoul.go.kr/openinf/openapiview.jsp?infId=OA-2202#detailInfo
+
