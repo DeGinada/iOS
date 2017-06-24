@@ -16,6 +16,13 @@
 @property (nonatomic, readwrite) NSInteger nQuizMonth;
 @property (nonatomic, readwrite) NSInteger nQuizDay;
 
+@property IBOutlet UILabel* lbQuizDate;
+@property IBOutlet UILabel* lbQuiz;
+@property IBOutlet UIButton* btnAnswer1;
+@property IBOutlet UIButton* btnAnswer2;
+@property IBOutlet UIButton* btnAnswer3;
+@property IBOutlet UIButton* btnAnswer4;
+
 @end
 
 @implementation GameViewController
@@ -23,6 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    self.btnAnswer1.layer.cornerRadius = 8;
+    self.btnAnswer2.layer.cornerRadius = 8;
+    self.btnAnswer3.layer.cornerRadius = 8;
+    self.btnAnswer4.layer.cornerRadius = 8;
     
     
     // 최근에 푼 문제 날짜 정보 가져오기
@@ -50,6 +63,21 @@
         parser.delegate = self;
         if ([parser parse])  {
             NSLog(@"%@", dicQuizInfo);
+            
+            if ([[dicQuizInfo objectForKey:@"Result"] isEqualToString:@"INFO-000"]) {
+                [self.lbQuizDate setText:[NSString stringWithFormat:@"%ld.%02ld.%02ld\tQ.%@", self.nQuizYear, self.nQuizMonth, self.nQuizDay, [dicQuizInfo objectForKey:@"QuizNum"]]];
+                [self.lbQuiz setText:[dicQuizInfo objectForKey:@"Quiz"]];
+                [self.btnAnswer1 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                [self.btnAnswer2 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                [self.btnAnswer3 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                [self.btnAnswer4 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"Answer"] forState:UIControlStateNormal];
+            } else {
+                
+                // 네트워크 재요청
+                // 문제가 없는 경우는 문제값 바꿔서 재요청
+            }
+            
+            
         }
         
     }];
@@ -98,6 +126,16 @@
 
 
 
+#pragma mark - QUIZ
+
+
+- (IBAction) checkAnswer:(id)sender {
+    
+}
+
+
+#pragma mark - REQUEST
+
 - (void) placeGetRequest:(NSString*)quizeNum WithHandler:(void (^) (NSData* data, NSURLResponse* response, NSError* error))ourBlock {
     
     NSString* strUrl = [NSString stringWithFormat:@"%@%@", API_URL, quizeNum];
@@ -107,6 +145,7 @@
     
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:ourBlock] resume];
 }
+
 
 
 #pragma mark - XML_PARSER
@@ -175,6 +214,7 @@
     // 태그 초기화
     nowTagStr = @"";
 }
+
 
 
 @end
