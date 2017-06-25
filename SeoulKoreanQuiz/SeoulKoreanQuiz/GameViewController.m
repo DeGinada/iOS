@@ -22,6 +22,7 @@
 
 @property IBOutlet UILabel* lbQuizDate;
 @property IBOutlet UILabel* lbQuiz;
+@property IBOutlet UITextView* viewQuiz;
 @property IBOutlet UIButton* btnAnswer1;
 @property IBOutlet UIButton* btnAnswer2;
 @property IBOutlet UIButton* btnAnswer3;
@@ -117,7 +118,8 @@
     
     // 정보 가져오는 동안 공지만 오픈, 나머진 숨김
     [self.lbQuizDate setHidden:YES];
-    [self.lbQuiz setHidden:YES];
+//    [self.lbQuiz setHidden:YES];
+    [self.viewQuiz setHidden:YES];
     [self.btnAnswer1 setHidden:YES];
     [self.btnAnswer2 setHidden:YES];
     [self.btnAnswer3 setHidden:YES];
@@ -139,7 +141,8 @@
                     
                     // 정보 제대로 가져오면 공지 숨기고, 나머지는 다 오픈
                     [self.lbQuizDate setHidden:NO];
-                    [self.lbQuiz setHidden:NO];
+//                    [self.lbQuiz setHidden:NO];
+                    [self.viewQuiz setHidden:NO];
                     [self.btnAnswer1 setHidden:NO];
                     [self.btnAnswer2 setHidden:NO];
                     [self.btnAnswer3 setHidden:NO];
@@ -148,11 +151,20 @@
                     [self.lbNotice setHidden:YES];
                     
                     [self.lbQuizDate setText:[NSString stringWithFormat:@"%ld.%02ld.%02ld\tQ.%@", self.nQuizYear, self.nQuizMonth, self.nQuizDay, [dicQuizInfo objectForKey:@"QuizNum"]]];
-                    [self.lbQuiz setText:[dicQuizInfo objectForKey:@"Quiz"]];
+//                    [self.lbQuiz setText:[dicQuizInfo objectForKey:@"Quiz"]];
+                    [self.viewQuiz setText:[dicQuizInfo objectForKey:@"Quiz"]];
+                    
+                    // 정답 확인을 위한 tag값도 같이 적용
                     [self.btnAnswer1 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                    [self.btnAnswer1 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"AnswerNum"] intValue]];
                     [self.btnAnswer2 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                    [self.btnAnswer2 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"AnswerNum"] intValue]];
                     [self.btnAnswer3 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                    [self.btnAnswer3 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"AnswerNum"] intValue]];
                     [self.btnAnswer4 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                    [self.btnAnswer4 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"AnswerNum"] intValue]];
+                    
+                    
                 } else if ([[dicQuizInfo objectForKey:@"Result"] isEqualToString:@"INFO-200"]) {
                     
                     // 문제가 없는 경우는 문제값 바꿔서 재요청

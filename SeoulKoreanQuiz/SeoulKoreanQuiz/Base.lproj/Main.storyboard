@@ -139,6 +139,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4L-1W-ki7">
+                                <rect key="frame" x="20" y="118" width="335" height="153"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -152,6 +159,7 @@
                         <outlet property="lbQuiz" destination="aFF-zi-mc0" id="f8F-2U-FQ9"/>
                         <outlet property="lbQuizDate" destination="yey-2m-4ne" id="IDJ-Fw-dV3"/>
                         <outlet property="viewLine" destination="KSB-VX-moS" id="1NO-Wb-gdP"/>
+                        <outlet property="viewQuiz" destination="D4L-1W-ki7" id="MyT-4P-lQ9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HHY-FD-W96" userLabel="First Responder" sceneMemberID="firstResponder"/>
