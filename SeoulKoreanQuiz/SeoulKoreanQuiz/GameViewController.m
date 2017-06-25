@@ -10,6 +10,10 @@
 
 #define API_URL         @"http://openAPI.seoul.go.kr:8088/sample/xml/KoreanAnswerInfo/1/5/"
 
+#define BTN_NORMAL      [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:0.9]
+#define BTN_CORRECT     [UIColor colorWithRed:0.0/255.0 green:64.0/255.0 blue:128.0/255.0 alpha:0.9]
+#define BTN_INCORRECT   [UIColor colorWithRed:128.0/255.0 green:0.0/255.0 blue:64.0/255.0 alpha:0.9]
+
 @interface GameViewController ()
 
 @property (nonatomic, readwrite) NSInteger nQuizYear;
@@ -22,6 +26,8 @@
 @property IBOutlet UIButton* btnAnswer2;
 @property IBOutlet UIButton* btnAnswer3;
 @property IBOutlet UIButton* btnAnswer4;
+@property IBOutlet UIView* viewLine;
+@property IBOutlet UILabel* lbNotice;
 
 @end
 
@@ -56,32 +62,7 @@
     
     
     // 퀴즈 정보 가져오기
-    [self placeGetRequest:strCurrent WithHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        
-        NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
-        parser.delegate = self;
-        if ([parser parse])  {
-            NSLog(@"%@", dicQuizInfo);
-            
-            if ([[dicQuizInfo objectForKey:@"Result"] isEqualToString:@"INFO-000"]) {
-                [self.lbQuizDate setText:[NSString stringWithFormat:@"%ld.%02ld.%02ld\tQ.%@", self.nQuizYear, self.nQuizMonth, self.nQuizDay, [dicQuizInfo objectForKey:@"QuizNum"]]];
-                [self.lbQuiz setText:[dicQuizInfo objectForKey:@"Quiz"]];
-                [self.btnAnswer1 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"Answer"] forState:UIControlStateNormal];
-                [self.btnAnswer2 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"Answer"] forState:UIControlStateNormal];
-                [self.btnAnswer3 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"Answer"] forState:UIControlStateNormal];
-                [self.btnAnswer4 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"Answer"] forState:UIControlStateNormal];
-            } else {
-                
-                // 네트워크 재요청
-                // 문제가 없는 경우는 문제값 바꿔서 재요청
-            }
-            
-            
-        }
-        
-    }];
-    
+    [self getQuizInfomation];
     
 }
 
@@ -129,7 +110,136 @@
 #pragma mark - QUIZ
 
 
+- (void) getQuizInfomation {
+    
+    
+    NSString* strCurrent = [NSString stringWithFormat:@"%ld%02ld%02ld", self.nQuizYear, self.nQuizMonth, self.nQuizDay];
+    
+    // 정보 가져오는 동안 공지만 오픈, 나머진 숨김
+    [self.lbQuizDate setHidden:YES];
+    [self.lbQuiz setHidden:YES];
+    [self.btnAnswer1 setHidden:YES];
+    [self.btnAnswer2 setHidden:YES];
+    [self.btnAnswer3 setHidden:YES];
+    [self.btnAnswer4 setHidden:YES];
+    [self.viewLine setHidden:YES];
+    [self.lbNotice setHidden:NO];
+    
+    // 퀴즈 정보 가져오기
+    [self placeGetRequest:strCurrent WithHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        
+        NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
+        parser.delegate = self;
+        if ([parser parse])  {
+            NSLog(@"%@", dicQuizInfo);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([[dicQuizInfo objectForKey:@"Result"] isEqualToString:@"INFO-000"]) {
+                    
+                    // 정보 제대로 가져오면 공지 숨기고, 나머지는 다 오픈
+                    [self.lbQuizDate setHidden:NO];
+                    [self.lbQuiz setHidden:NO];
+                    [self.btnAnswer1 setHidden:NO];
+                    [self.btnAnswer2 setHidden:NO];
+                    [self.btnAnswer3 setHidden:NO];
+                    [self.btnAnswer4 setHidden:NO];
+                    [self.viewLine setHidden:NO];
+                    [self.lbNotice setHidden:YES];
+                    
+                    [self.lbQuizDate setText:[NSString stringWithFormat:@"%ld.%02ld.%02ld\tQ.%@", self.nQuizYear, self.nQuizMonth, self.nQuizDay, [dicQuizInfo objectForKey:@"QuizNum"]]];
+                    [self.lbQuiz setText:[dicQuizInfo objectForKey:@"Quiz"]];
+                    [self.btnAnswer1 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                    [self.btnAnswer2 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                    [self.btnAnswer3 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                    [self.btnAnswer4 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                } else if ([[dicQuizInfo objectForKey:@"Result"] isEqualToString:@"INFO-200"]) {
+                    
+                    // 문제가 없는 경우는 문제값 바꿔서 재요청
+                    // 문제 번호가 되는 날짜 바꾸기
+                    [self countQuizDate];
+                    [self getQuizInfomation];
+                    
+                    
+                } else {
+                    
+                    // 그 외에 에러의 경우 공지 보여주고, 메인 화면
+                    [self.lbNotice setText:[NSString stringWithFormat:@"Error\t%@\n메인으로 돌아가주세요.", [dicQuizInfo objectForKey:@"Result"]]];
+                }
+            });
+            
+        }
+        
+    }];
+}
+
+
 - (IBAction) checkAnswer:(id)sender {
+    
+    
+    UIButton* btnSelected = sender;
+    
+    if (btnSelected.tag == [[dicQuizInfo objectForKey:@"Correct"] intValue]) {
+        // 정답이면 선택한 버튼 색 파랗게
+        [btnSelected setBackgroundColor:BTN_CORRECT];
+        [btnSelected setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    } else {
+        // 틀리면 선택한 버튼 색 빨갛게
+        [btnSelected setBackgroundColor:BTN_INCORRECT];
+        [btnSelected setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    }
+    
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0f repeats:NO block:^(NSTimer * _Nonnull timer) {
+        [btnSelected setBackgroundColor:BTN_NORMAL];
+        [btnSelected setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        
+        
+        [self countQuizDate];
+        [self getQuizInfomation];
+    }];
+    
+}
+
+
+- (void) countQuizDate {
+    
+    self.nQuizDay++;
+    
+    if (self.nQuizMonth == 2) {
+        if (self.nQuizYear%4 == 0) {
+            if (self.nQuizDay > 29) {
+                self.nQuizDay = 1;
+                self.nQuizMonth++;
+            }
+        } else {
+            if (self.nQuizDay > 28) {
+                self.nQuizDay = 1;
+                self.nQuizMonth++;
+            }
+        }
+    } else if (self.nQuizMonth == 4 || self.nQuizMonth == 6 || self.nQuizMonth == 9 || self.nQuizMonth == 11) {
+        if (self.nQuizDay > 30) {
+            self.nQuizDay = 1;
+            self.nQuizMonth++;
+        }
+    } else if (self.nQuizMonth == 12) {
+        if (self.nQuizDay > 31) {
+            self.nQuizDay = 1;
+            self.nQuizMonth = 1;
+            self.nQuizYear++;
+        }
+    } else {
+        if (self.nQuizDay > 31) {
+            self.nQuizDay = 1;
+            self.nQuizMonth++;
+        }
+    }
+    
+    // 바뀐 날짜 정보는 저장하기
+    NSString* strCurrent = [NSString stringWithFormat:@"%ld%02ld%02ld", self.nQuizYear, self.nQuizMonth, self.nQuizDay];
+    [[NSUserDefaults standardUserDefaults] setObject:strCurrent forKey:@"CurrentDateKey"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
 
