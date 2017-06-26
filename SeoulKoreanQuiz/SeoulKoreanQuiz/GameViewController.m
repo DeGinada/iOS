@@ -152,17 +152,41 @@
                     
                     [self.lbQuizDate setText:[NSString stringWithFormat:@"%ld.%02ld.%02ld\tQ.%@", self.nQuizYear, self.nQuizMonth, self.nQuizDay, [dicQuizInfo objectForKey:@"QuizNum"]]];
 //                    [self.lbQuiz setText:[dicQuizInfo objectForKey:@"Quiz"]];
+                    
+                    // UITextView contentoffset설정은 text바꾸기 전에 적용
+                    [self.viewQuiz setContentOffset:CGPointZero animated:NO];
+//                    [self.viewQuiz setContentOffset:offset animated:YES];
                     [self.viewQuiz setText:[dicQuizInfo objectForKey:@"Quiz"]];
                     
+                    
                     // 정답 확인을 위한 tag값도 같이 적용
-                    [self.btnAnswer1 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"Answer"] forState:UIControlStateNormal];
-                    [self.btnAnswer1 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"AnswerNum"] intValue]];
-                    [self.btnAnswer2 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"Answer"] forState:UIControlStateNormal];
-                    [self.btnAnswer2 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"AnswerNum"] intValue]];
-                    [self.btnAnswer3 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"Answer"] forState:UIControlStateNormal];
-                    [self.btnAnswer3 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"AnswerNum"] intValue]];
-                    [self.btnAnswer4 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"Answer"] forState:UIControlStateNormal];
-                    [self.btnAnswer4 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"AnswerNum"] intValue]];
+                    if ([[dicQuizInfo objectForKey:@"Answers"] count] == 4) {
+                        [self.btnAnswer1 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer1 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"AnswerNum"] intValue]];
+                        [self.btnAnswer2 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer2 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"AnswerNum"] intValue]];
+                        [self.btnAnswer3 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer3 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"AnswerNum"] intValue]];
+                        [self.btnAnswer4 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer4 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:3] objectForKey:@"AnswerNum"] intValue]];
+                    } else if ([[dicQuizInfo objectForKey:@"Answers"] count] == 3) {
+                        [self.btnAnswer1 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer1 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"AnswerNum"] intValue]];
+                        [self.btnAnswer2 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer2 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"AnswerNum"] intValue]];
+                        [self.btnAnswer3 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer3 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:2] objectForKey:@"AnswerNum"] intValue]];
+                        [self.btnAnswer4 setHidden:YES];
+                    } else if ([[dicQuizInfo objectForKey:@"Answers"] count] == 2) {
+                        [self.btnAnswer1 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer1 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:0] objectForKey:@"AnswerNum"] intValue]];
+                        [self.btnAnswer2 setTitle:[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"Answer"] forState:UIControlStateNormal];
+                        [self.btnAnswer2 setTag:[[[[dicQuizInfo objectForKey:@"Answers"] objectAtIndex:1] objectForKey:@"AnswerNum"] intValue]];
+                        [self.btnAnswer3 setHidden:YES];
+                        [self.btnAnswer4 setHidden:YES];
+                    }
+                    
+                    
                     
                     
                 } else if ([[dicQuizInfo objectForKey:@"Result"] isEqualToString:@"INFO-200"]) {

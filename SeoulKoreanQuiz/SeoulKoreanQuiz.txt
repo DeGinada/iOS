@@ -24,5 +24,7 @@
  - 게임 화면
     . 정답 체크를 위한 tag값 설정 수정
     . 문제 출력창 textview로 교체
-    
+    . textview 문제 변경시 offset zero로 수정(스크롤이 엉뚱한 곳에 있는 거 방지)
+    . answer 수량에 따른 예외처리 
+
 
