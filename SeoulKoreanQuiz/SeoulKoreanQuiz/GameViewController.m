@@ -20,6 +20,8 @@
 @property (nonatomic, readwrite) NSInteger nQuizMonth;
 @property (nonatomic, readwrite) NSInteger nQuizDay;
 
+@property (nonatomic, readwrite) NSMutableArray* arQuizList;
+
 @property IBOutlet UILabel* lbQuizDate;
 @property IBOutlet UILabel* lbQuiz;
 @property IBOutlet UITextView* viewQuiz;
@@ -60,6 +62,17 @@
         self.nQuizMonth = [[strCurrent substringWithRange:NSMakeRange(4, 2)] integerValue];
         self.nQuizDay = [[strCurrent substringWithRange:NSMakeRange(6, 2)] integerValue];
     }
+    
+    
+    
+    // 기존에 저장되어 있는 퀴즈 정보 가져오기
+    NSArray* arSaved = [[NSUserDefaults standardUserDefaults] objectForKey:@"QuizListInfo"];
+    if (arSaved.count > 0) {
+        self.arQuizList = [[NSMutableArray alloc] initWithArray:arSaved];
+    } else {
+        self.arQuizList = [[NSMutableArray alloc] init];
+    }
+    
     
     
     // 퀴즈 정보 가져오기
@@ -215,10 +228,24 @@
     
     UIButton* btnSelected = sender;
     
+    
+    // 퀴즈 정보 저장하기
+    NSMutableDictionary* dicQuiz = [[NSMutableDictionary alloc] init];
+    [dicQuiz setObject:[dicQuizInfo objectForKey:@"QuizNum"] forKey:@"QuizNum"];
+    [dicQuiz setObject:[dicQuizInfo objectForKey:@"QuizDate"] forKey:@"QuizDate"];
+    [dicQuiz setObject:[dicQuizInfo objectForKey:@"Correct"] forKey:@"Correct"];
+    [dicQuiz setObject:[NSString stringWithFormat:@"%ld", btnSelected.tag] forKey:@"UserAnswer"];
+    [self.arQuizList addObject:dicQuiz];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.arQuizList forKey:@"QuizListInfo"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
     if (btnSelected.tag == [[dicQuizInfo objectForKey:@"Correct"] intValue]) {
         // 정답이면 선택한 버튼 색 파랗게
         [btnSelected setBackgroundColor:BTN_CORRECT];
         [btnSelected setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        
     } else {
         // 틀리면 선택한 버튼 색 빨갛게
         [btnSelected setBackgroundColor:BTN_INCORRECT];

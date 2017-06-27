@@ -14,6 +14,7 @@
 		9F4081DB1EFD026700637307 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F4081DA1EFD026700637307 /* Assets.xcassets */; };
 		9F4081DE1EFD026700637307 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F4081DC1EFD026700637307 /* LaunchScreen.storyboard */; };
 		9F4081E71EFD089300637307 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4081E61EFD089300637307 /* GameViewController.m */; };
+		9FC36EAE1F029B890055CEAC /* QuizInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC36EAD1F029B890055CEAC /* QuizInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		9F4081DF1EFD026700637307 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F4081E51EFD089300637307 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		9F4081E61EFD089300637307 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		9FC36EAC1F029B890055CEAC /* QuizInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizInfoViewController.h; sourceTree = "<group>"; };
+		9FC36EAD1F029B890055CEAC /* QuizInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,8 @@
 				9F4081D51EFD026700637307 /* ViewController.m */,
 				9F4081E51EFD089300637307 /* GameViewController.h */,
 				9F4081E61EFD089300637307 /* GameViewController.m */,
+				9FC36EAC1F029B890055CEAC /* QuizInfoViewController.h */,
+				9FC36EAD1F029B890055CEAC /* QuizInfoViewController.m */,
 				9F4081D71EFD026700637307 /* Main.storyboard */,
 				9F4081DA1EFD026700637307 /* Assets.xcassets */,
 				9F4081DC1EFD026700637307 /* LaunchScreen.storyboard */,
@@ -157,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F4081E71EFD089300637307 /* GameViewController.m in Sources */,
+				9FC36EAE1F029B890055CEAC /* QuizInfoViewController.m in Sources */,
 				9F4081D61EFD026700637307 /* ViewController.m in Sources */,
 				9F4081D31EFD026700637307 /* AppDelegate.m in Sources */,
 				9F4081D01EFD026700637307 /* main.m in Sources */,
@@ -318,6 +324,7 @@
 				9F4081E41EFD026700637307 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
