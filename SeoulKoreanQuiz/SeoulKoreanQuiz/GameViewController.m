@@ -140,6 +140,10 @@
     [self.viewLine setHidden:YES];
     [self.lbNotice setHidden:NO];
     
+    if (self.isCheckQuiz) {
+        strCurrent = self.strNowQuizDate;
+    }
+    
     // 퀴즈 정보 가져오기
     [self placeGetRequest:strCurrent WithHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -200,7 +204,26 @@
                     }
                     
                     
-                    
+                    if (self.isCheckQuiz) {
+                        if (self.btnAnswer1.tag == [[dicQuizInfo objectForKey:@"Correct"] intValue]) {
+                            [self.btnAnswer1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+                            [self.btnAnswer1 setBackgroundColor:BTN_CORRECT];
+                        } else if (self.btnAnswer2.tag == [[dicQuizInfo objectForKey:@"Correct"] intValue]) {
+                            [self.btnAnswer2 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+                            [self.btnAnswer2 setBackgroundColor:BTN_CORRECT];
+                        } else if (self.btnAnswer3.tag == [[dicQuizInfo objectForKey:@"Correct"] intValue]) {
+                            [self.btnAnswer3 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+                            [self.btnAnswer3 setBackgroundColor:BTN_CORRECT];
+                        } else if (self.btnAnswer4.tag == [[dicQuizInfo objectForKey:@"Correct"] intValue]) {
+                            [self.btnAnswer4 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+                            [self.btnAnswer4 setBackgroundColor:BTN_CORRECT];
+                        }
+                        
+                        [self.btnAnswer1 setEnabled:NO];
+                        [self.btnAnswer2 setEnabled:NO];
+                        [self.btnAnswer3 setEnabled:NO];
+                        [self.btnAnswer4 setEnabled:NO];
+                    }
                     
                 } else if ([[dicQuizInfo objectForKey:@"Result"] isEqualToString:@"INFO-200"]) {
                     

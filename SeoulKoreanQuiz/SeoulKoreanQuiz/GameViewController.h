@@ -16,6 +16,11 @@
     NSMutableDictionary* dicQuizInfo;
     NSMutableDictionary* dicRowData;
     NSMutableArray* arQuiz;
+    
 }
+
+
+@property (nonatomic, readwrite) BOOL isCheckQuiz; // 퀴즈 정답 확인용인 경우
+@property (nonatomic, readwrite) NSString* strNowQuizDate;      // 퀴즈 정답 확인용일 경우, 해당 퀴즈 date
 
 @end

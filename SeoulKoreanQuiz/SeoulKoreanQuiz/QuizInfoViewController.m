@@ -7,10 +7,12 @@
 //
 
 #import "QuizInfoViewController.h"
+#import "GameViewController.h"
 
 @interface QuizInfoViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (retain, readwrite) NSMutableArray* arQuizInfo;
+@property (retain, readwrite) NSString* strQuizDate;
 
 @property IBOutlet UITableView* tableView;
 
@@ -46,15 +48,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"CheckQuiz"]) {
+        GameViewController* vcGame = [segue destinationViewController];
+        vcGame.isCheckQuiz = YES;
+        vcGame.strNowQuizDate = self.strQuizDate;
+    }
+    
 }
-*/
+
 
 
 
@@ -110,12 +119,20 @@
     }
     
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@\t\tQ.%@\t\t\t[ %@ ]", [dicInfo objectForKey:@"QuizDate"], [dicInfo objectForKey:@"QuizNum"], strCorrect];
+    cell.textLabel.text = [NSString stringWithFormat:@"\t%@\t\tQ.%@\t\t[ %@ ]", [dicInfo objectForKey:@"QuizDate"], [dicInfo objectForKey:@"QuizNum"], strCorrect];
     
     return cell;
 }
 
 
+// cell 버튼 선택시
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDictionary* dicInfo = [self.arQuizInfo objectAtIndex:(indexPath.row)];
+    self.strQuizDate = [dicInfo objectForKey:@"QuizDate"];
+    
+    return indexPath;
+}
 
 
 @end
