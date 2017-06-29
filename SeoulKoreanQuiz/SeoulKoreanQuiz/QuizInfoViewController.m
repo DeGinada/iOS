@@ -72,8 +72,9 @@
 - (void) viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar.topItem setTitle:@""];
     
-    self.navigationController.navigationBar.translucent = false;
+//    self.navigationController.navigationBar.translucent = false;
     
 //    [self.navigationController.navigationBar setHidden:NO];
 //    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
@@ -90,7 +91,7 @@
     
     [super viewDidAppear:animated];
     
-    self.navigationController.navigationBar.translucent = false;
+//    self.navigationController.navigationBar.translucent = false;
     [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];

@@ -41,6 +41,9 @@
     // Do any additional setup after loading the view.
     
     
+    NSLog(@"%0.2f   %0.2f   %0.2f   %0.2f", self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+    
+    
     self.btnAnswer1.layer.cornerRadius = 8;
     self.btnAnswer2.layer.cornerRadius = 8;
     self.btnAnswer3.layer.cornerRadius = 8;
@@ -100,7 +103,8 @@
     
     [super viewWillAppear:animated];
     
-
+//    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
     
 //    [self.navigationController.navigationBar setHidden:NO];
 //    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
