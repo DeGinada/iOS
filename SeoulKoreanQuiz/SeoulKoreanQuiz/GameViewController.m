@@ -100,14 +100,16 @@
     
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar setHidden:NO];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
+
     
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
-                                      forBarPosition:UIBarPositionAny
-                                          barMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+//    [self.navigationController.navigationBar setHidden:NO];
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+//    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
+//    
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
+//                                      forBarPosition:UIBarPositionAny
+//                                          barMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 }
 
 
@@ -115,8 +117,26 @@
     
     [super viewDidAppear:animated];
     
+    
+    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
+                                                 forBarPosition:UIBarPositionAny
+                                                     barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+    
+//    self.navigationController.navigationBar.translucent = true;
+    
     // 차이가 뭘까? viewWillAppear에서 바꾸면 안바뀌는데 여기서는 정상적으로 바뀜
-    [self.navigationController.navigationBar.backItem setTitle:@"Main"];
+    if (self.isCheckQuiz) {
+        [self.navigationController.navigationBar.backItem setTitle:@"Back"];
+    } else {
+        [self.navigationController.navigationBar.backItem setTitle:@"Main"];
+    }
+    
 }
 
 
@@ -248,6 +268,9 @@
 
 - (IBAction) checkAnswer:(id)sender {
     
+    if (self.isCheckQuiz) {
+        return;
+    }
     
     UIButton* btnSelected = sender;
     

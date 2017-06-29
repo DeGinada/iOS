@@ -24,7 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
+//    UIView* viewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 0.5)];
+//    [viewHeader setBackgroundColor:[UIColor lightGrayColor]];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.tableHeaderView = [[UIView alloc] init];
@@ -71,10 +73,12 @@
     
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar setHidden:NO];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
+    self.navigationController.navigationBar.translucent = false;
     
+//    [self.navigationController.navigationBar setHidden:NO];
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+//    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
+//    
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
 //                                                 forBarPosition:UIBarPositionAny
 //                                                     barMetrics:UIBarMetricsDefault];
@@ -86,9 +90,27 @@
     
     [super viewDidAppear:animated];
     
+    self.navigationController.navigationBar.translucent = false;
+    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor darkGrayColor]];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init]
+                                                 forBarPosition:UIBarPositionAny
+                                                     barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+    
     // 차이가 뭘까? viewWillAppear에서 바꾸면 안바뀌는데 여기서는 정상적으로 바뀜
     [self.navigationController.navigationBar.backItem setTitle:@"Main"];
+    [self.navigationController.navigationBar.topItem setTitle:@""];
 }
+//
+//- (void) viewDidDisappear:(BOOL)animated {
+//    [super viewDidDisappear:animated];
+//    
+//    self.navigationController.navigationBar.translucent = true;
+//}
 
 
 #pragma mark - TABLE_VIEW
