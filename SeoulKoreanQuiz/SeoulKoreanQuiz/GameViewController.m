@@ -135,7 +135,7 @@
 //    self.navigationController.navigationBar.translucent = true;
     
     // 차이가 뭘까? viewWillAppear에서 바꾸면 안바뀌는데 여기서는 정상적으로 바뀜
-    if (self.isCheckQuiz) {
+    if (self.nType == 1 || self.nType == 2) {
         [self.navigationController.navigationBar.backItem setTitle:@"Back"];
     } else {
         [self.navigationController.navigationBar.backItem setTitle:@"Main"];
@@ -164,7 +164,7 @@
     [self.viewLine setHidden:YES];
     [self.lbNotice setHidden:NO];
     
-    if (self.isCheckQuiz) {
+    if (self.nType == 1 || self.nType == 2) {
         strCurrent = self.strNowQuizDate;
     }
     
@@ -228,7 +228,7 @@
                     }
                     
                     
-                    if (self.isCheckQuiz) {
+                    if (self.nType == 1) {
                         if (self.btnAnswer1.tag == [[dicQuizInfo objectForKey:@"Correct"] intValue]) {
                             [self.btnAnswer1 setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
                             [self.btnAnswer1 setBackgroundColor:BTN_CORRECT];
@@ -272,7 +272,7 @@
 
 - (IBAction) checkAnswer:(id)sender {
     
-    if (self.isCheckQuiz) {
+    if (self.nType == 1) {
         return;
     }
     
@@ -302,15 +302,16 @@
         [btnSelected setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     }
     
-    
-    [NSTimer scheduledTimerWithTimeInterval:1.0f repeats:NO block:^(NSTimer * _Nonnull timer) {
-        [btnSelected setBackgroundColor:BTN_NORMAL];
-        [btnSelected setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        
-        
-        [self countQuizDate];
-        [self getQuizInfomation];
-    }];
+    if (self.nType != 2) {
+        [NSTimer scheduledTimerWithTimeInterval:1.0f repeats:NO block:^(NSTimer * _Nonnull timer) {
+            [btnSelected setBackgroundColor:BTN_NORMAL];
+            [btnSelected setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            
+            
+            [self countQuizDate];
+            [self getQuizInfomation];
+        }];
+    }
     
 }
 

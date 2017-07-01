@@ -64,7 +64,7 @@
         <!--Game View Controller-->
         <scene sceneID="2l8-AB-E5L">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Ibw-mT-pA1" customClass="GameViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameVC" automaticallyAdjustsScrollViewInsets="NO" id="Ibw-mT-pA1" customClass="GameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kfG-kS-eKK"/>
                         <viewControllerLayoutGuide type="bottom" id="ALG-ng-j23"/>
@@ -189,18 +189,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xqy-c2-vK0">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xqy-c2-vK0">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="15" reuseIdentifier="Cell" textLabel="aqH-p5-uaL" style="IBUITableViewCellStyleDefault" id="tZA-UN-IIG">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="15" reuseIdentifier="Cell" textLabel="aqH-p5-uaL" style="IBUITableViewCellStyleDefault" id="tZA-UN-IIG" customClass="QuizInfoTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tZA-UN-IIG" id="R5c-mU-oQP">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVd-Ga-9gP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="selectQuizCell:" destination="ndV-v9-Lgj" eventType="touchUpInside" id="HjF-TG-fKu"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aqH-p5-uaL">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="54.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
@@ -210,9 +217,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="Ibw-mT-pA1" kind="push" identifier="CheckQuiz" id="wFE-Vz-kl8"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -237,7 +241,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="el4-rx-BOZ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="zBC-Zu-sLC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="zBC-Zu-sLC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -251,7 +255,4 @@
             <point key="canvasLocation" x="-252" y="106.59670164917542"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="wFE-Vz-kl8"/>
-    </inferredMetricsTieBreakers>
 </document>

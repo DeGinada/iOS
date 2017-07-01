@@ -61,7 +61,7 @@
     
     if ([segue.identifier isEqualToString:@"Game"]) {
         GameViewController* vcGame = [segue destinationViewController];
-        vcGame.isCheckQuiz = NO;
+        vcGame.nType = 0;
         vcGame.strNowQuizDate = @"";
     }
     

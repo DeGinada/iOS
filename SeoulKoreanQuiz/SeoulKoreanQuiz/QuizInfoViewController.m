@@ -8,6 +8,7 @@
 
 #import "QuizInfoViewController.h"
 #import "GameViewController.h"
+#import "QuizInfoTableViewCell.h"
 
 @interface QuizInfoViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -58,11 +59,11 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    if ([segue.identifier isEqualToString:@"CheckQuiz"]) {
-        GameViewController* vcGame = [segue destinationViewController];
-        vcGame.isCheckQuiz = YES;
-        vcGame.strNowQuizDate = self.strQuizDate;
-    }
+//    if ([segue.identifier isEqualToString:@"CheckQuiz"]) {
+//        GameViewController* vcGame = [segue destinationViewController];
+//        vcGame.isCheckQuiz = YES;
+//        vcGame.strNowQuizDate = self.strQuizDate;
+//    }
     
 }
 
@@ -114,6 +115,52 @@
 //}
 
 
+// 셀 선택시, 해당 문제를 다시 풀지 그냥 문제를 확인할지를 선택할 수 있게함
+- (IBAction) selectQuizCell:(id)sender {
+    NSDictionary* dicInfo = [self.arQuizInfo objectAtIndex:[sender tag]];
+    self.strQuizDate = [dicInfo objectForKey:@"QuizDate"];
+    
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction* actionCancel = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        // action sheet를 닫음
+    }];
+    
+    UIAlertAction* actionCheck = [UIAlertAction actionWithTitle:@"정답 확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // action sheet를 닫음
+        
+        GameViewController* vcGame = [self.storyboard instantiateViewControllerWithIdentifier:@"GameVC"];
+//        vcGame.isCheckQuiz = YES;
+        vcGame.nType = 1;
+        vcGame.strNowQuizDate = self.strQuizDate;
+        
+        [self.navigationController pushViewController:vcGame animated:YES];
+    }];
+    
+    UIAlertAction* actionQuiz = [UIAlertAction actionWithTitle:@"다시 풀기" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // action sheet를 닫음
+        
+        GameViewController* vcGame = [self.storyboard instantiateViewControllerWithIdentifier:@"GameVC"];
+        //        vcGame.isCheckQuiz = YES;
+        vcGame.nType = 2;
+        vcGame.strNowQuizDate = self.strQuizDate;
+        
+        [self.navigationController pushViewController:vcGame animated:YES];
+    }];
+    
+    
+    
+    [alertController addAction:actionCheck];
+    [alertController addAction:actionQuiz];
+    [alertController addAction:actionCancel];
+    
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+
 #pragma mark - TABLE_VIEW
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -124,10 +171,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    QuizInfoTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell = [[QuizInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     
     
@@ -144,18 +191,22 @@
     
     cell.textLabel.text = [NSString stringWithFormat:@"\t%@\t\tQ.%@\t\t[ %@ ]", [dicInfo objectForKey:@"QuizDate"], [dicInfo objectForKey:@"QuizNum"], strCorrect];
     
+    // 역순으로 보여줄때 -> self.arQuizInfo.count-1-indexPath.row
+    [cell.btnCell setTag:(indexPath.row)];
+    
     return cell;
 }
 
 
 // cell 버튼 선택시
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSDictionary* dicInfo = [self.arQuizInfo objectAtIndex:(indexPath.row)];
-    self.strQuizDate = [dicInfo objectForKey:@"QuizDate"];
-    
-    return indexPath;
-}
+//- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    NSDictionary* dicInfo = [self.arQuizInfo objectAtIndex:(indexPath.row)];
+//    self.strQuizDate = [dicInfo objectForKey:@"QuizDate"];
+//    
+//    return indexPath;
+//}
+
 
 
 @end

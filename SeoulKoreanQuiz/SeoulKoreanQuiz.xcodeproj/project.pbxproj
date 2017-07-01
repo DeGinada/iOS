@@ -15,6 +15,7 @@
 		9F4081DE1EFD026700637307 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F4081DC1EFD026700637307 /* LaunchScreen.storyboard */; };
 		9F4081E71EFD089300637307 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4081E61EFD089300637307 /* GameViewController.m */; };
 		9FC36EAE1F029B890055CEAC /* QuizInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC36EAD1F029B890055CEAC /* QuizInfoViewController.m */; };
+		9FC36EB31F07B6B20055CEAC /* QuizInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC36EB21F07B6B20055CEAC /* QuizInfoTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		9F4081E61EFD089300637307 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		9FC36EAC1F029B890055CEAC /* QuizInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizInfoViewController.h; sourceTree = "<group>"; };
 		9FC36EAD1F029B890055CEAC /* QuizInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizInfoViewController.m; sourceTree = "<group>"; };
+		9FC36EB11F07B6B20055CEAC /* QuizInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizInfoTableViewCell.h; sourceTree = "<group>"; };
+		9FC36EB21F07B6B20055CEAC /* QuizInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizInfoTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,8 @@
 				9F4081E61EFD089300637307 /* GameViewController.m */,
 				9FC36EAC1F029B890055CEAC /* QuizInfoViewController.h */,
 				9FC36EAD1F029B890055CEAC /* QuizInfoViewController.m */,
+				9FC36EB11F07B6B20055CEAC /* QuizInfoTableViewCell.h */,
+				9FC36EB21F07B6B20055CEAC /* QuizInfoTableViewCell.m */,
 				9F4081D71EFD026700637307 /* Main.storyboard */,
 				9F4081DA1EFD026700637307 /* Assets.xcassets */,
 				9F4081DC1EFD026700637307 /* LaunchScreen.storyboard */,
@@ -161,6 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FC36EB31F07B6B20055CEAC /* QuizInfoTableViewCell.m in Sources */,
 				9F4081E71EFD089300637307 /* GameViewController.m in Sources */,
 				9FC36EAE1F029B890055CEAC /* QuizInfoViewController.m in Sources */,
 				9F4081D61EFD026700637307 /* ViewController.m in Sources */,
