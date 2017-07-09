@@ -1,0 +1,10 @@
+
+170709
+ - 네비바 수정
+    . koreanquiz에서 사용했던 obj-c 코드를 swift로 바꿔서 사용
+    . navibar under line 없애고 배경은 하얗게
+ - 게임 화면
+    . storyboard화면은 동일
+    . IBOutlet과 IBAction 연결
+    . 문제 출력
+ - xml도 기존에 사용하던 거 사용

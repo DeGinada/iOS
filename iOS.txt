@@ -27,3 +27,12 @@
  - 서울시 우리말 정보를 이용한 게임
  - http://data.seoul.go.kr/openinf/openapiview.jsp?infId=OA-2202#detailInfo
 
+
+
+* KatakanaStudy
+
+ - 170709 ~
+ - JapaneseStudy에 있던 카타카나 맞추던 게임을 swift로 작업해보기
+ - swift 강의 보다보니 왠지 간단한걸 해보고 싶어서 시작
+
+
