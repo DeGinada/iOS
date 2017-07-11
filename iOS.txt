@@ -2,6 +2,7 @@
 * MediaInfoTest
 
  - 170425 ~
+ - obj-c
  - 기기에 있는 음악파일 정보를 보거나 곡에 대한 내용들을 복사할 수 있다. (제목, 가수 등)
  - 음악앱으로 듣고 있는 곡에 대해 검색하고 싶은데 곡 이름을 복사할 수 없어서..
 
@@ -10,6 +11,7 @@
 * JapaneseStudy
 
  - 170501 ~
+ - obj-c
  - 일본어 공부를 위한 단어 게임 모음
 
 
@@ -17,6 +19,7 @@
 * MusicAppTest
 
  - 170518 ~
+ - obj-c
  - 아이폰 기본 음악앱에 있는 보관함과 검색만 떼서 똑같이 만들어 보기
 
 
@@ -24,6 +27,7 @@
 * SeoulKoreanQuiz
 
  - 170623 ~
+ - obj-c
  - 서울시 우리말 정보를 이용한 게임
  - http://data.seoul.go.kr/openinf/openapiview.jsp?infId=OA-2202#detailInfo
 
@@ -32,7 +36,18 @@
 * KatakanaStudy
 
  - 170709 ~
+ - swift
  - JapaneseStudy에 있던 카타카나 맞추던 게임을 swift로 작업해보기
  - swift 강의 보다보니 왠지 간단한걸 해보고 싶어서 시작
+
+
+
+* Happy1000won
+
+ - 170711 ~
+ - swift
+ - 서울시 천원의 행복 공연 정보 보기
+ - http://data.seoul.go.kr/openinf/openapiview.jsp?infId=OA-2672
+
 
 
