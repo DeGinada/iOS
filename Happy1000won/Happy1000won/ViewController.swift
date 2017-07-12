@@ -60,7 +60,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let json = try JSONSerialization.jsonObject(with:data!, options:.mutableContainers) as! [String:AnyObject]
                     
 //                    let status = json["status"] as! String
-                    NSLog(String(data: data!, encoding: String.Encoding.utf8) as String!, "")
+//                    NSLog(String(data: data!, encoding: String.Encoding.utf8) as String!, "")
+//                    print(json)
+                    
+                    let content = json["SJWHappySCHEDULE"] as! NSDictionary
+                    let resultCode = (content.object(forKey: "RESULT") as! NSDictionary).object(forKey: "CODE") as! String
+                    if (resultCode.compare("INFO-000") == .orderedSame) {
+                        self.arHappyInfo = content.object(forKey: "row") as! NSArray
+                        print(self.arHappyInfo)
+                        
+                        let dicInfo:NSDictionary = self.arHappyInfo.object(at: 1) as! NSDictionary
+                        let title:String = dicInfo.object(forKey: "TITLE") as! String
+                        let name:String = dicInfo.object(forKey: "PLACE_NAME") as! String
+                        
+                        print(title, "   //   ", name)
+                    }
                 } catch {
                     NSLog("error::\(String(describing: error))", "")
                 }
