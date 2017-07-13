@@ -16,3 +16,12 @@
     . 제대로 이해하고 쓰는 건지는 모르겠다
     
 
+
+170713 
+ - cell 적용
+    . tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)에서 cell 세팅 잘못해서 에러났었음
+    . 다음부터는 cell 세팅과 내가 만든 cell이 스토리보드에 잘 붙었는지 확인 꼭 하기
+ - url image 적용
+ - 셀 작업할때마다 스토리보드에서 constraints 사용이 필요해 보이는데 어려워ㅠㅠ
+
+
