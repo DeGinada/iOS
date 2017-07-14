@@ -13,6 +13,7 @@
 		9F472ACC1F150ADE00FDAA63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F472ACB1F150ADE00FDAA63 /* Assets.xcassets */; };
 		9F472ACF1F150ADE00FDAA63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F472ACD1F150ADE00FDAA63 /* LaunchScreen.storyboard */; };
 		9F472AD71F17A5F400FDAA63 /* InfomationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F472AD61F17A5F400FDAA63 /* InfomationTableViewCell.swift */; };
+		9F472AD91F19035800FDAA63 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F472AD81F19035800FDAA63 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		9F472ACE1F150ADE00FDAA63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F472AD01F150ADE00FDAA63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F472AD61F17A5F400FDAA63 /* InfomationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfomationTableViewCell.swift; sourceTree = "<group>"; };
+		9F472AD81F19035800FDAA63 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				9F472AC41F150ADE00FDAA63 /* AppDelegate.swift */,
 				9F472AC61F150ADE00FDAA63 /* ViewController.swift */,
 				9F472AD61F17A5F400FDAA63 /* InfomationTableViewCell.swift */,
+				9F472AD81F19035800FDAA63 /* DetailViewController.swift */,
 				9F472AC81F150ADE00FDAA63 /* Main.storyboard */,
 				9F472ACB1F150ADE00FDAA63 /* Assets.xcassets */,
 				9F472ACD1F150ADE00FDAA63 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 				9F472AD71F17A5F400FDAA63 /* InfomationTableViewCell.swift in Sources */,
 				9F472AC71F150ADE00FDAA63 /* ViewController.swift in Sources */,
 				9F472AC51F150ADE00FDAA63 /* AppDelegate.swift in Sources */,
+				9F472AD91F19035800FDAA63 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

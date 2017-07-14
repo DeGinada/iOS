@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var data: NSMutableData = NSMutableData()
     let API_URL:String = "http://openAPI.seoul.go.kr:8088/sample/json/SJWHappySCHEDULE/1/5/"
+    
+    var selIndex: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,13 +70,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let resultCode = (content.object(forKey: "RESULT") as! NSDictionary).object(forKey: "CODE") as! String
                         if (resultCode.compare("INFO-000") == .orderedSame) {
                             self.arHappyInfo = content.object(forKey: "row") as! NSArray
-                            print(self.arHappyInfo)
+//                            print(self.arHappyInfo)
                             
-                            let dicInfo:NSDictionary = self.arHappyInfo.object(at: 1) as! NSDictionary
-                            let title:String = dicInfo.object(forKey: "TITLE") as! String
-                            let name:String = dicInfo.object(forKey: "PLACE_NAME") as! String
-                            
-                            print(title, "   //   ", name)
+//                            let dicInfo:NSDictionary = self.arHappyInfo.object(at: 1) as! NSDictionary
+//                            let title:String = dicInfo.object(forKey: "TITLE") as! String
+//                            let name:String = dicInfo.object(forKey: "PLACE_NAME") as! String
+//                            
+//                            print(title, "   //   ", name)
                             
                             self.tableView.reloadData()
                         }
@@ -157,5 +159,28 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    
+    @IBAction func exitFromSecondVC(segue: UIStoryboardSegue) {
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if (segue.identifier?.compare("segDetail") == .orderedSame) {
+            let detailVC:DetailViewController = segue.destination as! DetailViewController
+            detailVC.dicInfomation = arHappyInfo.object(at: self.selIndex) as! NSDictionary
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        self.selIndex = indexPath.row
+        
+        return indexPath
+    }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        self.selIndex = indexPath.row
+//    }
 }
 
